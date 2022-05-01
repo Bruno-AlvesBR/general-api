@@ -1,13 +1,13 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+
+import { routes } from './infra/http/shared/routes';
+import './providers/database/connection';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.get('/', (request: Request, response: Response) => {
-  return response.status(200).send('Hello World!');
-});
+app.use(routes);
 
 const port = process.env.PORT || 3000;
 

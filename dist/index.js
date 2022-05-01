@@ -4,12 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const routes_1 = require("./infra/http/shared/routes");
+require("./providers/database/connection");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.get('/', (request, response) => {
-    return response.status(200).send('Hello World!');
-});
+app.use(routes_1.routes);
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

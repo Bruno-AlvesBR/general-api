@@ -41,6 +41,6 @@ const userSchema = new mongoose_1.default.Schema({
         },
     ],
     admin: { type: Boolean, required: false },
-    cep: { type: Number, required: true },
+    cep: { type: Number, required: false },
 }, { timestamps: true });
 exports.User = mongoose_1.default.model('User', userSchema);

@@ -22,6 +22,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FoodController = void 0;
 const uuid_1 = require("uuid");
+const FoodSchema_1 = require("../../../../providers/database/product/FoodSchema");
 const FoodPresentation_1 = require("../presentation/FoodPresentation");
 class FoodController {
     create(request, response) {
@@ -35,6 +36,17 @@ class FoodController {
             catch (err) {
                 return response.status(401).json(err);
             }
+        });
+    }
+    findAll(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const findAllFoods = yield FoodSchema_1.Food.find();
+            if (!findAllFoods) {
+                return response
+                    .status(400)
+                    .json('Unexpected error to search all products!');
+            }
+            return response.status(200).json(findAllFoods);
         });
     }
 }

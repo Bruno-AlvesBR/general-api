@@ -6,3 +6,4 @@ const FoodController_1 = require("../controllers/FoodController");
 exports.productRouter = (0, express_1.Router)();
 const foodController = new FoodController_1.FoodController();
 exports.productRouter.post('/create', foodController.create);
+exports.productRouter.get('/foods', foodController.findAll);

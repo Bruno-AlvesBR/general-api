@@ -12,6 +12,7 @@ export interface IUserProps {
     dateCard?: string;
     codeCard?: string;
   };
+  admin?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -22,6 +23,7 @@ export interface IUserLogin {
   lastName?: IUserProps;
   email?: string;
   password?: string;
+  admin?: boolean;
 }
 
 export interface IUserCard {

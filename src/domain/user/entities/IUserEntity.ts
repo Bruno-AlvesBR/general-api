@@ -13,6 +13,7 @@ export interface IUserProps {
     codeCard?: string;
   };
   admin?: boolean;
+  cep?: number;
   createdAt?: string;
   updatedAt?: string;
 }

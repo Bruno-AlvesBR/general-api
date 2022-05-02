@@ -10,6 +10,7 @@ export class UserPresentation {
     lastName,
     email,
     password,
+    admin = false,
   }: IUserLogin) {
     const newUser = new User({
       id,
@@ -19,6 +20,7 @@ export class UserPresentation {
       },
       email,
       password,
+      admin,
     });
 
     const saveUser = await newUser.save();

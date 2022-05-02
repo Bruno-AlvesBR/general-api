@@ -32,6 +32,7 @@ export class UserController {
         lastName: lastName ? lastName : '9128437',
         email,
         password: hashPassword,
+        admin: false,
       });
 
       return response.status(201).json(registerUser);

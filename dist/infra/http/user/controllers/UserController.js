@@ -59,5 +59,18 @@ class UserController {
             }
         });
     }
+    findById(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = request.params;
+            const userPresentation = new UserPresentation_1.UserPresentation();
+            try {
+                const findUser = yield userPresentation.findById(id);
+                return response.status(200).json(findUser);
+            }
+            catch (err) {
+                return response.status(402).json(err);
+            }
+        });
+    }
 }
 exports.UserController = UserController;

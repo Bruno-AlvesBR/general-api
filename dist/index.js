@@ -12,7 +12,7 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(routes_1.routes);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3333;
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });

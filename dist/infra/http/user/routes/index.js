@@ -7,3 +7,4 @@ exports.userRouter = (0, express_1.Router)();
 const userControllers = new UserController_1.UserController();
 exports.userRouter.post('/register', userControllers.register);
 exports.userRouter.post('/login', userControllers.login);
+exports.userRouter.get('/:id', userControllers.findById);

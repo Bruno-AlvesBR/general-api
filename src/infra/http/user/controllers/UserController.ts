@@ -59,4 +59,21 @@ export class UserController {
       return response.status(400).json(err);
     }
   }
+
+  public async findById(
+    request: Request,
+    response: Response
+  ): Promise<Response<IUserLogin>> {
+    const { id } = request.params;
+
+    const userPresentation = new UserPresentation();
+
+    try {
+      const findUser = await userPresentation.findById(id);
+
+      return response.status(200).json(findUser);
+    } catch (err) {
+      return response.status(402).json(err);
+    }
+  }
 }

@@ -51,4 +51,14 @@ export class UserPresentation {
 
     return loginUser;
   }
+
+  public async findById(id: string) {
+    const findUser = await User.findOne({ id });
+
+    if (!findUser) {
+      throw new Error('Cannot find this user!');
+    }
+
+    return findUser;
+  }
 }

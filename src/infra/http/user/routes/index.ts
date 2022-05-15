@@ -7,3 +7,4 @@ const userControllers = new UserController();
 
 userRouter.post('/register', userControllers.register);
 userRouter.post('/login', userControllers.login);
+userRouter.get('/:id', userControllers.findById);

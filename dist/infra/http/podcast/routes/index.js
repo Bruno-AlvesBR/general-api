@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.podcastRouter = void 0;
+const express_1 = require("express");
+const PodcastController_1 = require("../controllers/PodcastController");
+const podcastRouter = (0, express_1.Router)();
+exports.podcastRouter = podcastRouter;
+const podcastController = new PodcastController_1.PodcastController();
+podcastRouter.post('/register', podcastController.register);
+podcastRouter.get('/', podcastController.findAll);
+podcastRouter.get('/:id', podcastController.findById);

@@ -61,7 +61,6 @@ class PodcastPresentation {
     findById({ id }) {
         return __awaiter(this, void 0, void 0, function* () {
             const findPodcast = yield podcasts_1.Podcast.findOne({ id });
-            console.log('findPodcast', findPodcast);
             if (!findPodcast) {
                 throw new Error('Cannot find podcast by id');
             }

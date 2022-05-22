@@ -45,8 +45,6 @@ export class PodcastPresentation {
   public async findById({ id }: IPodcastProps) {
     const findPodcast = await Podcast.findOne({ id });
 
-    console.log('findPodcast', findPodcast);
-
     if (!findPodcast) {
       throw new Error('Cannot find podcast by id');
     }

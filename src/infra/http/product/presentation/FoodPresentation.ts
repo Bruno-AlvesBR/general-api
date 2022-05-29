@@ -9,9 +9,9 @@ export class FoodPresentation {
       description: props?.description,
       category: props?.category,
       price: {
-        number: props?.priceNumber,
+        priceNumber: props?.priceNumber,
         installment: {
-          month: props?.monthInstallment,
+          monthInstallment: props?.monthInstallment,
           pricePerMonth: props?.pricePerMonth,
         },
       },
@@ -34,5 +34,53 @@ export class FoodPresentation {
     }
 
     return saveProduct;
+  }
+
+  public async udpate(
+    id: string,
+    { ...data }: IFoodCreate
+  ) {
+    const updateFood = await Food?.findOneAndUpdate(
+      { id },
+      {
+        title: data?.title,
+        description: data?.description,
+        category: data?.category,
+        price: {
+          priceNumber: data?.priceNumber,
+          installment: {
+            monthInstallment: data?.monthInstallment,
+            pricePerMonth: data?.pricePerMonth,
+          },
+        },
+        brand: data?.brand,
+        rating: data?.rating,
+        freight: data?.freight,
+        stock: data?.stock,
+        data: data?.manufacture,
+        slug: data?.slug,
+        image: {
+          mobileSrc: data?.mobileSrc,
+          desktopSrc: data?.desktopSrc,
+        },
+      },
+      { now: true }
+    );
+
+    if (!updateFood) {
+      throw new Error('Cannot update food data');
+    }
+
+    return updateFood;
+  }
+
+  public async findById(id: string) {
+    const findFoodById = await Food?.findOne({ id });
+
+    if (!findFoodById) {
+      throw new Error('Cannot find product by id');
+    }
+
+    return findFoodById;
   }
 }

@@ -57,7 +57,7 @@ export class FoodController {
     request: Request,
     response: Response
   ): Promise<Response<IFoodProps>> {
-    const findAllFoods = await Food.find();
+    const findAllFoods = await Food?.find();
 
     if (!findAllFoods) {
       return response
@@ -90,6 +90,56 @@ export class FoodController {
       return response.status(200).json(findFoodById);
     } catch (err) {
       return response.status(403).json(err);
+    }
+  }
+
+  public async delete(
+    request: Request,
+    response: Response
+  ): Promise<Response<IFoodProps>> {
+    const { id } = request.params;
+
+    const foodPresentation = new FoodPresentation();
+
+    try {
+      const findAndDelete = await foodPresentation.delete(
+        id
+      );
+
+      if (!findAndDelete) {
+        return response
+          .status(403)
+          .json(
+            'An error ocurred on find and delete this product'
+          );
+      }
+
+      return response
+        .status(403)
+        .json({ message: 'Sucess, item has been deleted' });
+    } catch (err) {
+      return response.status(403).json(err);
+    }
+  }
+
+  public async count(
+    request: Request,
+    response: Response
+  ): Promise<Response<IFoodProps[]>> {
+    try {
+      const count: IFoodProps[] = await Food?.find();
+
+      if (!count) {
+        response
+          .status(403)
+          .json('Cannot find items list count');
+      }
+
+      return response
+        .status(200)
+        .json({ count: count?.length });
+    } catch (err) {
+      return response.status(200).json(err);
     }
   }
 }

@@ -25,6 +25,34 @@ export class FoodController {
       return response.status(401).json(err);
     }
   }
+
+  public async update(
+    request: Request,
+    response: Response
+  ): Promise<Response<IFoodProps>> {
+    const { id } = request.params;
+    const { ...data } = request.body;
+
+    const foodPresentation = new FoodPresentation();
+
+    try {
+      const updateFood = await foodPresentation.udpate(
+        id,
+        data
+      );
+
+      if (!updateFood) {
+        return response
+          .status(403)
+          .json('An error ocurred on update food!');
+      }
+
+      return response.status(200).json(updateFood);
+    } catch (err) {
+      return response.status(403).json(err);
+    }
+  }
+
   public async findAll(
     request: Request,
     response: Response
@@ -38,5 +66,30 @@ export class FoodController {
     }
 
     return response.status(200).json(findAllFoods);
+  }
+
+  public async findById(
+    request: Request,
+    response: Response
+  ): Promise<Response<IFoodProps>> {
+    const { id } = request.params;
+
+    const foodPresentation = new FoodPresentation();
+
+    try {
+      const findFoodById = await foodPresentation.findById(
+        id
+      );
+
+      if (!findFoodById) {
+        return response
+          .status(403)
+          .json('An error ocurred on find a product');
+      }
+
+      return response.status(200).json(findFoodById);
+    } catch (err) {
+      return response.status(403).json(err);
+    }
   }
 }

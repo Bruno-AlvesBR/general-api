@@ -59,7 +59,7 @@ class FoodController {
     }
     findAll(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const findAllFoods = yield FoodSchema_1.Food.find();
+            const findAllFoods = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.find());
             if (!findAllFoods) {
                 return response
                     .status(400)
@@ -83,6 +83,44 @@ class FoodController {
             }
             catch (err) {
                 return response.status(403).json(err);
+            }
+        });
+    }
+    delete(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = request.params;
+            const foodPresentation = new FoodPresentation_1.FoodPresentation();
+            try {
+                const findAndDelete = yield foodPresentation.delete(id);
+                if (!findAndDelete) {
+                    return response
+                        .status(403)
+                        .json('An error ocurred on find and delete this product');
+                }
+                return response
+                    .status(403)
+                    .json({ message: 'Sucess, item has been deleted' });
+            }
+            catch (err) {
+                return response.status(403).json(err);
+            }
+        });
+    }
+    count(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const count = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.find());
+                if (!count) {
+                    response
+                        .status(403)
+                        .json('Cannot find items list count');
+                }
+                return response
+                    .status(200)
+                    .json({ count: count === null || count === void 0 ? void 0 : count.length });
+            }
+            catch (err) {
+                return response.status(200).json(err);
             }
         });
     }

@@ -97,5 +97,16 @@ class FoodPresentation {
             return findFoodById;
         });
     }
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const findAndDelete = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOneAndDelete({
+                id,
+            }));
+            if (!findAndDelete) {
+                throw new Error('Cannot find and delete this item');
+            }
+            return findAndDelete;
+        });
+    }
 }
 exports.FoodPresentation = FoodPresentation;

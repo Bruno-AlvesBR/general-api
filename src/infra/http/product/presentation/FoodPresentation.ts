@@ -49,8 +49,8 @@ export class FoodPresentation {
         price: {
           priceNumber: data?.priceNumber,
           installment: {
-            monthInstallment: data?.monthInstallment,
-            pricePerMonth: data?.pricePerMonth,
+            monthInstallment: data?.monthInstallment ?? 0,
+            pricePerMonth: data?.pricePerMonth ?? 0,
           },
         },
         brand: data?.brand,
@@ -60,11 +60,10 @@ export class FoodPresentation {
         data: data?.manufacture,
         slug: data?.slug,
         image: {
-          mobileSrc: data?.mobileSrc,
-          desktopSrc: data?.desktopSrc,
+          mobileSrc: data?.mobileSrc ?? '',
+          desktopSrc: data?.desktopSrc ?? '',
         },
-      },
-      { now: true }
+      }
     );
 
     if (!updateFood) {

@@ -11,9 +11,9 @@ const foodSchema = new mongoose_1.default.Schema({
     description: { type: String, required: false },
     category: [{ type: String, required: false }],
     price: {
-        number: { type: Number, required: true },
+        priceNumber: { type: Number, required: true },
         installment: {
-            month: { type: Number, required: false },
+            monthInstallment: { type: Number, required: false },
             pricePerMonth: { type: Number, required: false },
         },
     },

@@ -32,9 +32,9 @@ class FoodPresentation {
                 description: props === null || props === void 0 ? void 0 : props.description,
                 category: props === null || props === void 0 ? void 0 : props.category,
                 price: {
-                    number: props === null || props === void 0 ? void 0 : props.priceNumber,
+                    priceNumber: props === null || props === void 0 ? void 0 : props.priceNumber,
                     installment: {
-                        month: props === null || props === void 0 ? void 0 : props.monthInstallment,
+                        monthInstallment: props === null || props === void 0 ? void 0 : props.monthInstallment,
                         pricePerMonth: props === null || props === void 0 ? void 0 : props.pricePerMonth,
                     },
                 },
@@ -54,6 +54,46 @@ class FoodPresentation {
                 throw new Error('Unexpected error ocurred!');
             }
             return saveProduct;
+        });
+    }
+    udpate(id, _a) {
+        var data = __rest(_a, []);
+        return __awaiter(this, void 0, void 0, function* () {
+            const updateFood = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOneAndUpdate({ id }, {
+                title: data === null || data === void 0 ? void 0 : data.title,
+                description: data === null || data === void 0 ? void 0 : data.description,
+                category: data === null || data === void 0 ? void 0 : data.category,
+                price: {
+                    priceNumber: data === null || data === void 0 ? void 0 : data.priceNumber,
+                    installment: {
+                        monthInstallment: data === null || data === void 0 ? void 0 : data.monthInstallment,
+                        pricePerMonth: data === null || data === void 0 ? void 0 : data.pricePerMonth,
+                    },
+                },
+                brand: data === null || data === void 0 ? void 0 : data.brand,
+                rating: data === null || data === void 0 ? void 0 : data.rating,
+                freight: data === null || data === void 0 ? void 0 : data.freight,
+                stock: data === null || data === void 0 ? void 0 : data.stock,
+                data: data === null || data === void 0 ? void 0 : data.manufacture,
+                slug: data === null || data === void 0 ? void 0 : data.slug,
+                image: {
+                    mobileSrc: data === null || data === void 0 ? void 0 : data.mobileSrc,
+                    desktopSrc: data === null || data === void 0 ? void 0 : data.desktopSrc,
+                },
+            }, { now: true }));
+            if (!updateFood) {
+                throw new Error('Cannot update food data');
+            }
+            return updateFood;
+        });
+    }
+    findById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const findFoodById = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOne({ id }));
+            if (!findFoodById) {
+                throw new Error('Cannot find product by id');
+            }
+            return findFoodById;
         });
     }
 }

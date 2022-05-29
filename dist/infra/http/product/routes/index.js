@@ -7,3 +7,5 @@ exports.productRouter = (0, express_1.Router)();
 const foodController = new FoodController_1.FoodController();
 exports.productRouter.post('/create', foodController.create);
 exports.productRouter.get('/foods', foodController.findAll);
+exports.productRouter.get('/:id', foodController.findById);
+exports.productRouter.put('/:id', foodController.update);

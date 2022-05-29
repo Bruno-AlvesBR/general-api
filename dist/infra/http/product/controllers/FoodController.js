@@ -38,6 +38,25 @@ class FoodController {
             }
         });
     }
+    update(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = request.params;
+            const data = __rest(request.body, []);
+            const foodPresentation = new FoodPresentation_1.FoodPresentation();
+            try {
+                const updateFood = yield foodPresentation.udpate(id, data);
+                if (!updateFood) {
+                    return response
+                        .status(403)
+                        .json('An error ocurred on update food!');
+                }
+                return response.status(200).json(updateFood);
+            }
+            catch (err) {
+                return response.status(403).json(err);
+            }
+        });
+    }
     findAll(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const findAllFoods = yield FoodSchema_1.Food.find();
@@ -47,6 +66,24 @@ class FoodController {
                     .json('Unexpected error to search all products!');
             }
             return response.status(200).json(findAllFoods);
+        });
+    }
+    findById(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = request.params;
+            const foodPresentation = new FoodPresentation_1.FoodPresentation();
+            try {
+                const findFoodById = yield foodPresentation.findById(id);
+                if (!findFoodById) {
+                    return response
+                        .status(403)
+                        .json('An error ocurred on find a product');
+                }
+                return response.status(200).json(findFoodById);
+            }
+            catch (err) {
+                return response.status(403).json(err);
+            }
         });
     }
 }

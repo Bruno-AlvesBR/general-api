@@ -82,4 +82,16 @@ export class FoodPresentation {
 
     return findFoodById;
   }
+
+  public async delete(id: string) {
+    const findAndDelete = await Food?.findOneAndDelete({
+      id,
+    });
+
+    if (!findAndDelete) {
+      throw new Error('Cannot find and delete this item');
+    }
+
+    return findAndDelete;
+  }
 }

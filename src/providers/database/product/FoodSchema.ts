@@ -7,9 +7,9 @@ const foodSchema = new mongoose.Schema(
     description: { type: String, required: false },
     category: [{ type: String, required: false }],
     price: {
-      number: { type: Number, required: true },
+      priceNumber: { type: Number, required: true },
       installment: {
-        month: { type: Number, required: false },
+        monthInstallment: { type: Number, required: false },
         pricePerMonth: { type: Number, required: false },
       },
     },

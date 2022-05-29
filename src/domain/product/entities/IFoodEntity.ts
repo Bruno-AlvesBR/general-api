@@ -4,9 +4,9 @@ export interface IFoodProps {
   description?: string;
   category?: string[];
   price?: {
-    number?: number;
+    priceNumber?: number;
     installment?: {
-      month?: number;
+      monthInstallment?: number;
       pricePerMonth?: number;
     };
   };

@@ -57,6 +57,7 @@ class FoodPresentation {
         });
     }
     udpate(id, _a) {
+        var _b, _c, _d, _e;
         var data = __rest(_a, []);
         return __awaiter(this, void 0, void 0, function* () {
             const updateFood = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOneAndUpdate({ id }, {
@@ -66,8 +67,8 @@ class FoodPresentation {
                 price: {
                     priceNumber: data === null || data === void 0 ? void 0 : data.priceNumber,
                     installment: {
-                        monthInstallment: data === null || data === void 0 ? void 0 : data.monthInstallment,
-                        pricePerMonth: data === null || data === void 0 ? void 0 : data.pricePerMonth,
+                        monthInstallment: (_b = data === null || data === void 0 ? void 0 : data.monthInstallment) !== null && _b !== void 0 ? _b : 0,
+                        pricePerMonth: (_c = data === null || data === void 0 ? void 0 : data.pricePerMonth) !== null && _c !== void 0 ? _c : 0,
                     },
                 },
                 brand: data === null || data === void 0 ? void 0 : data.brand,
@@ -77,10 +78,10 @@ class FoodPresentation {
                 data: data === null || data === void 0 ? void 0 : data.manufacture,
                 slug: data === null || data === void 0 ? void 0 : data.slug,
                 image: {
-                    mobileSrc: data === null || data === void 0 ? void 0 : data.mobileSrc,
-                    desktopSrc: data === null || data === void 0 ? void 0 : data.desktopSrc,
+                    mobileSrc: (_d = data === null || data === void 0 ? void 0 : data.mobileSrc) !== null && _d !== void 0 ? _d : '',
+                    desktopSrc: (_e = data === null || data === void 0 ? void 0 : data.desktopSrc) !== null && _e !== void 0 ? _e : '',
                 },
-            }, { now: true }));
+            }));
             if (!updateFood) {
                 throw new Error('Cannot update food data');
             }

@@ -6,7 +6,7 @@ export const productRouter = Router();
 const foodController = new FoodController();
 
 productRouter.get('/foods', foodController.findAll);
-productRouter.get('/:id', foodController.findById);
+productRouter.get('/:slug', foodController.findBySlug);
 productRouter.get('/count', foodController.count);
 productRouter.post('/create', foodController.create);
 productRouter.put('/:id', foodController.update);

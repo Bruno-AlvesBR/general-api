@@ -68,26 +68,25 @@ export class FoodController {
     return response.status(200).json(findAllFoods);
   }
 
-  public async findById(
+  public async findBySlug(
     request: Request,
     response: Response
   ): Promise<Response<IFoodProps>> {
-    const { id } = request.params;
+    const { slug } = request.params;
 
     const foodPresentation = new FoodPresentation();
 
     try {
-      const findFoodById = await foodPresentation.findById(
-        id
-      );
+      const findFoodBySlug =
+        await foodPresentation.findBySlug(slug);
 
-      if (!findFoodById) {
+      if (!findFoodBySlug) {
         return response
           .status(403)
           .json('An error ocurred on find a product');
       }
 
-      return response.status(200).json(findFoodById);
+      return response.status(200).json(findFoodBySlug);
     } catch (err) {
       return response.status(403).json(err);
     }

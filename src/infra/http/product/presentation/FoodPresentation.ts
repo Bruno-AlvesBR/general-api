@@ -73,14 +73,16 @@ export class FoodPresentation {
     return updateFood;
   }
 
-  public async findById(id: string) {
-    const findFoodById = await Food?.findOne({ id });
+  public async findBySlug(slug: string) {
+    const findFoodBySlug = await Food?.findOne({
+      slug,
+    });
 
-    if (!findFoodById) {
+    if (!findFoodBySlug) {
       throw new Error('Cannot find product by id');
     }
 
-    return findFoodById;
+    return findFoodBySlug;
   }
 
   public async delete(id: string) {

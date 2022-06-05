@@ -88,13 +88,15 @@ class FoodPresentation {
             return updateFood;
         });
     }
-    findById(id) {
+    findBySlug(slug) {
         return __awaiter(this, void 0, void 0, function* () {
-            const findFoodById = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOne({ id }));
-            if (!findFoodById) {
+            const findFoodBySlug = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOne({
+                slug,
+            }));
+            if (!findFoodBySlug) {
                 throw new Error('Cannot find product by id');
             }
-            return findFoodById;
+            return findFoodBySlug;
         });
     }
     delete(id) {

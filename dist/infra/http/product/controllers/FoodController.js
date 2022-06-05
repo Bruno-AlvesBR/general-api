@@ -68,18 +68,18 @@ class FoodController {
             return response.status(200).json(findAllFoods);
         });
     }
-    findById(request, response) {
+    findBySlug(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = request.params;
+            const { slug } = request.params;
             const foodPresentation = new FoodPresentation_1.FoodPresentation();
             try {
-                const findFoodById = yield foodPresentation.findById(id);
-                if (!findFoodById) {
+                const findFoodBySlug = yield foodPresentation.findBySlug(slug);
+                if (!findFoodBySlug) {
                     return response
                         .status(403)
                         .json('An error ocurred on find a product');
                 }
-                return response.status(200).json(findFoodById);
+                return response.status(200).json(findFoodBySlug);
             }
             catch (err) {
                 return response.status(403).json(err);

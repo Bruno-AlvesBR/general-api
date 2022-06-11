@@ -98,7 +98,7 @@ class FoodController {
                         .json('An error ocurred on find and delete this product');
                 }
                 return response
-                    .status(403)
+                    .status(200)
                     .json({ message: 'Sucess, item has been deleted' });
             }
             catch (err) {
@@ -120,7 +120,7 @@ class FoodController {
                     .json({ count: count === null || count === void 0 ? void 0 : count.length });
             }
             catch (err) {
-                return response.status(200).json(err);
+                return response.status(403).json(err);
             }
         });
     }

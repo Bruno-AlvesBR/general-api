@@ -114,7 +114,7 @@ export class FoodController {
       }
 
       return response
-        .status(403)
+        .status(200)
         .json({ message: 'Sucess, item has been deleted' });
     } catch (err) {
       return response.status(403).json(err);
@@ -124,9 +124,9 @@ export class FoodController {
   public async count(
     request: Request,
     response: Response
-  ): Promise<Response<IFoodProps[]>> {
+  ): Promise<Response<IFoodProps>> {
     try {
-      const count: IFoodProps[] = await Food?.find();
+      const count = await Food?.find();
 
       if (!count) {
         response
@@ -138,7 +138,7 @@ export class FoodController {
         .status(200)
         .json({ count: count?.length });
     } catch (err) {
-      return response.status(200).json(err);
+      return response.status(403).json(err);
     }
   }
 }

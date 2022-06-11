@@ -1,4 +1,4 @@
-import { IFoodCreate } from '../../../../domain/product/entities/IFoodEntity';
+import { IFoodCreate, IFoodProps } from '../../../../domain/product/entities/IFoodEntity';
 import { Food } from '../../../../providers/database/product/FoodSchema';
 
 export class FoodPresentation {
@@ -27,7 +27,7 @@ export class FoodPresentation {
       },
     });
 
-    const saveProduct = await createProduct.save();
+    const saveProduct: IFoodProps = await createProduct.save();
 
     if (!createProduct) {
       throw new Error('Unexpected error ocurred!');

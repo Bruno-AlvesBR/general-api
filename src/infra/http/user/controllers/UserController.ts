@@ -37,7 +37,7 @@ export class UserController {
 
       return response.status(201).json(registerUser);
     } catch (err) {
-      return response.status(401).json(err);
+      return response.status(400).json(err);
     }
   }
   public async login(
@@ -73,7 +73,7 @@ export class UserController {
 
       return response.status(200).json(findUser);
     } catch (err) {
-      return response.status(402).json(err);
+      return response.status(400).json(err);
     }
   }
 }

@@ -22,7 +22,7 @@ export class FoodController {
 
       return response.status(201).json(createProduct);
     } catch (err) {
-      return response.status(401).json(err);
+      return response.status(400).json(err);
     }
   }
 
@@ -49,7 +49,7 @@ export class FoodController {
 
       return response.status(200).json(updateFood);
     } catch (err) {
-      return response.status(403).json(err);
+      return response.status(400).json(err);
     }
   }
 
@@ -88,7 +88,7 @@ export class FoodController {
 
       return response.status(200).json(findFoodBySlug);
     } catch (err) {
-      return response.status(403).json(err);
+      return response.status(400).json(err);
     }
   }
 
@@ -117,7 +117,7 @@ export class FoodController {
         .status(200)
         .json({ message: 'Sucess, item has been deleted' });
     } catch (err) {
-      return response.status(403).json(err);
+      return response.status(400).json(err);
     }
   }
 
@@ -138,7 +138,7 @@ export class FoodController {
         .status(200)
         .json({ count: count?.length });
     } catch (err) {
-      return response.status(403).json(err);
+      return response.status(400).json(err);
     }
   }
 }

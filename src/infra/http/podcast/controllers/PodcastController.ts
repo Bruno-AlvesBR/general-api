@@ -41,9 +41,9 @@ export class PodcastController {
           .json('Cannot create a new podcast');
       }
 
-      return response.status(200).json(createPodcast);
+      return response.status(201).json(createPodcast);
     } catch (err) {
-      return response.status(401).json(err);
+      return response.status(400).json(err);
     }
   }
 
@@ -65,7 +65,7 @@ export class PodcastController {
 
       return response.status(200).json(findAllPodcasts);
     } catch (err) {
-      return response.status(402).json(err);
+      return response.status(400).json(err);
     }
   }
 
@@ -89,7 +89,7 @@ export class PodcastController {
 
       return response.status(200).json(findPodcast);
     } catch (err) {
-      return response.status(4002).json(err);
+      return response.status(400).json(err);
     }
   }
 }

@@ -1,9 +1,11 @@
+import { v4 as uuid } from 'uuid';
+
 import { Podcast } from '../../../../providers/database/podcasts';
 
 export class PodcastPresentation {
   public async register({ ...props }: IPodcastProps) {
     const newPodcast = new Podcast({
-      id: props?.id,
+      id: props?.id ?? uuid(),
       title: props?.title,
       description: props?.description,
       members: props?.members,

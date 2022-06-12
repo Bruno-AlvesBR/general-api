@@ -21,22 +21,23 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PodcastPresentation = void 0;
+const uuid_1 = require("uuid");
 const podcasts_1 = require("../../../../providers/database/podcasts");
 class PodcastPresentation {
     register(_a) {
-        var _b, _c, _d;
+        var _b, _c, _d, _e;
         var props = __rest(_a, []);
         return __awaiter(this, void 0, void 0, function* () {
             const newPodcast = new podcasts_1.Podcast({
-                id: props === null || props === void 0 ? void 0 : props.id,
+                id: (_b = props === null || props === void 0 ? void 0 : props.id) !== null && _b !== void 0 ? _b : (0, uuid_1.v4)(),
                 title: props === null || props === void 0 ? void 0 : props.title,
                 description: props === null || props === void 0 ? void 0 : props.description,
                 members: props === null || props === void 0 ? void 0 : props.members,
                 thumbnail: props === null || props === void 0 ? void 0 : props.thumbnail,
                 file: {
-                    url: (_b = props === null || props === void 0 ? void 0 : props.file) === null || _b === void 0 ? void 0 : _b.url,
-                    type: (_c = props === null || props === void 0 ? void 0 : props.file) === null || _c === void 0 ? void 0 : _c.type,
-                    duration: (_d = props === null || props === void 0 ? void 0 : props.file) === null || _d === void 0 ? void 0 : _d.duration,
+                    url: (_c = props === null || props === void 0 ? void 0 : props.file) === null || _c === void 0 ? void 0 : _c.url,
+                    type: (_d = props === null || props === void 0 ? void 0 : props.file) === null || _d === void 0 ? void 0 : _d.type,
+                    duration: (_e = props === null || props === void 0 ? void 0 : props.file) === null || _e === void 0 ? void 0 : _e.duration,
                 },
             });
             if (!newPodcast) {

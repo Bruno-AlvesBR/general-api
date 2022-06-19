@@ -38,6 +38,7 @@ const userSchema = new mongoose.Schema(
     ],
     admin: { type: Boolean, required: false },
     cep: { type: Number, required: false },
+    acessToken: { type: String },
   },
   { timestamps: true }
 );

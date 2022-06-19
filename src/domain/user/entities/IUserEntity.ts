@@ -16,6 +16,7 @@ export interface IUserProps {
   cep?: number;
   createdAt?: string;
   updatedAt?: string;
+  acessToken?: string;
 }
 
 export interface IUserLogin {
@@ -25,6 +26,7 @@ export interface IUserLogin {
   email?: string;
   password?: string;
   admin?: boolean;
+  acessToken?: string;
 }
 
 export interface IUserCard {

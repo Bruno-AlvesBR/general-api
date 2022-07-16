@@ -1,9 +1,21 @@
 import IPodcastData from '@domain/podcast/data';
-import { Podcast } from 'database/models/podcasts';
+import { v4 as uuid } from 'uuid';
+import { Podcast } from '../../../database/models/podcasts';
 
 export default class PodcastDataProvider implements IPodcastData {
   public async register({ ...props }: IPodcastProps) {
-    const newPodcast = new Podcast({ props });
+    const newPodcast = new Podcast({
+      id: uuid(),
+      title: props?.title,
+      members: props?.members,
+      thumbnail: props?.thumbnail,
+      description: props?.description,
+      file: {
+        url: props?.file?.url,
+        type: props?.file?.type,
+        duration: props?.file?.duration,
+      },
+    });
 
     if (!newPodcast) {
       throw new Error('An error ocurred on create a new podcast');

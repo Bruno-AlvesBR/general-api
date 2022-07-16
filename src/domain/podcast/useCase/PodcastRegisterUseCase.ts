@@ -7,7 +7,7 @@ export default class PodcastRegisterUseCase
   implements IUseCase<any, IPodcastProps>
 {
   constructor(
-    @inject('PodcastDataprovider')
+    @inject('PodcastDataProvider')
     private podcastDataProvider: IPodcastData
   ) {}
 

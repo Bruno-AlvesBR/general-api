@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import PodcastFindByIdUseCase from '@domain/podcast/useCase/PodcastFindByIdUseCase';
+import PodcastFindByIdUseCase from '../../../../domain/podcast/useCase/PodcastFindByIdUseCase';
 import IController from 'core/Controller';
 
 export default class PodcastFindByIdController
@@ -16,9 +16,9 @@ export default class PodcastFindByIdController
     );
 
     try {
-      const findPodcast = await podcastFindByIdUseCase.execute({
-        id,
-      });
+      const findPodcast = await podcastFindByIdUseCase.execute(
+        String(id)
+      );
 
       if (!findPodcast) {
         return response

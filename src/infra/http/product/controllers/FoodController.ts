@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { v4 as uuid } from 'uuid';
 
 import { IFoodProps } from '../../../../domain/product/entities/IFoodEntity';
-import { Food } from '../../../../providers/database/product/FoodSchema';
+import { Food } from '../../../../database/models/product/FoodSchema';
 import { FoodPresentation } from '../presentation/FoodPresentation';
 
 export class FoodController {

@@ -1,5 +1,5 @@
 import { IFoodCreate, IFoodProps } from '../../../../domain/product/entities/IFoodEntity';
-import { Food } from '../../../../providers/database/product/FoodSchema';
+import { Food } from '../../../../database/models/product/FoodSchema';
 
 export class FoodPresentation {
   public async create({ ...props }: IFoodCreate) {

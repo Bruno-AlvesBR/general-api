@@ -1,12 +1,16 @@
 import { Router } from 'express';
 
-import { PodcastController } from '../controllers/PodcastController';
+import PodcastFindAllController from '../controllers/PodcastFindAllController';
+import PodcastFindByIdController from '../controllers/PodcastFindByIdController';
+import PodcastRegisterController from '../controllers/PodcastRegisterController';
 
 const podcastRouter = Router();
-const podcastController = new PodcastController();
+const podcastRegisterController = new PodcastRegisterController();
+const podcastFindAllController = new PodcastFindAllController();
+const podcastFindByIdController = new PodcastFindByIdController();
 
-podcastRouter.post('/register', podcastController.register);
-podcastRouter.get('/', podcastController.findAll);
-podcastRouter.get('/:id', podcastController.findById);
+podcastRouter.post('/register', podcastRegisterController.index);
+podcastRouter.get('/', podcastFindAllController.index);
+podcastRouter.get('/:id', podcastFindByIdController.index);
 
 export { podcastRouter };

@@ -1,7 +1,7 @@
 import bcryptjs from 'bcryptjs';
 
 import { IUserLogin } from '../../../../domain/user/entities/IUserEntity';
-import { User } from '../../../../providers/database/user/UserSchema';
+import { User } from '../../../../database/models/user/UserSchema';
 import { genToken } from '../../shared/middlewares/Token';
 
 export class UserPresentation {

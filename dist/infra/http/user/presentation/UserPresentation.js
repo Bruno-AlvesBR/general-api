@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserPresentation = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const UserSchema_1 = require("../../../../providers/database/user/UserSchema");
+const UserSchema_1 = require("../../../../database/models/user/UserSchema");
 const Token_1 = require("../../shared/middlewares/Token");
 class UserPresentation {
     register({ id, firstName, lastName, email, password, admin = false, }) {

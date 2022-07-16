@@ -21,7 +21,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FoodPresentation = void 0;
-const FoodSchema_1 = require("../../../../providers/database/product/FoodSchema");
+const FoodSchema_1 = require("../../../../database/models/product/FoodSchema");
 class FoodPresentation {
     create(_a) {
         var props = __rest(_a, []);

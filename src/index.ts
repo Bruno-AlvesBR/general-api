@@ -2,7 +2,9 @@ import express from 'express';
 import cors from 'cors';
 
 import { routes } from './infra/http/shared/routes';
-import './providers/database/connection';
+import './databases/connection';
+import 'reflect-metadata';
+import './databases/injections';
 
 const app = express();
 

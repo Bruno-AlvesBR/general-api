@@ -4,24 +4,24 @@ const foodSchema = new mongoose.Schema(
   {
     id: { type: String, required: true, unique: true },
     title: { type: String, required: true },
-    description: { type: String, required: false },
-    category: [{ type: String, required: false }],
+    description: { type: String },
+    category: [{ type: String }],
     price: {
       priceNumber: { type: Number, required: true },
       installment: {
-        monthInstallment: { type: Number, required: false },
-        pricePerMonth: { type: Number, required: false },
+        monthInstallment: { type: Number },
+        pricePerMonth: { type: Number },
       },
     },
-    brand: { type: String, required: false },
-    rating: { type: Number, required: false },
-    freight: { type: Boolean, required: false },
+    brand: { type: String },
+    rating: { type: Number },
+    freight: { type: Boolean },
     stock: { type: Number, required: true },
     manufacture: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     image: {
-      mobileSrc: { type: String, required: false },
-      desktopSrc: { type: String, required: false },
+      mobileSrc: { type: String },
+      desktopSrc: { type: String },
     },
   },
   { timestamps: true }

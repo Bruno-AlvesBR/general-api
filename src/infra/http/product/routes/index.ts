@@ -1,13 +1,20 @@
 import { Router } from 'express';
 
-import { FoodController } from '../controllers/FoodController';
+import ProductCreateController from '../controllers/ProductCreateController';
+import ProductUpdateController from '../controllers/ProductUpdateController';
+import ProductFindAllController from '../controllers/ProductFindAllController';
+import ProductFindBySlugController from '../controllers/ProductFindBySlugController';
+import ProductDeleteController from '../controllers/ProductDeleteController';
 
 export const productRouter = Router();
-const foodController = new FoodController();
+const productCreateController = new ProductCreateController();
+const productUpdateController = new ProductUpdateController();
+const productFindAllController = new ProductFindAllController();
+const productFindBySlugController = new ProductFindBySlugController();
+const productDeleteController = new ProductDeleteController();
 
-productRouter.get('/foods', foodController.findAll);
-productRouter.get('/count', foodController.count);
-productRouter.get('/:slug', foodController.findBySlug);
-productRouter.post('/create', foodController.create);
-productRouter.put('/:id', foodController.update);
-productRouter.delete('/:id', foodController.delete);
+productRouter.get('/foods', productFindAllController.index);
+productRouter.get('/:slug', productFindBySlugController.index);
+productRouter.post('/create', productCreateController.index);
+productRouter.put('/:id', productUpdateController.index);
+productRouter.delete('/:id', productDeleteController.index);

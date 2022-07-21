@@ -1,10 +1,14 @@
 import { Router } from 'express';
 
-import { UserController } from '../controllers/UserController';
+import UserFindByIdController from '../controllers/UserFindByIdController';
+import UserRegisterController from '../controllers/UserRegisterController';
+import UserLoginController from '../controllers/UserLoginController';
 
 export const userRouter = Router();
-const userControllers = new UserController();
+const userFindByIdController = new UserFindByIdController();
+const userRegisterController = new UserRegisterController();
+const userLoginController = new UserLoginController();
 
-userRouter.post('/register', userControllers.register);
-userRouter.post('/login', userControllers.login);
-userRouter.get('/:id', userControllers.findById);
+userRouter.post('/register', userRegisterController.index);
+userRouter.post('/login', userLoginController.index);
+userRouter.get('/:id', userFindByIdController.index);

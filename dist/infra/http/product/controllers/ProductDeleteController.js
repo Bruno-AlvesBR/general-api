@@ -21,7 +21,6 @@ class ProductDeleteController {
             const productDeleteUseCase = tsyringe_1.container.resolve(ProductDeleteUseCase_1.default);
             try {
                 const findAndDelete = yield productDeleteUseCase.execute(id);
-                console.log(findAndDelete);
                 if (!findAndDelete) {
                     return response
                         .status(403)

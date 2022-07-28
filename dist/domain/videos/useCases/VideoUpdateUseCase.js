@@ -28,7 +28,6 @@ let VideoUpdateUseCase = class VideoUpdateUseCase {
     }
     execute(requestDTO) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('test', requestDTO === null || requestDTO === void 0 ? void 0 : requestDTO.videoObject);
             return this.videoDataProvider.update(requestDTO === null || requestDTO === void 0 ? void 0 : requestDTO.id, requestDTO === null || requestDTO === void 0 ? void 0 : requestDTO.videoObject);
         });
     }

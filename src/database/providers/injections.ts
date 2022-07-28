@@ -6,18 +6,25 @@ import IUserData from '@domain/user/data';
 import PodcastDataProvider from './podcasts';
 import ProductDataProvider from './products';
 import UserDataProvider from './user';
+import VideoDataProvider from './videos';
+import IVideoData from '@domain/videos/data';
 
 container.registerSingleton<IPodcastData>(
-    'PodcastDataProvider',
-    PodcastDataProvider
+  'PodcastDataProvider',
+  PodcastDataProvider
 );
 
 container.registerSingleton<IProductData>(
-    'ProductDataProvider',
-    ProductDataProvider
+  'ProductDataProvider',
+  ProductDataProvider
 );
 
 container.registerSingleton<IUserData>(
-    'UserDataProvider',
-    UserDataProvider
+  'UserDataProvider',
+  UserDataProvider
+);
+
+container.registerSingleton<IVideoData>(
+  'VideoDataProvider',
+  VideoDataProvider
 );

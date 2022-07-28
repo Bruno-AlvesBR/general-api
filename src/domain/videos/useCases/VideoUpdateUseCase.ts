@@ -13,7 +13,6 @@ export default class VideoUpdateUseCase
   ) {}
 
   public async execute(requestDTO?: any): Promise<IVideoProps> {
-    console.log('test', requestDTO?.videoObject);
     return this.videoDataProvider.update(
       requestDTO?.id,
       requestDTO?.videoObject

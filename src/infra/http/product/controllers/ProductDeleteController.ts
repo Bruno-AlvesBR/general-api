@@ -22,8 +22,6 @@ export default class ProductDeleteController
                 id
             );
 
-            console.log(findAndDelete);
-
             if (!findAndDelete) {
                 return response
                     .status(403)

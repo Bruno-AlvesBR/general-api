@@ -25,7 +25,18 @@ let VideoCreatePresentation = class VideoCreatePresentation {
     handle(props) {
         return __awaiter(this, void 0, void 0, function* () {
             const videoCreateUseCase = tsyringe_1.container.resolve(VideoCreateUseCase_1.default);
-            const videoObject = Object.assign({ id: (0, uuid_1.v4)() }, props);
+            const videoObject = {
+                id: (0, uuid_1.v4)(),
+                title: props === null || props === void 0 ? void 0 : props.title,
+                description: props === null || props === void 0 ? void 0 : props.description,
+                duration: props === null || props === void 0 ? void 0 : props.duration,
+                rating: props === null || props === void 0 ? void 0 : props.rating,
+                file: {
+                    fileUrl: props === null || props === void 0 ? void 0 : props.fileUrl,
+                    fileType: props === null || props === void 0 ? void 0 : props.fileType,
+                    fileImage: props === null || props === void 0 ? void 0 : props.fileImage,
+                },
+            };
             const createVideo = yield videoCreateUseCase.execute(videoObject);
             return createVideo;
         });

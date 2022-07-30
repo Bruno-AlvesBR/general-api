@@ -18,9 +18,9 @@ export default class VideoCreatePresentation
       duration: props?.duration,
       rating: props?.rating,
       file: {
-        fileUrl: props?.fileUrl,
-        fileType: props?.fileType,
-        fileImage: props?.fileImage,
+        url: props?.fileUrl,
+        type: props?.fileType,
+        image: props?.fileImage,
       },
     };
 

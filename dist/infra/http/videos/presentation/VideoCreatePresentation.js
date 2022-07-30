@@ -32,9 +32,9 @@ let VideoCreatePresentation = class VideoCreatePresentation {
                 duration: props === null || props === void 0 ? void 0 : props.duration,
                 rating: props === null || props === void 0 ? void 0 : props.rating,
                 file: {
-                    fileUrl: props === null || props === void 0 ? void 0 : props.fileUrl,
-                    fileType: props === null || props === void 0 ? void 0 : props.fileType,
-                    fileImage: props === null || props === void 0 ? void 0 : props.fileImage,
+                    url: props === null || props === void 0 ? void 0 : props.fileUrl,
+                    type: props === null || props === void 0 ? void 0 : props.fileType,
+                    image: props === null || props === void 0 ? void 0 : props.fileImage,
                 },
             };
             const createVideo = yield videoCreateUseCase.execute(videoObject);

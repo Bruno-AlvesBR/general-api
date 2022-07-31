@@ -1,5 +1,5 @@
 import IVideoData from '@domain/videos/data';
-import { IVideoProps, IVideoUpdate } from '@domain/videos/entities';
+import { IVideoProps } from '@domain/videos/entities';
 import { Video } from '../../../database/models/videos';
 
 export default class VideoDataProvider implements IVideoData {
@@ -49,10 +49,10 @@ export default class VideoDataProvider implements IVideoData {
     return deleteVideo;
   }
 
-  public async update(id: string, data: IVideoProps) {
-    const findAndUpdateVideo = await Video.findOneAndUpdate(
-      { id },
-      { data }
+  public async update(data: IVideoProps) {
+    const findAndUpdateVideo = await Video?.findOneAndUpdate(
+      { id: data?.id },
+      data
     );
 
     if (!findAndUpdateVideo) {

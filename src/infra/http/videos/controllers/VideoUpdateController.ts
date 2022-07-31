@@ -1,9 +1,8 @@
-import { IVideoProps } from '@domain/videos/entities';
-import IController from 'core/Controller';
 import { Request, Response } from 'express';
-import { ParamsDictionary } from 'express-serve-static-core';
-import { ParsedQs } from 'qs';
 import { container } from 'tsyringe';
+
+import { IVideoBody, IVideoProps } from '@domain/videos/entities';
+import IController from 'core/Controller';
 import VideoUpdatePresentation from '../presentation/VideoUpdatePresentation';
 
 export default class VideoUpdateController
@@ -14,7 +13,7 @@ export default class VideoUpdateController
     response: Response
   ): Promise<Response<IVideoProps>> {
     const { id } = request.params;
-    const { ...data } = request.body;
+    const { ...data }: IVideoBody = request.body;
 
     const videoUpdatePresentation = container.resolve(
       VideoUpdatePresentation
@@ -23,7 +22,7 @@ export default class VideoUpdateController
     try {
       const updateVideo = await videoUpdatePresentation.handle({
         id,
-        data,
+        ...data,
       });
 
       if (!updateVideo) {
@@ -34,7 +33,7 @@ export default class VideoUpdateController
 
       return response.status(200).json(updateVideo);
     } catch (err) {
-      return response.status(403).json(err);
+      return response.status(403).json({ message: err });
     }
   }
 }

@@ -1,7 +1,8 @@
-import IUseCase from 'core/UseCase';
 import { inject, injectable } from 'tsyringe';
+
+import IUseCase from 'core/UseCase';
 import IVideoData from '../data';
-import { IVideoProps, IVideoUpdate } from '../entities';
+import { IVideoProps } from '../entities';
 
 @injectable()
 export default class VideoUpdateUseCase
@@ -13,9 +14,6 @@ export default class VideoUpdateUseCase
   ) {}
 
   public async execute(requestDTO?: any): Promise<IVideoProps> {
-    return this.videoDataProvider.update(
-      requestDTO?.id,
-      requestDTO?.videoObject
-    );
+    return this.videoDataProvider.update(requestDTO);
   }
 }

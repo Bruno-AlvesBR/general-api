@@ -1,6 +1,6 @@
 import { container, injectable } from 'tsyringe';
 
-import { IVideoProps, IVideoUpdate } from '@domain/videos/entities';
+import { IVideoBody, IVideoProps } from '@domain/videos/entities';
 import VideoUpdateUseCase from '../../../../domain/videos/useCases/VideoUpdateUseCase';
 import IPresentation from 'core/Presentation';
 
@@ -8,10 +8,10 @@ import IPresentation from 'core/Presentation';
 export default class VideoUpdatePresentation
   implements IPresentation<any, IVideoProps>
 {
-  public async handle({ id, data }: IVideoUpdate) {
+  public async handle(data: IVideoBody) {
     const videoUpdateUseCase = container.resolve(VideoUpdateUseCase);
 
-    const videoObject: IVideoProps = {
+    const updateVideo = await videoUpdateUseCase.execute({
       id: data?.id,
       title: data?.title,
       description: data?.description,
@@ -22,11 +22,6 @@ export default class VideoUpdatePresentation
         image: data?.fileImage,
         type: data?.fileType,
       },
-    };
-
-    const updateVideo = await videoUpdateUseCase.execute({
-      id,
-      videoObject,
     });
 
     return updateVideo;

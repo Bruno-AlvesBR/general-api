@@ -32,10 +32,7 @@ class VideoUpdateController {
             const data = __rest(request.body, []);
             const videoUpdatePresentation = tsyringe_1.container.resolve(VideoUpdatePresentation_1.default);
             try {
-                const updateVideo = yield videoUpdatePresentation.handle({
-                    id,
-                    data,
-                });
+                const updateVideo = yield videoUpdatePresentation.handle(Object.assign({ id }, data));
                 if (!updateVideo) {
                     return response
                         .status(400)
@@ -44,7 +41,7 @@ class VideoUpdateController {
                 return response.status(200).json(updateVideo);
             }
             catch (err) {
-                return response.status(403).json(err);
+                return response.status(403).json({ message: err });
             }
         });
     }

@@ -48,9 +48,9 @@ class VideoDataProvider {
             return deleteVideo;
         });
     }
-    update(id, data) {
+    update(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const findAndUpdateVideo = yield videos_1.Video.findOneAndUpdate({ id }, { data });
+            const findAndUpdateVideo = yield (videos_1.Video === null || videos_1.Video === void 0 ? void 0 : videos_1.Video.findOneAndUpdate({ id: data === null || data === void 0 ? void 0 : data.id }, data));
             if (!findAndUpdateVideo) {
                 throw new Error('Unexpected error on find and update this video');
             }

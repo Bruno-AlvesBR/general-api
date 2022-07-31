@@ -21,10 +21,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tsyringe_1 = require("tsyringe");
 const VideoUpdateUseCase_1 = __importDefault(require("../../../../domain/videos/useCases/VideoUpdateUseCase"));
 let VideoUpdatePresentation = class VideoUpdatePresentation {
-    handle({ id, data }) {
+    handle(data) {
         return __awaiter(this, void 0, void 0, function* () {
             const videoUpdateUseCase = tsyringe_1.container.resolve(VideoUpdateUseCase_1.default);
-            const videoObject = {
+            const updateVideo = yield videoUpdateUseCase.execute({
                 id: data === null || data === void 0 ? void 0 : data.id,
                 title: data === null || data === void 0 ? void 0 : data.title,
                 description: data === null || data === void 0 ? void 0 : data.description,
@@ -35,10 +35,6 @@ let VideoUpdatePresentation = class VideoUpdatePresentation {
                     image: data === null || data === void 0 ? void 0 : data.fileImage,
                     type: data === null || data === void 0 ? void 0 : data.fileType,
                 },
-            };
-            const updateVideo = yield videoUpdateUseCase.execute({
-                id,
-                videoObject,
             });
             return updateVideo;
         });

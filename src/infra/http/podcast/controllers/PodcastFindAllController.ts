@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
 import PodcastFindAllUsecase from '../../../../domain/podcast/useCase/PodcastFindAllUseCase';
 import IController from 'core/Controller';
+import { IPodcastProps } from '@domain/podcast/entities';
 
 export default class PodcastFindAllController
   implements IController<Request, Response>

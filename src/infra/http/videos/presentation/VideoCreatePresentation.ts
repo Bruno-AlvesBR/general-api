@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 
 @injectable()
 export default class VideoCreatePresentation
-  implements IPresentation<IVideoBody, IVideoProps>
+  implements IPresentation<IVideoBody>
 {
   public async handle(props: IVideoBody) {
     const videoCreateUseCase = container.resolve(VideoCreateUseCase);

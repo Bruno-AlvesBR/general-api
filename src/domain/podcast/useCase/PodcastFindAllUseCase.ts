@@ -1,6 +1,8 @@
-import IUseCase from 'core/UseCase';
 import { inject, injectable } from 'tsyringe';
+
+import IUseCase from 'core/UseCase';
 import IPodcastData from '../data';
+import { IPodcastProps } from '../entities';
 
 @injectable()
 export default class PodcastFindAllUsecase

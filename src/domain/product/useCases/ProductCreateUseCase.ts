@@ -6,14 +6,14 @@ import { IFoodProps } from '../entities/IFoodEntity';
 
 @injectable()
 export default class ProductCreateUseCase
-    implements IUseCase<any, IFoodProps>
+  implements IUseCase<IFoodProps, IFoodProps>
 {
-    constructor(
-        @inject('ProductDataProvider')
-        private productDataProvider: IProductData
-    ) {}
+  constructor(
+    @inject('ProductDataProvider')
+    private productDataProvider: IProductData
+  ) {}
 
-    public async execute(requestDTO?: any): Promise<IFoodProps> {
-        return this.productDataProvider.create(requestDTO);
-    }
+  public async execute(requestDTO: IFoodProps): Promise<IFoodProps> {
+    return this.productDataProvider.create(requestDTO);
+  }
 }

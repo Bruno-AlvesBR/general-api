@@ -1,5 +1,7 @@
+import { IPodcastBody, IPodcastProps } from "../entities";
+
 export default interface IPodcastData {
-  register(props: IPodcastProps): Promise<IPodcastProps>;
+  register(props: IPodcastBody): Promise<IPodcastProps>;
   findAll(): Promise<IPodcastProps[]>;
   findById(id: string): Promise<IPodcastProps>;
 }

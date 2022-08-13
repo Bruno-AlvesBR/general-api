@@ -1,3 +1,3 @@
-export default interface IPresentation<DTO, Response> {
-    handle(props: DTO): Promise<Response>;
+export default interface IPresentation<DTO> {
+  handle(props: DTO): void;
 }

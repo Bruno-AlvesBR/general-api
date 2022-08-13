@@ -1,7 +1,12 @@
-import PodcastRegisterUseCase from '../../../../domain/podcast/useCase/PodcastRegisterUseCase';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
 import IController from 'core/Controller';
+import {
+  IPodcastBody,
+  IPodcastProps,
+} from '@domain/podcast/entities';
+import PodcastCreatePresentation from '../presentation/PodcastCreatePresentation';
 
 export default class PodcastRegisterController
   implements IController<Request, Response>
@@ -10,13 +15,13 @@ export default class PodcastRegisterController
     request: Request,
     response: Response
   ): Promise<Response<IPodcastProps>> {
-    const { ...props } = request.body;
-    const podcastRegisterUseCase = container.resolve(
-      PodcastRegisterUseCase
+    const { ...props }: IPodcastBody = request.body;
+    const podcastCreatePresentation = container.resolve(
+      PodcastCreatePresentation
     );
 
     try {
-      const createPodcast = await podcastRegisterUseCase.execute(
+      const createPodcast = await podcastCreatePresentation.handle(
         props
       );
 

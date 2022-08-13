@@ -14,6 +14,7 @@ interface IPodcastProps {
 }
 
 interface IPodcastBody {
+  id?: string;
   title?: string;
   members: string[];
   thumbnail?: string;

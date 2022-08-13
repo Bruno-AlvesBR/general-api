@@ -41,4 +41,27 @@ export default class PodcastDataProvider implements IPodcastData {
 
     return findPodcast;
   }
+
+  public async update(data: IPodcastBody) {
+    const updatePodcast = await Podcast.findOneAndUpdate(
+      { id: data?.id },
+      data
+    );
+
+    if (!updatePodcast) {
+      throw new Error('Unexpected error on update this podcast');
+    }
+
+    return updatePodcast;
+  }
+
+  public async remove(id: string) {
+    const deletePodcast = Podcast.findOneAndDelete({ id });
+
+    if (!deletePodcast) {
+      throw new Error('Unexpected error to delete this podcast');
+    }
+
+    return deletePodcast;
+  }
 }

@@ -24,18 +24,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const tsyringe_1 = require("tsyringe");
-const ProductUpdateUseCase_1 = __importDefault(require("../../../../domain/product/useCases/ProductUpdateUseCase"));
+const ProductUpdatePresentation_1 = __importDefault(require("../presentation/ProductUpdatePresentation"));
 class ProductUpdateController {
     index(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = request.params;
             const data = __rest(request.body, []);
-            const productUpdateUseCase = tsyringe_1.container.resolve(ProductUpdateUseCase_1.default);
+            const productUpdatePresentation = tsyringe_1.container.resolve(ProductUpdatePresentation_1.default);
             try {
-                const updateFood = yield productUpdateUseCase.execute({
-                    id,
-                    data,
-                });
+                const updateFood = yield productUpdatePresentation.handle(Object.assign({ id }, data));
                 if (!updateFood) {
                     return response
                         .status(403)

@@ -23,16 +23,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const uuid_1 = require("uuid");
 const tsyringe_1 = require("tsyringe");
-const ProductCreateUseCase_1 = __importDefault(require("../../../../domain/product/useCases/ProductCreateUseCase"));
+const ProductCreatePresentation_1 = __importDefault(require("../presentation/ProductCreatePresentation"));
 class ProductCreateController {
     index(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const props = __rest(request.body, []);
-            const foodCreateUseCase = tsyringe_1.container.resolve(ProductCreateUseCase_1.default);
+            const productCreatePresentation = tsyringe_1.container.resolve(ProductCreatePresentation_1.default);
             try {
-                const createProduct = yield foodCreateUseCase.execute(Object.assign(Object.assign({}, props), { id: (0, uuid_1.v4)() }));
+                const createProduct = yield productCreatePresentation.handle(Object.assign({}, props));
                 return response.status(201).json(createProduct);
             }
             catch (err) {

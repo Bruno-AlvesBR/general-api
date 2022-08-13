@@ -23,15 +23,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const PodcastRegisterUseCase_1 = __importDefault(require("../../../../domain/podcast/useCase/PodcastRegisterUseCase"));
 const tsyringe_1 = require("tsyringe");
+const PodcastCreatePresentation_1 = __importDefault(require("../presentation/PodcastCreatePresentation"));
 class PodcastRegisterController {
     index(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const props = __rest(request.body, []);
-            const podcastRegisterUseCase = tsyringe_1.container.resolve(PodcastRegisterUseCase_1.default);
+            const podcastCreatePresentation = tsyringe_1.container.resolve(PodcastCreatePresentation_1.default);
             try {
-                const createPodcast = yield podcastRegisterUseCase.execute(props);
+                const createPodcast = yield podcastCreatePresentation.handle(props);
                 if (!createPodcast) {
                     return response
                         .status(400)

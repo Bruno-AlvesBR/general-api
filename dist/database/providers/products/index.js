@@ -13,29 +13,7 @@ const FoodSchema_1 = require("../../../database/models/product/FoodSchema");
 class ProductDataProvider {
     create(props) {
         return __awaiter(this, void 0, void 0, function* () {
-            const createProduct = new FoodSchema_1.Food({
-                id: props === null || props === void 0 ? void 0 : props.id,
-                title: props === null || props === void 0 ? void 0 : props.title,
-                description: props === null || props === void 0 ? void 0 : props.description,
-                category: props === null || props === void 0 ? void 0 : props.category,
-                price: {
-                    priceNumber: props === null || props === void 0 ? void 0 : props.priceNumber,
-                    installment: {
-                        monthInstallment: props === null || props === void 0 ? void 0 : props.monthInstallment,
-                        pricePerMonth: props === null || props === void 0 ? void 0 : props.pricePerMonth,
-                    },
-                },
-                brand: props === null || props === void 0 ? void 0 : props.brand,
-                rating: props === null || props === void 0 ? void 0 : props.rating,
-                freight: props === null || props === void 0 ? void 0 : props.freight,
-                stock: props === null || props === void 0 ? void 0 : props.stock,
-                manufacture: props === null || props === void 0 ? void 0 : props.manufacture,
-                slug: props === null || props === void 0 ? void 0 : props.slug,
-                image: {
-                    mobileSrc: props === null || props === void 0 ? void 0 : props.mobileSrc,
-                    desktopSrc: props === null || props === void 0 ? void 0 : props.desktopSrc,
-                },
-            });
+            const createProduct = new FoodSchema_1.Food(props);
             const saveProduct = yield createProduct.save();
             if (!createProduct) {
                 throw new Error('Unexpected error ocurred!');
@@ -43,30 +21,9 @@ class ProductDataProvider {
             return saveProduct;
         });
     }
-    update(id, data) {
+    update(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const updateFood = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOneAndUpdate({ id }, {
-                title: data === null || data === void 0 ? void 0 : data.title,
-                description: data === null || data === void 0 ? void 0 : data.description,
-                category: data === null || data === void 0 ? void 0 : data.category,
-                price: {
-                    priceNumber: data === null || data === void 0 ? void 0 : data.priceNumber,
-                    installment: {
-                        monthInstallment: data === null || data === void 0 ? void 0 : data.monthInstallment,
-                        pricePerMonth: data === null || data === void 0 ? void 0 : data.pricePerMonth,
-                    },
-                },
-                brand: data === null || data === void 0 ? void 0 : data.brand,
-                rating: data === null || data === void 0 ? void 0 : data.rating,
-                freight: data === null || data === void 0 ? void 0 : data.freight,
-                stock: data === null || data === void 0 ? void 0 : data.stock,
-                manufacture: data === null || data === void 0 ? void 0 : data.manufacture,
-                slug: data === null || data === void 0 ? void 0 : data.slug,
-                image: {
-                    mobileSrc: data === null || data === void 0 ? void 0 : data.mobileSrc,
-                    desktopSrc: data === null || data === void 0 ? void 0 : data.desktopSrc,
-                },
-            }));
+            const updateFood = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOneAndUpdate({ id: data === null || data === void 0 ? void 0 : data.id }, Object.assign({}, data)));
             if (!updateFood) {
                 throw new Error('Cannot update food data');
             }

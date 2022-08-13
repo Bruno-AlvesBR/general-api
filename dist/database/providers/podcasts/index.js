@@ -42,5 +42,23 @@ class PodcastDataProvider {
             return findPodcast;
         });
     }
+    update(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const updatePodcast = yield podcasts_1.Podcast.findOneAndUpdate({ id: data === null || data === void 0 ? void 0 : data.id }, data);
+            if (!updatePodcast) {
+                throw new Error('Unexpected error on update this podcast');
+            }
+            return updatePodcast;
+        });
+    }
+    remove(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const deletePodcast = podcasts_1.Podcast.findOneAndDelete({ id });
+            if (!deletePodcast) {
+                throw new Error('Unexpected error to delete this podcast');
+            }
+            return deletePodcast;
+        });
+    }
 }
 exports.default = PodcastDataProvider;

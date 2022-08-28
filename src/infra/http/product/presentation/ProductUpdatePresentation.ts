@@ -16,7 +16,7 @@ export default class ProductUpdatePresentation
     const updateProduct = productUpdateUseCase.execute({
       id: props?.id,
       title: props?.title,
-      props: props?.description,
+      description: props?.description,
       category: props?.category,
       price: {
         priceNumber: props?.priceNumber,

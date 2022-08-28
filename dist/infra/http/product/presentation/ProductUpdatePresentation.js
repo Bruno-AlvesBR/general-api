@@ -27,7 +27,7 @@ let ProductUpdatePresentation = class ProductUpdatePresentation {
             const updateProduct = productUpdateUseCase.execute({
                 id: props === null || props === void 0 ? void 0 : props.id,
                 title: props === null || props === void 0 ? void 0 : props.title,
-                props: props === null || props === void 0 ? void 0 : props.description,
+                description: props === null || props === void 0 ? void 0 : props.description,
                 category: props === null || props === void 0 ? void 0 : props.category,
                 price: {
                     priceNumber: props === null || props === void 0 ? void 0 : props.priceNumber,

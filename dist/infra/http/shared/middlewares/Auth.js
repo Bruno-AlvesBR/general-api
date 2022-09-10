@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-module.exports = (request, response, next) => {
+const authTokenApi = (request, response, next) => {
     const authTokenHeader = request.headers.authorization;
     if (!authTokenHeader)
         return response.status(401).send({ error: 'Cannot find token!' });
@@ -21,3 +21,4 @@ module.exports = (request, response, next) => {
         return next();
     });
 };
+exports.default = authTokenApi;

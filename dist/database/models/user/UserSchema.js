@@ -5,11 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
+const uuid_1 = require("uuid");
 const userSchema = new mongoose_1.default.Schema({
-    id: { type: String, required: true, unique: true },
+    id: {
+        type: String,
+        default: (0, uuid_1.v4)(),
+        required: true,
+        unique: true,
+    },
     name: {
-        firstName: { type: String },
-        lastName: { type: String },
+        firstName: { type: String, default: 'guest' },
+        lastName: { type: String, default: '9128437' },
     },
     email: { type: String, required: true, unique: true },
     password: {
@@ -25,7 +31,7 @@ const userSchema = new mongoose_1.default.Schema({
             codeCard: { type: Number },
         },
     ],
-    admin: { type: Boolean },
+    admin: { type: Boolean, default: false },
     cep: { type: Number },
     acessToken: { type: String },
 }, { timestamps: true });

@@ -22,23 +22,19 @@ const tsyringe_1 = require("tsyringe");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const uuid_1 = require("uuid");
 const UserRegisterUseCase_1 = __importDefault(require("../../../../domain/user/useCases/UserRegisterUseCase"));
-const Token_1 = require("../../../../infra/http/shared/middlewares/Token");
 let UserRegisterPresentation = class UserRegisterPresentation {
-    handle(data) {
-        var _a, _b;
+    handle({ firstName, lastName, email, password, }) {
         return __awaiter(this, void 0, void 0, function* () {
             const userRegisterUseCase = tsyringe_1.container.resolve(UserRegisterUseCase_1.default);
-            const hashPassword = bcryptjs_1.default.hashSync(`${data === null || data === void 0 ? void 0 : data.password}`, 8);
+            const hashPassword = bcryptjs_1.default.hashSync(`${password}`, 8);
             const userObject = {
                 id: (0, uuid_1.v4)(),
                 name: {
-                    firstName: (_a = data === null || data === void 0 ? void 0 : data.firstName) !== null && _a !== void 0 ? _a : 'guest',
-                    lastName: (_b = data === null || data === void 0 ? void 0 : data.lastName) !== null && _b !== void 0 ? _b : '9128437',
+                    firstName,
+                    lastName,
                 },
-                email: data === null || data === void 0 ? void 0 : data.email,
+                email,
                 password: hashPassword,
-                admin: false,
-                acessToken: (0, Token_1.genToken)(data === null || data === void 0 ? void 0 : data.id),
             };
             const registerUser = yield userRegisterUseCase.execute(userObject);
             return registerUser;

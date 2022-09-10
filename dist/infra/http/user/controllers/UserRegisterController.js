@@ -32,6 +32,11 @@ class UserRegisterController {
             const userRegisterPresentation = tsyringe_1.container.resolve(UserRegisterPresentation_1.default);
             try {
                 const registerUser = yield userRegisterPresentation.handle(data);
+                if (!registerUser) {
+                    return response
+                        .status(403)
+                        .json({ message: 'Cannot register user!' });
+                }
                 return response.status(201).json(registerUser);
             }
             catch (err) {

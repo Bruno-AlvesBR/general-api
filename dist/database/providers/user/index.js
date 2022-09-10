@@ -14,10 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const UserSchema_1 = require("../../../database/models/user/UserSchema");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const Token_1 = require("../../../infra/http/shared/middlewares/Token");
 class UserDataProvider {
     register(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            const newUser = new UserSchema_1.User(user);
+            const newUser = new UserSchema_1.User(Object.assign({ acessToken: (0, Token_1.genToken)(user === null || user === void 0 ? void 0 : user.id) }, user));
             const saveUser = yield newUser.save();
             if (!saveUser) {
                 throw new Error('Unexpected error occured!');

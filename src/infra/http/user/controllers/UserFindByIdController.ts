@@ -6,23 +6,23 @@ import IController from 'core/Controller';
 import UserFindByIdUseCase from '../../../../domain/user/useCases/UserFindByIdUseCase';
 
 export default class UserFindByIdController
-    implements IController<Request, Response>
+  implements IController<Request, Response>
 {
-    public async index(
-        request: Request,
-        response: Response
-    ): Promise<Response<IUserProps>> {
-        const { id } = request.params;
-        const userFindByIdUseCase = container.resolve(
-            UserFindByIdUseCase
-        );
+  public async index(
+    request: Request,
+    response: Response
+  ): Promise<Response<IUserProps>> {
+    const { id } = request.params;
+    const userFindByIdUseCase = container.resolve(
+      UserFindByIdUseCase
+    );
 
-        try {
-            const findUser = await userFindByIdUseCase.execute(id);
+    try {
+      const findUser = await userFindByIdUseCase.execute(id);
 
-            return response.status(200).json(findUser);
-        } catch (err) {
-            return response.status(404).json(err);
-        }
+      return response.status(200).json(findUser);
+    } catch (err) {
+      return response.status(404).json(err);
     }
+  }
 }

@@ -6,24 +6,31 @@ import IController from 'core/Controller';
 import UserRegisterPresentation from '../presentation/UserRegisterPresentation';
 
 export default class UserRegisterController
-    implements IController<Request, Response>
+  implements IController<Request, Response>
 {
-    public async index(
-        request: Request,
-        response: Response
-    ): Promise<Response<IUserProps>> {
-        const { ...data } = request.body;
-        const userRegisterPresentation = container.resolve(
-            UserRegisterPresentation
-        );
+  public async index(
+    request: Request,
+    response: Response
+  ): Promise<Response<IUserProps>> {
+    const { ...data } = request.body;
+    const userRegisterPresentation = container.resolve(
+      UserRegisterPresentation
+    );
 
-        try {
-            const registerUser =
-                await userRegisterPresentation.handle(data);
+    try {
+      const registerUser = await userRegisterPresentation.handle(
+        data
+      );
 
-            return response.status(201).json(registerUser);
-        } catch (err) {
-            return response.status(400).json(err);
-        }
+      if (!registerUser) {
+        return response
+          .status(403)
+          .json({ message: 'Cannot register user!' });
+      }
+
+      return response.status(201).json(registerUser);
+    } catch (err) {
+      return response.status(400).json(err);
     }
+  }
 }

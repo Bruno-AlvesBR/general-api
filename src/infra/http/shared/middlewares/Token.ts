@@ -3,13 +3,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const genToken = (id: string | any) => {
-  const acessToken = jwt.sign(
-    { id },
-    `${process.env.SECRET_JWT}`
-  );
+const genToken = (id?: string) => {
+  if (id) {
+    const acessToken = jwt.sign({ id }, `${process.env.SECRET_JWT}`);
 
-  return acessToken;
+    return acessToken;
+  }
 };
 
 export { genToken };

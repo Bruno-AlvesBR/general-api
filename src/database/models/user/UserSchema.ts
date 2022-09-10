@@ -1,11 +1,17 @@
 import mongoose from 'mongoose';
+import { v4 as uuid } from 'uuid';
 
 const userSchema = new mongoose.Schema(
   {
-    id: { type: String, required: true, unique: true },
+    id: {
+      type: String,
+      default: uuid(),
+      required: true,
+      unique: true,
+    },
     name: {
-      firstName: { type: String },
-      lastName: { type: String },
+      firstName: { type: String, default: 'guest' },
+      lastName: { type: String, default: '9128437' },
     },
     email: { type: String, required: true, unique: true },
     password: {
@@ -21,7 +27,7 @@ const userSchema = new mongoose.Schema(
         codeCard: { type: Number },
       },
     ],
-    admin: { type: Boolean },
+    admin: { type: Boolean, default: false },
     cep: { type: Number },
     acessToken: { type: String },
   },

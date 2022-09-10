@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-import { IUserProps } from '@domain/user/entities/IUserEntity';
-
-module.exports = (
+const authTokenApi = (
   request: Request,
   response: Response,
   next: NextFunction
@@ -26,12 +24,15 @@ module.exports = (
   jwt.verify(
     token,
     `${process.env.SECRET_JWT}`,
-    (err, decoded: IUserProps | any) => {
+    (err, decoded: any) => {
       if (err)
         return response.status(401).send({ error: 'Invalid token!' });
 
       request.body.id = decoded?.id;
+
       return next();
     }
   );
 };
+
+export default authTokenApi;

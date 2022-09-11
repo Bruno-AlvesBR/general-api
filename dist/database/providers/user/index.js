@@ -12,25 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const UserSchema_1 = require("../../../database/models/user/UserSchema");
+const mongoose_1 = __importDefault(require("mongoose"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const UserSchema_1 = require("../../../database/models/user/UserSchema");
 const Token_1 = require("../../../infra/http/shared/middlewares/Token");
 class UserDataProvider {
     register(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            const newUser = new UserSchema_1.User(Object.assign({ acessToken: (0, Token_1.genToken)(user === null || user === void 0 ? void 0 : user.id) }, user));
-            const saveUser = yield newUser.save();
-            if (!saveUser) {
+            const newUser = new UserSchema_1.User(user);
+            const saveUser = yield (newUser === null || newUser === void 0 ? void 0 : newUser.save());
+            const userObjectId = new mongoose_1.default.Types.ObjectId(`${saveUser === null || saveUser === void 0 ? void 0 : saveUser._id}`);
+            const userObjectIdString = userObjectId.toString();
+            const updatedUser = yield (UserSchema_1.User === null || UserSchema_1.User === void 0 ? void 0 : UserSchema_1.User.findOneAndUpdate({ id: saveUser === null || saveUser === void 0 ? void 0 : saveUser.id }, { acessToken: (0, Token_1.genToken)(userObjectIdString) }));
+            if (!updatedUser) {
                 throw new Error('Unexpected error occured!');
             }
-            return saveUser;
+            return updatedUser;
         });
     }
     login({ email, password }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const loginUser = yield UserSchema_1.User.findOne({
+            const loginUser = yield (UserSchema_1.User === null || UserSchema_1.User === void 0 ? void 0 : UserSchema_1.User.findOne({
                 email: email,
-            });
+            }));
             const comparePassword = bcryptjs_1.default.compareSync(`${password}`, loginUser === null || loginUser === void 0 ? void 0 : loginUser.password);
             if (!comparePassword) {
                 throw new Error('Incorrect password!');

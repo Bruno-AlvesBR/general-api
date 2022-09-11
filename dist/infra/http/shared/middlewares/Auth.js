@@ -17,7 +17,7 @@ const authTokenApi = (request, response, next) => {
     jsonwebtoken_1.default.verify(token, `${process.env.SECRET_JWT}`, (err, decoded) => {
         if (err)
             return response.status(401).send({ error: 'Invalid token!' });
-        request.body.id = decoded === null || decoded === void 0 ? void 0 : decoded.id;
+        request.body._id = decoded === null || decoded === void 0 ? void 0 : decoded._id;
         return next();
     });
 };

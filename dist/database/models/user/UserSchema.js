@@ -35,4 +35,10 @@ const userSchema = new mongoose_1.default.Schema({
     cep: { type: Number },
     acessToken: { type: String },
 }, { timestamps: true });
+userSchema.set('toJSON', {
+    transform(_, ret) {
+        ret.id = ret._id;
+        delete ret.__v;
+    },
+});
 exports.User = mongoose_1.default.model('User', userSchema);

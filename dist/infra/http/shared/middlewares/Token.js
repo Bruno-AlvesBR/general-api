@@ -7,9 +7,9 @@ exports.genToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const genToken = (id) => {
-    if (id) {
-        const acessToken = jsonwebtoken_1.default.sign({ id }, `${process.env.SECRET_JWT}`);
+const genToken = (_id) => {
+    if (_id) {
+        const acessToken = jsonwebtoken_1.default.sign({ _id }, `${process.env.SECRET_JWT}`);
         return acessToken;
     }
 };

@@ -1,27 +1,35 @@
+import mongoose from 'mongoose';
+import bcryptjs from 'bcryptjs';
+
 import IUserData from '@domain/user/data';
 import { IUserProps } from '@domain/user/entities/IUserEntity';
 import { User } from '../../../database/models/user/UserSchema';
-import bcryptjs from 'bcryptjs';
 import { genToken } from '../../../infra/http/shared/middlewares/Token';
 
 export default class UserDataProvider implements IUserData {
   public async register(user: IUserProps) {
-    const newUser = new User({
-      acessToken: genToken(user?.id),
-      ...user,
-    });
+    const newUser = new User(user);
+    const saveUser = await newUser?.save();
 
-    const saveUser = await newUser.save();
+    const userObjectId = new mongoose.Types.ObjectId(
+      `${saveUser?._id}`
+    );
+    const userObjectIdString = userObjectId.toString();
 
-    if (!saveUser) {
+    const updatedUser = await User?.findOneAndUpdate(
+      { id: saveUser?.id },
+      { acessToken: genToken(userObjectIdString) }
+    );
+
+    if (!updatedUser) {
       throw new Error('Unexpected error occured!');
     }
 
-    return saveUser;
+    return updatedUser;
   }
 
   public async login({ email, password }: IUserProps) {
-    const loginUser = await User.findOne({
+    const loginUser = await User?.findOne({
       email: email,
     });
 

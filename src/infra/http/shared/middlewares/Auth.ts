@@ -28,7 +28,7 @@ const authTokenApi = (
       if (err)
         return response.status(401).send({ error: 'Invalid token!' });
 
-      request.body.id = decoded?.id;
+      request.body._id = decoded?._id;
 
       return next();
     }

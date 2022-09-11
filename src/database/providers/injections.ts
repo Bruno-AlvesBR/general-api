@@ -8,6 +8,8 @@ import ProductDataProvider from './products';
 import UserDataProvider from './user';
 import VideoDataProvider from './videos';
 import IVideoData from '@domain/videos/data';
+import ChartDataProvider from './chart';
+import IChartData from '@domain/chart/data';
 
 container.registerSingleton<IPodcastData>(
   'PodcastDataProvider',
@@ -27,4 +29,9 @@ container.registerSingleton<IUserData>(
 container.registerSingleton<IVideoData>(
   'VideoDataProvider',
   VideoDataProvider
+);
+
+container.registerSingleton<IChartData>(
+  'ChartDataProvider',
+  ChartDataProvider
 );

@@ -5,5 +5,6 @@ export default interface IProductData {
   update(data: IFoodProps): Promise<IFoodProps>;
   findAll(): Promise<IFoodProps[]>;
   findBySlug(slug: string): Promise<IFoodProps>;
+  findById(id?: string): Promise<IFoodProps>;
   delete(id: string): Promise<IFoodProps>;
 }

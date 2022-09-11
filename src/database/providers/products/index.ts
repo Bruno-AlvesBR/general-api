@@ -52,6 +52,18 @@ export default class ProductDataProvider implements IProductData {
     return findFoodBySlug;
   }
 
+  public async findById(id: string) {
+    const findFoodById = await Food?.findOne({
+      id,
+    });
+
+    if (!findFoodById) {
+      throw new Error('Cannot find product by id');
+    }
+
+    return findFoodById;
+  }
+
   public async delete(id: string) {
     const findAndDelete = await Food?.findOneAndDelete({
       id,

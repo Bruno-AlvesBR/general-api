@@ -50,6 +50,17 @@ class ProductDataProvider {
             return findFoodBySlug;
         });
     }
+    findById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const findFoodById = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOne({
+                id,
+            }));
+            if (!findFoodById) {
+                throw new Error('Cannot find product by id');
+            }
+            return findFoodById;
+        });
+    }
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const findAndDelete = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOneAndDelete({

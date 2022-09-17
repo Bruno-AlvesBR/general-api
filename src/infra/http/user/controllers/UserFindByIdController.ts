@@ -20,9 +20,15 @@ export default class UserFindByIdController
     try {
       const findUser = await userFindByIdUseCase.execute(id);
 
+      if (String(findUser)?.length <= 0 && !findUser) {
+        return response
+          .status(403)
+          .json({ message: 'Cannot find user by id' });
+      }
+
       return response.status(200).json(findUser);
     } catch (err) {
-      return response.status(404).json(err);
+      return response.status(500).json(err);
     }
   }
 }

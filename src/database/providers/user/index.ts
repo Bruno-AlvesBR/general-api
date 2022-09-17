@@ -50,7 +50,7 @@ export default class UserDataProvider implements IUserData {
   }
 
   public async findById(id: string) {
-    const findUser = await User.findOne({ id });
+    const findUser = await User.findOne({ _id: id });
 
     if (!findUser) {
       throw new Error('Cannot find this user!');

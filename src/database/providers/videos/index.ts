@@ -3,8 +3,8 @@ import { IVideoProps } from '@domain/videos/entities';
 import { Video } from '../../../database/models/videos';
 
 export default class VideoDataProvider implements IVideoData {
-  public async create(props: IVideoProps): Promise<IVideoProps> {
-    const newVideo = new Video(props);
+  public async create(data: IVideoProps): Promise<IVideoProps> {
+    const newVideo = new Video<IVideoProps>(data);
 
     const saveNewVideo = await newVideo.save();
 
@@ -15,8 +15,8 @@ export default class VideoDataProvider implements IVideoData {
     return saveNewVideo ?? {};
   }
 
-  public async findAll() {
-    const findAllVideos = await Video.find();
+  public async findAll(): Promise<IVideoProps[]> {
+    const findAllVideos = await Video.find<IVideoProps>();
 
     if (!findAllVideos) {
       throw new Error('Unexpected error ocurred on find all videos');
@@ -25,8 +25,8 @@ export default class VideoDataProvider implements IVideoData {
     return findAllVideos ?? [];
   }
 
-  public async findById(id: string) {
-    const findVideo = await Video.findOne({ id });
+  public async findById(id: string): Promise<IVideoProps> {
+    const findVideo = await Video.findOne<IVideoProps>({ id });
 
     if (!findVideo) {
       throw new Error(
@@ -37,8 +37,10 @@ export default class VideoDataProvider implements IVideoData {
     return findVideo ?? {};
   }
 
-  public async delete(id: string) {
-    const deleteVideo = await Video.findOneAndDelete({ id });
+  public async delete(id: string): Promise<IVideoProps> {
+    const deleteVideo = await Video.findOneAndDelete<IVideoProps>({
+      id,
+    });
 
     if (!deleteVideo) {
       throw new Error(
@@ -46,14 +48,15 @@ export default class VideoDataProvider implements IVideoData {
       );
     }
 
-    return deleteVideo;
+    return deleteVideo ?? {};
   }
 
-  public async update(data: IVideoProps) {
-    const findAndUpdateVideo = await Video?.findOneAndUpdate(
-      { id: data?.id },
-      data
-    );
+  public async update(data: IVideoProps): Promise<IVideoProps> {
+    const findAndUpdateVideo =
+      await Video?.findOneAndUpdate<IVideoProps>(
+        { id: data?.id },
+        data
+      );
 
     if (!findAndUpdateVideo) {
       throw new Error(

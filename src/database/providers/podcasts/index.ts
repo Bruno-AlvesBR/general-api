@@ -33,7 +33,7 @@ export default class PodcastDataProvider implements IPodcastData {
   }
 
   public async findById(id: string): Promise<IPodcastProps> {
-    const findPodcast = await Podcast.findOne({ id });
+    const findPodcast = await Podcast.findOne({ _id: id });
 
     if (!findPodcast) {
       throw new Error('Cannot find podcast by id');

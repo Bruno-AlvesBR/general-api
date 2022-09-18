@@ -28,7 +28,7 @@ export default class VideoCreateController
 
       return response.status(201).json(createVideo);
     } catch (err) {
-      return response.status(403).json(err);
+      return response.status(500).json(err);
     }
   }
 }

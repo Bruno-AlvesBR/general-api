@@ -38,7 +38,7 @@ const authTokenApi = (
         return next();
       }
     );
-  }
+  } else next();
 };
 
 export default authTokenApi;

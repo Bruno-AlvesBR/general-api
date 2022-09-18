@@ -2,7 +2,7 @@ module.exports = {
   bail: true,
   verbose: true,
   clearMocks: true,
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: ['<rootDir>/src/domain/**/useCases/*.ts'],
   coverageDirectory: 'coverage',
   coverageReporters: ['text-summary', 'lcov'],

@@ -4,8 +4,8 @@ import { podcastRouter } from '../../podcast/routes';
 import { productRouter } from '../../product/routes';
 import { userRouter } from '../../user/routes';
 import { videosRouter } from '../../videos/routes';
-import authTokenApi from '../middlewares/Auth';
 import { charRouter } from '../../chart/routes';
+import authTokenApi from '../middlewares/Auth';
 
 export const routes = Router();
 

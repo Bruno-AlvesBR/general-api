@@ -18,7 +18,7 @@
       "@domain/*": ["domain/*"],
       "@infra/http/*": ["infra/http/*"],
       "@providers/database/*": ["providers/database/*"],
-      "@app": ["index.ts"]
+      "@app": ["app.ts"]
     }
   }
 }

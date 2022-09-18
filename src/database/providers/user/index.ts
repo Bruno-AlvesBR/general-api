@@ -7,8 +7,8 @@ import { User } from '../../../database/models/user/UserSchema';
 import { genToken } from '../../../infra/http/shared/middlewares/Token';
 
 export default class UserDataProvider implements IUserData {
-  public async register(user: IUserProps) {
-    const newUser = new User(user);
+  public async register(user: IUserProps): Promise<IUserProps> {
+    const newUser = new User<IUserProps>(user);
     const saveUser = await newUser?.save();
 
     const userObjectId = new mongoose.Types.ObjectId(
@@ -16,26 +16,29 @@ export default class UserDataProvider implements IUserData {
     );
     const userObjectIdString = userObjectId.toString();
 
-    const updatedUser = await User?.findOneAndUpdate(
+    const registeredUser = await User?.findOneAndUpdate<IUserProps>(
       { id: saveUser?.id },
       { acessToken: genToken(userObjectIdString) }
     );
 
-    if (!updatedUser) {
+    if (!registeredUser) {
       throw new Error('Unexpected error occured!');
     }
 
-    return updatedUser;
+    return registeredUser;
   }
 
-  public async login({ email, password }: IUserProps) {
-    const loginUser = await User?.findOne({
-      email: email,
+  public async login({
+    email,
+    password,
+  }: IUserProps): Promise<IUserProps> {
+    const loginUser = await User?.findOne<IUserProps>({
+      email,
     });
 
     const comparePassword = bcryptjs.compareSync(
       `${password}`,
-      loginUser?.password
+      loginUser?.password ? loginUser?.password : ''
     );
 
     if (!comparePassword) {
@@ -49,8 +52,8 @@ export default class UserDataProvider implements IUserData {
     return loginUser;
   }
 
-  public async findById(id: string) {
-    const findUser = await User.findOne({ _id: id });
+  public async findById(id: string): Promise<IUserProps> {
+    const findUser = await User.findOne<IUserProps>({ _id: id });
 
     if (!findUser) {
       throw new Error('Cannot find this user!');

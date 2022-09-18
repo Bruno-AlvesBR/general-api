@@ -1,4 +1,8 @@
-import mongoose, { Schema, model } from 'mongoose';
+import mongoose, { Schema, model, Document } from 'mongoose';
+
+import { IChartProps } from '@domain/chart/entities';
+
+type IChart = IChartProps & Document;
 
 const chartSchema = new Schema({
   userId: {
@@ -21,6 +25,6 @@ chartSchema.set('toJSON', {
   },
 });
 
-const Chart = model('Chart', chartSchema);
+const Chart = model<IChart>('Chart', chartSchema);
 
 export default Chart;

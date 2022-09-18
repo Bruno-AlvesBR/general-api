@@ -3,8 +3,8 @@ import { IFoodProps } from '@domain/product/entities/IFoodEntity';
 import { Food } from '../../../database/models/product/FoodSchema';
 
 export default class ProductDataProvider implements IProductData {
-  public async create(props: IFoodProps) {
-    const createProduct = new Food(props);
+  public async create(props: IFoodProps): Promise<IFoodProps> {
+    const createProduct = new Food<IFoodProps>(props);
 
     const saveProduct: IFoodProps = await createProduct.save();
 
@@ -15,8 +15,8 @@ export default class ProductDataProvider implements IProductData {
     return saveProduct;
   }
 
-  public async update(data: IFoodProps) {
-    const updateFood = await Food?.findOneAndUpdate(
+  public async update(data: IFoodProps): Promise<IFoodProps> {
+    const updateFood = await Food?.findOneAndUpdate<IFoodProps>(
       { id: data?.id },
       {
         ...data,
@@ -30,8 +30,8 @@ export default class ProductDataProvider implements IProductData {
     return updateFood;
   }
 
-  public async findAll() {
-    const findAllProducts = await Food?.find();
+  public async findAll(): Promise<IFoodProps[]> {
+    const findAllProducts = await Food?.find<IFoodProps>();
 
     if (!findAllProducts) {
       throw new Error('Unexpected error to search all products!');
@@ -40,8 +40,8 @@ export default class ProductDataProvider implements IProductData {
     return findAllProducts;
   }
 
-  public async findBySlug(slug: string) {
-    const findFoodBySlug = await Food?.findOne({
+  public async findBySlug(slug: string): Promise<IFoodProps> {
+    const findFoodBySlug = await Food?.findOne<IFoodProps>({
       slug,
     });
 
@@ -52,8 +52,8 @@ export default class ProductDataProvider implements IProductData {
     return findFoodBySlug;
   }
 
-  public async findById(id: string) {
-    const findFoodById = await Food?.findOne({
+  public async findById(id: string): Promise<IFoodProps> {
+    const findFoodById = await Food?.findOne<IFoodProps>({
       id,
     });
 
@@ -64,8 +64,8 @@ export default class ProductDataProvider implements IProductData {
     return findFoodById;
   }
 
-  public async delete(id: string) {
-    const findAndDelete = await Food?.findOneAndDelete({
+  public async delete(id: string): Promise<IFoodProps> {
+    const findAndDelete = await Food?.findOneAndDelete<IFoodProps>({
       id,
     });
 

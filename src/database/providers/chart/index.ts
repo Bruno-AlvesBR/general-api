@@ -40,10 +40,11 @@ export default class ChartDataProvider implements IChartData {
     userId,
     productId,
   }: IChartProps): Promise<IChartProps> {
-    const addNewProductToChart = await Chart.findOneAndUpdate(
-      { userId },
-      { productId }
-    );
+    const addNewProductToChart =
+      await Chart.findOneAndUpdate<IChartProps>(
+        { userId },
+        { productId }
+      );
 
     if (!addNewProductToChart) {
       throw new Error('Unexpected error on add product into chart');

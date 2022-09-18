@@ -1,5 +1,9 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import { v4 as uuid } from 'uuid';
+
+import { IUserProps } from '@domain/user/entities/IUserEntity';
+
+type IUser = IUserProps & Document;
 
 const userSchema = new mongoose.Schema(
   {
@@ -41,4 +45,4 @@ userSchema.set('toJSON', {
   },
 });
 
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.model<IUser>('User', userSchema);

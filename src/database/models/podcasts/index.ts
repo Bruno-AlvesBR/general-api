@@ -1,8 +1,18 @@
-import mongoose from 'mongoose';
+import { model, Schema, Document } from 'mongoose';
+import { v4 as uuid } from 'uuid';
 
-const PodcastSchema = new mongoose.Schema(
+import { IPodcastProps } from '@domain/podcast/entities';
+
+type IPodcast = IPodcastProps & Document;
+
+const podcastSchema = new Schema(
   {
-    id: { type: String, required: true, unique: true },
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+      default: uuid(),
+    },
     title: { type: String, required: true },
     members: [{ type: String }],
     thumbnail: { type: String },
@@ -16,4 +26,10 @@ const PodcastSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Podcast = mongoose.model('Podcast', PodcastSchema);
+podcastSchema.set('toJSON', {
+  transform(_: any, ret: any, __: any) {
+    delete ret.__v;
+  },
+});
+
+export const Podcast = model<IPodcast>('Podcast', podcastSchema);

@@ -6,14 +6,14 @@ import { IPodcastProps } from '../entities';
 
 @injectable()
 export default class PodcastFindByIdUseCase
-  implements IUseCase<any, IPodcastProps>
+  implements IUseCase<string, IPodcastProps>
 {
   constructor(
     @inject('PodcastDataProvider')
     private podcastDataProvider: IPodcastData
   ) {}
 
-  public async execute(requestDTO?: any): Promise<IPodcastProps> {
+  public async execute(requestDTO: string): Promise<IPodcastProps> {
     return this.podcastDataProvider.findById(requestDTO);
   }
 }

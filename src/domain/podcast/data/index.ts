@@ -5,5 +5,5 @@ export default interface IPodcastData {
   findAll(): Promise<IPodcastProps[]>;
   findById(id: string): Promise<IPodcastProps>;
   update(props: IPodcastBody): Promise<IPodcastProps>;
-  remove(id: string): Promise<IPodcastProps>;
+  remove(id: string): Promise<IPodcastProps | null>;
 }

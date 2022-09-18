@@ -1,11 +1,17 @@
-import mongoose from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
+import { v4 as uuid } from 'uuid';
 
-const videoSchema = new mongoose.Schema(
+import { IVideoProps } from '@domain/videos/entities';
+
+type IVideo = IVideoProps & Document;
+
+const videoSchema = new Schema(
   {
     id: {
       type: String,
       required: true,
       unique: true,
+      default: uuid(),
     },
     title: {
       type: String,
@@ -40,4 +46,10 @@ const videoSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Video = mongoose.model('Video', videoSchema);
+videoSchema.set('toJSON', {
+  transform(_: any, ret: any, __: any) {
+    delete ret.__v;
+  },
+});
+
+export const Video = model<IVideo>('Video', videoSchema);

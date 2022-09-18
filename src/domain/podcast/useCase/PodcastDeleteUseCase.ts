@@ -13,7 +13,9 @@ export default class PodcastDeleteUseCase
     private podcastDataProvider: IPodcastData
   ) {}
 
-  public async execute(requestDTO?: any): Promise<IPodcastProps> {
+  public async execute(
+    requestDTO: string
+  ): Promise<IPodcastProps | null> {
     return this.podcastDataProvider.remove(requestDTO);
   }
 }

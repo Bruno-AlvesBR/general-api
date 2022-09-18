@@ -6,8 +6,8 @@ import {
 import { Podcast } from '../../../database/models/podcasts';
 
 export default class PodcastDataProvider implements IPodcastData {
-  public async register(props: IPodcastBody) {
-    const newPodcast = new Podcast(props);
+  public async register(props: IPodcastBody): Promise<IPodcastProps> {
+    const newPodcast = new Podcast<IPodcastProps>(props);
 
     if (!newPodcast) {
       throw new Error('An error ocurred on create a new podcast');
@@ -23,7 +23,7 @@ export default class PodcastDataProvider implements IPodcastData {
   }
 
   public async findAll(): Promise<IPodcastProps[]> {
-    const findAllPodcasts = await Podcast.find();
+    const findAllPodcasts = await Podcast.find<IPodcastProps>();
 
     if (!findAllPodcasts) {
       throw new Error('An error ocurred on try find all podcasts');
@@ -33,7 +33,9 @@ export default class PodcastDataProvider implements IPodcastData {
   }
 
   public async findById(id: string): Promise<IPodcastProps> {
-    const findPodcast = await Podcast.findOne({ _id: id });
+    const findPodcast = await Podcast.findOne<IPodcastProps>({
+      _id: id,
+    });
 
     if (!findPodcast) {
       throw new Error('Cannot find podcast by id');
@@ -42,11 +44,12 @@ export default class PodcastDataProvider implements IPodcastData {
     return findPodcast;
   }
 
-  public async update(data: IPodcastBody) {
-    const updatePodcast = await Podcast.findOneAndUpdate(
-      { id: data?.id },
-      data
-    );
+  public async update(data: IPodcastBody): Promise<IPodcastProps> {
+    const updatePodcast =
+      await Podcast.findOneAndUpdate<IPodcastProps>(
+        { id: data?.id },
+        data
+      );
 
     if (!updatePodcast) {
       throw new Error('Unexpected error on update this podcast');
@@ -55,13 +58,15 @@ export default class PodcastDataProvider implements IPodcastData {
     return updatePodcast;
   }
 
-  public async remove(id: string) {
-    const deletePodcast = Podcast.findOneAndDelete({ id });
+  public async remove(id: string): Promise<IPodcastProps | null> {
+    const deletePodcast = Podcast.findOneAndDelete<IPodcastProps>({
+      _id: id,
+    });
 
     if (!deletePodcast) {
       throw new Error('Unexpected error to delete this podcast');
     }
 
-    return deletePodcast;
+    return deletePodcast ?? {};
   }
 }

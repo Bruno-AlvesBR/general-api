@@ -1,8 +1,18 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
+import { v4 as uuid } from 'uuid';
+
+import { IFoodProps } from '@domain/product/entities/IFoodEntity';
+
+type IProduct = IFoodProps & Document;
 
 const foodSchema = new mongoose.Schema(
   {
-    id: { type: String, required: true, unique: true },
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+      default: uuid(),
+    },
     title: { type: String, required: true },
     description: { type: String },
     category: [{ type: String }],
@@ -27,4 +37,10 @@ const foodSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Food = mongoose.model('Food', foodSchema);
+foodSchema.set('toJSON', {
+  transform(_: any, ret: any, __: any) {
+    delete ret.__v;
+  },
+});
+
+export const Food = mongoose.model<IProduct>('Food', foodSchema);

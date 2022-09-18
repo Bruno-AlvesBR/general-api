@@ -5,8 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Food = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
+const uuid_1 = require("uuid");
 const foodSchema = new mongoose_1.default.Schema({
-    id: { type: String, required: true, unique: true },
+    id: {
+        type: String,
+        required: true,
+        unique: true,
+        default: (0, uuid_1.v4)(),
+    },
     title: { type: String, required: true },
     description: { type: String },
     category: [{ type: String }],
@@ -28,4 +34,9 @@ const foodSchema = new mongoose_1.default.Schema({
         desktopSrc: { type: String },
     },
 }, { timestamps: true });
+foodSchema.set('toJSON', {
+    transform(_, ret, __) {
+        delete ret.__v;
+    },
+});
 exports.Food = mongoose_1.default.model('Food', foodSchema);

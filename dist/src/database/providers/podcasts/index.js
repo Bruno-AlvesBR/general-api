@@ -35,7 +35,9 @@ class PodcastDataProvider {
     }
     findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const findPodcast = yield podcasts_1.Podcast.findOne({ _id: id });
+            const findPodcast = yield podcasts_1.Podcast.findOne({
+                _id: id,
+            });
             if (!findPodcast) {
                 throw new Error('Cannot find podcast by id');
             }
@@ -53,11 +55,13 @@ class PodcastDataProvider {
     }
     remove(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const deletePodcast = podcasts_1.Podcast.findOneAndDelete({ id });
+            const deletePodcast = podcasts_1.Podcast.findOneAndDelete({
+                _id: id,
+            });
             if (!deletePodcast) {
                 throw new Error('Unexpected error to delete this podcast');
             }
-            return deletePodcast;
+            return deletePodcast !== null && deletePodcast !== void 0 ? deletePodcast : {};
         });
     }
 }

@@ -1,12 +1,15 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Podcast = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const PodcastSchema = new mongoose_1.default.Schema({
-    id: { type: String, required: true, unique: true },
+const mongoose_1 = require("mongoose");
+const uuid_1 = require("uuid");
+const podcastSchema = new mongoose_1.Schema({
+    id: {
+        type: String,
+        required: true,
+        unique: true,
+        default: (0, uuid_1.v4)(),
+    },
     title: { type: String, required: true },
     members: [{ type: String }],
     thumbnail: { type: String },
@@ -17,4 +20,9 @@ const PodcastSchema = new mongoose_1.default.Schema({
         duration: { type: Number, required: true },
     },
 }, { timestamps: true });
-exports.Podcast = mongoose_1.default.model('Podcast', PodcastSchema);
+podcastSchema.set('toJSON', {
+    transform(_, ret, __) {
+        delete ret.__v;
+    },
+});
+exports.Podcast = (0, mongoose_1.model)('Podcast', podcastSchema);

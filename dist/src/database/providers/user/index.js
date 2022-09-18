@@ -23,19 +23,19 @@ class UserDataProvider {
             const saveUser = yield (newUser === null || newUser === void 0 ? void 0 : newUser.save());
             const userObjectId = new mongoose_1.default.Types.ObjectId(`${saveUser === null || saveUser === void 0 ? void 0 : saveUser._id}`);
             const userObjectIdString = userObjectId.toString();
-            const updatedUser = yield (UserSchema_1.User === null || UserSchema_1.User === void 0 ? void 0 : UserSchema_1.User.findOneAndUpdate({ id: saveUser === null || saveUser === void 0 ? void 0 : saveUser.id }, { acessToken: (0, Token_1.genToken)(userObjectIdString) }));
-            if (!updatedUser) {
+            const registeredUser = yield (UserSchema_1.User === null || UserSchema_1.User === void 0 ? void 0 : UserSchema_1.User.findOneAndUpdate({ id: saveUser === null || saveUser === void 0 ? void 0 : saveUser.id }, { acessToken: (0, Token_1.genToken)(userObjectIdString) }));
+            if (!registeredUser) {
                 throw new Error('Unexpected error occured!');
             }
-            return updatedUser;
+            return registeredUser;
         });
     }
-    login({ email, password }) {
+    login({ email, password, }) {
         return __awaiter(this, void 0, void 0, function* () {
             const loginUser = yield (UserSchema_1.User === null || UserSchema_1.User === void 0 ? void 0 : UserSchema_1.User.findOne({
-                email: email,
+                email,
             }));
-            const comparePassword = bcryptjs_1.default.compareSync(`${password}`, loginUser === null || loginUser === void 0 ? void 0 : loginUser.password);
+            const comparePassword = bcryptjs_1.default.compareSync(`${password}`, (loginUser === null || loginUser === void 0 ? void 0 : loginUser.password) ? loginUser === null || loginUser === void 0 ? void 0 : loginUser.password : '');
             if (!comparePassword) {
                 throw new Error('Incorrect password!');
             }

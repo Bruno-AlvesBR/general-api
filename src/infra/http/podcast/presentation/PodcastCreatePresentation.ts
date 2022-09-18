@@ -14,7 +14,7 @@ export default class PodcastCreatePresentation
       PodcastRegisterUseCase
     );
 
-    const createPodcast = podcastCreateUseCase.execute({
+    const createPodcast = await podcastCreateUseCase.execute({
       id: uuid(),
       title: props?.title,
       members: props?.members,

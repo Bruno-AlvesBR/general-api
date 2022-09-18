@@ -14,7 +14,7 @@ export default class ProductCreatePresentation
       ProductCreateUseCase
     );
 
-    const createProduct = productCreateUseCase.execute({
+    const createProduct = await productCreateUseCase.execute({
       id: uuid(),
       title: props?.title,
       description: props?.description,

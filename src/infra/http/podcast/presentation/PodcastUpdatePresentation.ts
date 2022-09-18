@@ -13,7 +13,7 @@ export default class PodcastUpdatePresentation
       PodcastUpdateUseCase
     );
 
-    const updatePodcast = podcastUpdateUseCase.execute({
+    const updatePodcast = await podcastUpdateUseCase.execute({
       id: props?.id,
       title: props?.title,
       members: props?.members,

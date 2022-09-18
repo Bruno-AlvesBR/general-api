@@ -13,7 +13,7 @@ export default class ProductUpdatePresentation
       ProductUpdateUseCase
     );
 
-    const updateProduct = productUpdateUseCase.execute({
+    const updateProduct = await productUpdateUseCase.execute({
       id: props?.id,
       title: props?.title,
       description: props?.description,

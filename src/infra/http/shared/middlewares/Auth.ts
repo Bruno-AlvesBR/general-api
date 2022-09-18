@@ -6,33 +6,39 @@ const authTokenApi = (
   response: Response,
   next: NextFunction
 ) => {
-  const authTokenHeader = request.headers.authorization;
+  if (process.env.NODE_ENV !== 'test') {
+    const authTokenHeader = request.headers.authorization;
 
-  if (!authTokenHeader)
-    return response.status(401).send({ error: 'Cannot find token!' });
+    if (!authTokenHeader)
+      return response
+        .status(401)
+        .send({ error: 'Cannot find token!' });
 
-  const splitedHeaderToken = authTokenHeader.split(' ');
+    const splitedHeaderToken = authTokenHeader.split(' ');
 
-  if (splitedHeaderToken.length !== 2)
-    return response.status(401).send({ error: 'Token error!' });
+    if (splitedHeaderToken.length !== 2)
+      return response.status(401).send({ error: 'Token error!' });
 
-  const [scheme, token] = splitedHeaderToken;
+    const [scheme, token] = splitedHeaderToken;
 
-  if (!/^Bearer$/i.test(scheme))
-    return response.status(401).send({ error: 'Token malformed!' });
+    if (!/^Bearer$/i.test(scheme))
+      return response.status(401).send({ error: 'Token malformed!' });
 
-  jwt.verify(
-    token,
-    `${process.env.SECRET_JWT}`,
-    (err, decoded: any) => {
-      if (err)
-        return response.status(401).send({ error: 'Invalid token!' });
+    jwt.verify(
+      token,
+      `${process.env.SECRET_JWT}`,
+      (err, decoded: any) => {
+        if (err)
+          return response
+            .status(401)
+            .send({ error: 'Invalid token!' });
 
-      request.body._id = decoded?._id;
+        request.body._id = decoded?._id;
 
-      return next();
-    }
-  );
+        return next();
+      }
+    );
+  } else next();
 };
 
 export default authTokenApi;

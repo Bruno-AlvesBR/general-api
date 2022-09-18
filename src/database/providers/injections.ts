@@ -10,6 +10,7 @@ import VideoDataProvider from './videos';
 import IVideoData from '@domain/videos/data';
 import ChartDataProvider from './chart';
 import IChartData from '@domain/chart/data';
+import FakerVideoProvider from './fakes/FakerVideoProvider';
 
 container.registerSingleton<IPodcastData>(
   'PodcastDataProvider',
@@ -28,7 +29,9 @@ container.registerSingleton<IUserData>(
 
 container.registerSingleton<IVideoData>(
   'VideoDataProvider',
-  VideoDataProvider
+  process.env.NODE_ENV !== 'test'
+    ? VideoDataProvider
+    : FakerVideoProvider
 );
 
 container.registerSingleton<IChartData>(

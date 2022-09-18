@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-mongoose.connect(`${process.env.MONGODB_URL}`).then(() => {
-  console.log('Connected to mongodb');
-});
+if (process.env.NODE_ENV !== 'test')
+  mongoose.connect(`${process.env.MONGODB_URL}`).then(() => {
+    console.log('Connected to mongodb');
+  });

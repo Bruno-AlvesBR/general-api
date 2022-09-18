@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
-
 import IUseCase from 'core/UseCase';
+
 import IVideoData from '../data';
 import { IVideoProps } from '../entities';
 

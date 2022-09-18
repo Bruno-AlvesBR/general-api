@@ -25,7 +25,7 @@ let ProductCreatePresentation = class ProductCreatePresentation {
     handle(props) {
         return __awaiter(this, void 0, void 0, function* () {
             const productCreateUseCase = tsyringe_1.container.resolve(ProductCreateUseCase_1.default);
-            const createProduct = productCreateUseCase.execute({
+            const createProduct = yield productCreateUseCase.execute({
                 id: (0, uuid_1.v4)(),
                 title: props === null || props === void 0 ? void 0 : props.title,
                 description: props === null || props === void 0 ? void 0 : props.description,

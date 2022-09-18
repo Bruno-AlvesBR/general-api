@@ -16,15 +16,21 @@ const tsyringe_1 = require("tsyringe");
 const UserFindByIdUseCase_1 = __importDefault(require("../../../../domain/user/useCases/UserFindByIdUseCase"));
 class UserFindByIdController {
     index(request, response) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = request.params;
             const userFindByIdUseCase = tsyringe_1.container.resolve(UserFindByIdUseCase_1.default);
             try {
                 const findUser = yield userFindByIdUseCase.execute(id);
+                if (((_a = String(findUser)) === null || _a === void 0 ? void 0 : _a.length) <= 0 && !findUser) {
+                    return response
+                        .status(403)
+                        .json({ message: 'Cannot find user by id' });
+                }
                 return response.status(200).json(findUser);
             }
             catch (err) {
-                return response.status(404).json(err);
+                return response.status(500).json(err);
             }
         });
     }

@@ -25,7 +25,7 @@ let PodcastCreatePresentation = class PodcastCreatePresentation {
     handle(props) {
         return __awaiter(this, void 0, void 0, function* () {
             const podcastCreateUseCase = tsyringe_1.container.resolve(PodcastRegisterUseCase_1.default);
-            const createPodcast = podcastCreateUseCase.execute({
+            const createPodcast = yield podcastCreateUseCase.execute({
                 id: (0, uuid_1.v4)(),
                 title: props === null || props === void 0 ? void 0 : props.title,
                 members: props === null || props === void 0 ? void 0 : props.members,

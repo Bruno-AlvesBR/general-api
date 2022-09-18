@@ -47,7 +47,7 @@ class UserDataProvider {
     }
     findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const findUser = yield UserSchema_1.User.findOne({ id });
+            const findUser = yield UserSchema_1.User.findOne({ _id: id });
             if (!findUser) {
                 throw new Error('Cannot find this user!');
             }

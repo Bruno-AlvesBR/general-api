@@ -11,9 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const videos_1 = require("../../../database/models/videos");
 class VideoDataProvider {
-    create(props) {
+    create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const newVideo = new videos_1.Video(props);
+            const newVideo = new videos_1.Video(data);
             const saveNewVideo = yield newVideo.save();
             if (!saveNewVideo) {
                 throw new Error('Cannot save this video on database');
@@ -41,11 +41,13 @@ class VideoDataProvider {
     }
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const deleteVideo = yield videos_1.Video.findOneAndDelete({ id });
+            const deleteVideo = yield videos_1.Video.findOneAndDelete({
+                id,
+            });
             if (!deleteVideo) {
                 throw new Error('Cannot find and delete this video on database');
             }
-            return deleteVideo;
+            return deleteVideo !== null && deleteVideo !== void 0 ? deleteVideo : {};
         });
     }
     update(data) {

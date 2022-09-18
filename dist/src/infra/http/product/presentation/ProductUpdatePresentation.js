@@ -24,7 +24,7 @@ let ProductUpdatePresentation = class ProductUpdatePresentation {
     handle(props) {
         return __awaiter(this, void 0, void 0, function* () {
             const productUpdateUseCase = tsyringe_1.container.resolve(ProductUpdateUseCase_1.default);
-            const updateProduct = productUpdateUseCase.execute({
+            const updateProduct = yield productUpdateUseCase.execute({
                 id: props === null || props === void 0 ? void 0 : props.id,
                 title: props === null || props === void 0 ? void 0 : props.title,
                 description: props === null || props === void 0 ? void 0 : props.description,

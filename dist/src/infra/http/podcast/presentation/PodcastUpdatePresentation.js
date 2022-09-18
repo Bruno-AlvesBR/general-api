@@ -24,7 +24,7 @@ let PodcastUpdatePresentation = class PodcastUpdatePresentation {
     handle(props) {
         return __awaiter(this, void 0, void 0, function* () {
             const podcastUpdateUseCase = tsyringe_1.container.resolve(PodcastUpdateUseCase_1.default);
-            const updatePodcast = podcastUpdateUseCase.execute({
+            const updatePodcast = yield podcastUpdateUseCase.execute({
                 id: props === null || props === void 0 ? void 0 : props.id,
                 title: props === null || props === void 0 ? void 0 : props.title,
                 members: props === null || props === void 0 ? void 0 : props.members,

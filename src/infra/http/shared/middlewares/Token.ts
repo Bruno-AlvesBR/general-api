@@ -5,7 +5,7 @@ dotenv.config();
 
 const genToken = (_id?: string) => {
   if (_id) {
-    const acessToken = jwt.sign({ _id }, `${process.env.SECRET_JWT}`);
+    const acessToken = jwt.sign({ _id }, `secret`);
 
     return acessToken;
   }

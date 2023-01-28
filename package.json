@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "src/app.ts",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node .",
     "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules src/infra/http/server.ts",
     "test": "jest --no-cache"
   },

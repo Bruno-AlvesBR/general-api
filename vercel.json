@@ -1,0 +1,15 @@
+{
+    "name": "general-api",
+    "version": 2,
+    "public": true,
+    "build": {
+        "src": "src/app.ts",
+        "use": "@vercel/node"
+    },
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "src/app.ts"
+        }
+    ]
+}

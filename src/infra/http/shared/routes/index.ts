@@ -10,7 +10,7 @@ import authTokenApi from '../middlewares/Auth';
 export const routes = Router();
 
 routes.use('/user', userRouter);
-routes.use('/product', authTokenApi, productRouter);
-routes.use('/podcasts', authTokenApi, podcastRouter);
-routes.use('/videos', authTokenApi, videosRouter);
+routes.use('/product', productRouter);
+routes.use('/podcasts', podcastRouter);
+routes.use('/videos', videosRouter);
 routes.use('/chart', authTokenApi, charRouter);

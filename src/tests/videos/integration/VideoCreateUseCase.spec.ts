@@ -2,7 +2,7 @@ import { IVideoProps } from '@domain/videos/entities';
 import 'reflect-metadata';
 import request from 'supertest';
 
-import app from '../../../app';
+import app from '../../..';
 
 describe('Video Create Use Case - Integration tests', () => {
   const video: IVideoProps = {

@@ -1,15 +1,15 @@
 {
-    "name": "general-api",
     "version": 2,
-    "public": true,
-    "build": {
-        "src": "src/app.ts",
-        "use": "@vercel/node"
-    },
+    "builds": [
+        {
+            "src": "/index.ts",
+            "use": "@vercel/node"
+        }
+    ],
     "routes": [
         {
-            "src": "src/app.ts",
-            "dest": "src/app.ts"
+            "src": "/(.*)",
+            "dest": "/"
         }
     ]
 }

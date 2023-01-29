@@ -1,12 +1,12 @@
 {
   "name": "general-api",
   "version": "1.0.0",
-  "main": "src/app.js",
+  "main": "src/app.ts",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node src/app.js",
-    "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules src/app.js",
+    "start": "node src/app.ts",
+    "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules src/app.ts",
     "test": "jest --no-cache"
   },
   "dependencies": {

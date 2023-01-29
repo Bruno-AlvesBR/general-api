@@ -24,14 +24,20 @@ const authTokenApi = (
     if (!/^Bearer$/i.test(scheme))
       return response.status(401).send({ error: 'Token malformed!' });
 
-    jwt.verify(token, `secret`, (err, decoded: any) => {
-      if (err)
-        return response.status(401).send({ error: 'Invalid token!' });
+    jwt.verify(
+      token,
+      `${process.env.SECRET_JWT}`,
+      (err, decoded: any) => {
+        if (err)
+          return response
+            .status(401)
+            .send({ error: 'Invalid token!' });
 
-      request.body._id = decoded?._id;
+        request.body._id = decoded?._id;
 
-      return next();
-    });
+        return next();
+      }
+    );
   } else next();
 };
 

@@ -23,13 +23,13 @@ export default class PodcastDataProvider implements IPodcastData {
   }
 
   public async findAll(): Promise<IPodcastProps[]> {
-    const findAllPodcasts = await Podcast.find<IPodcastProps>();
+    try {
+      const findAllPodcasts = await Podcast.find<IPodcastProps>();
 
-    if (!findAllPodcasts) {
-      throw new Error('An error ocurred on try find all podcasts');
+      return findAllPodcasts;
+    } catch (err) {
+      throw new Error('Cannot find all podcasts into database');
     }
-
-    return findAllPodcasts;
   }
 
   public async findById(id: string): Promise<IPodcastProps> {

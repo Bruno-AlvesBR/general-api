@@ -13,12 +13,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
-routes.get('/', (_, res) => {
-  return res.json({ message: 'Deu bom!' });
-});
+const PORT = process.env.PORT || 3333;
 
-app.listen(3333, () => {
-  console.log(`Server is running on port: 3333`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`);
 });
 
 export default app;

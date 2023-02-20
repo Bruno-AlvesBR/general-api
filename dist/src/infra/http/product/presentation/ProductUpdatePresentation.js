@@ -20,20 +20,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const tsyringe_1 = require("tsyringe");
 const ProductUpdateUseCase_1 = __importDefault(require("../../../../domain/product/useCases/ProductUpdateUseCase"));
+const priceFormat_1 = require("../../../../core/utils/priceFormat");
 let ProductUpdatePresentation = class ProductUpdatePresentation {
     handle(props) {
         return __awaiter(this, void 0, void 0, function* () {
             const productUpdateUseCase = tsyringe_1.container.resolve(ProductUpdateUseCase_1.default);
+            const { price, newPriceDiscount, pricePerMonth } = (0, priceFormat_1.formatPrice)({
+                price: Number(props === null || props === void 0 ? void 0 : props.priceNumber) || 0,
+                discountPercentage: props === null || props === void 0 ? void 0 : props.discountPercentage,
+                installment: props === null || props === void 0 ? void 0 : props.monthInstallment,
+                isPromotion: props === null || props === void 0 ? void 0 : props.isPromotion,
+            });
             const updateProduct = yield productUpdateUseCase.execute({
                 id: props === null || props === void 0 ? void 0 : props.id,
                 title: props === null || props === void 0 ? void 0 : props.title,
                 description: props === null || props === void 0 ? void 0 : props.description,
                 category: props === null || props === void 0 ? void 0 : props.category,
                 price: {
-                    priceNumber: props === null || props === void 0 ? void 0 : props.priceNumber,
+                    priceNumber: price,
+                    newPriceDiscount,
                     installment: {
                         monthInstallment: props === null || props === void 0 ? void 0 : props.monthInstallment,
-                        pricePerMonth: props === null || props === void 0 ? void 0 : props.pricePerMonth,
+                        pricePerMonth,
                     },
                 },
                 brand: props === null || props === void 0 ? void 0 : props.brand,
@@ -42,6 +50,8 @@ let ProductUpdatePresentation = class ProductUpdatePresentation {
                 stock: props === null || props === void 0 ? void 0 : props.stock,
                 manufacture: props === null || props === void 0 ? void 0 : props.manufacture,
                 slug: props === null || props === void 0 ? void 0 : props.slug,
+                isPromotion: props === null || props === void 0 ? void 0 : props.isPromotion,
+                discountPercentage: props === null || props === void 0 ? void 0 : props.discountPercentage,
                 image: {
                     mobileSrc: props === null || props === void 0 ? void 0 : props.mobileSrc,
                     desktopSrc: props === null || props === void 0 ? void 0 : props.desktopSrc,

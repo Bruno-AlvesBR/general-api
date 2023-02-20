@@ -17,10 +17,11 @@ const foodSchema = new mongoose_1.default.Schema({
     description: { type: String },
     category: [{ type: String }],
     price: {
-        priceNumber: { type: Number, required: true },
+        priceNumber: { type: String, required: true },
+        newPriceDiscount: { type: String },
         installment: {
             monthInstallment: { type: Number },
-            pricePerMonth: { type: Number },
+            pricePerMonth: { type: String },
         },
     },
     brand: { type: String },
@@ -33,6 +34,8 @@ const foodSchema = new mongoose_1.default.Schema({
         mobileSrc: { type: String },
         desktopSrc: { type: String },
     },
+    isPromotion: { type: Boolean, default: false },
+    discountPercentage: { type: Number },
 }, { timestamps: true });
 foodSchema.set('toJSON', {
     transform(_, ret, __) {

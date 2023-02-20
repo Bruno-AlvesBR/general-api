@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tsyringe_1 = require("tsyringe");
 const ProductFindAllUseCase_1 = __importDefault(require("../../../../domain/product/useCases/ProductFindAllUseCase"));
 class ProductFindAllController {
-    index(request, response) {
+    index(_, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const productFindAllUseCase = tsyringe_1.container.resolve(ProductFindAllUseCase_1.default);
             if (!productFindAllUseCase) {

@@ -32,13 +32,13 @@ class ProductUpdateController {
             const data = __rest(request.body, []);
             const productUpdatePresentation = tsyringe_1.container.resolve(ProductUpdatePresentation_1.default);
             try {
-                const updateFood = yield productUpdatePresentation.handle(Object.assign({ id }, data));
-                if (!updateFood) {
+                const updateProduct = yield productUpdatePresentation.handle(Object.assign({ id }, data));
+                if (!updateProduct) {
                     return response
                         .status(403)
-                        .json('An error ocurred on update food!');
+                        .json('An error ocurred on update product!');
                 }
-                return response.status(200).json(updateFood);
+                return response.status(200).json(updateProduct);
             }
             catch (err) {
                 return response.status(400).json(err);

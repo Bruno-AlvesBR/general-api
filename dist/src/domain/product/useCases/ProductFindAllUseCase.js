@@ -26,7 +26,7 @@ let ProductCreateUseCase = class ProductCreateUseCase {
     constructor(productDataProvider) {
         this.productDataProvider = productDataProvider;
     }
-    execute(requestDTO) {
+    execute() {
         return __awaiter(this, void 0, void 0, function* () {
             return this.productDataProvider.findAll();
         });

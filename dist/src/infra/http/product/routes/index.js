@@ -16,7 +16,7 @@ const productUpdateController = new ProductUpdateController_1.default();
 const productFindAllController = new ProductFindAllController_1.default();
 const productFindBySlugController = new ProductFindBySlugController_1.default();
 const productDeleteController = new ProductDeleteController_1.default();
-exports.productRouter.get('/foods', productFindAllController.index);
+exports.productRouter.get('/', productFindAllController.index);
 exports.productRouter.get('/:slug', productFindBySlugController.index);
 exports.productRouter.post('/create', productCreateController.index);
 exports.productRouter.put('/:id', productUpdateController.index);

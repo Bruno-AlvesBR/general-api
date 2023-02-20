@@ -3,15 +3,13 @@ import { container, injectable } from 'tsyringe';
 
 import { IChartProps } from '@domain/chart/entities';
 import ChartFindAllProductsUseCase from '../../../../domain/chart/useCases/ChartFindAllProductsUseCase';
-import { IFoodProps } from '@domain/product/entities/IFoodEntity';
+import { IProduct } from '@domain/product/entities';
 
 @injectable()
 export default class findAllChartProductPresentation
   implements IPresentation<IChartProps>
 {
-  public async handle({
-    userId,
-  }: IChartProps): Promise<IFoodProps[]> {
+  public async handle({ userId }: IChartProps): Promise<IProduct[]> {
     const chartFindAllUseCase = container.resolve(
       ChartFindAllProductsUseCase
     );

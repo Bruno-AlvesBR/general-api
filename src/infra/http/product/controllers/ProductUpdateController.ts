@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { IFoodProps } from '../../../../domain/product/entities/IFoodEntity';
+import { IProduct } from '../../../../domain/product/entities';
 import IController from '../../../../core/Controller';
 import ProductUpdatePresentation from '../presentation/ProductUpdatePresentation';
 
@@ -11,7 +11,7 @@ export default class ProductUpdateController
   public async index(
     request: Request,
     response: Response
-  ): Promise<Response<IFoodProps>> {
+  ): Promise<Response<IProduct>> {
     const { id } = request.params;
     const { ...data } = request.body;
     const productUpdatePresentation = container.resolve(
@@ -19,19 +19,18 @@ export default class ProductUpdateController
     );
 
     try {
-      const updateFood = await productUpdatePresentation.handle({
+      const updateProduct = await productUpdatePresentation.handle({
         id,
         ...data,
       });
 
-
-      if (!updateFood) {
+      if (!updateProduct) {
         return response
           .status(403)
-          .json('An error ocurred on update food!');
+          .json('An error ocurred on update product!');
       }
 
-      return response.status(200).json(updateFood);
+      return response.status(200).json(updateProduct);
     } catch (err) {
       return response.status(400).json(err);
     }

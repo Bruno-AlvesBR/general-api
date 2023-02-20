@@ -47,6 +47,6 @@ productSchema.set('toJSON', {
 });
 
 export const Product = mongoose.model<IProductSchema>(
-  'Foods',
+  'Products',
   productSchema
 );

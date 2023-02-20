@@ -1,10 +1,10 @@
-import { IFoodProps } from '../entities/IFoodEntity';
+import { IProduct } from '../entities';
 
 export default interface IProductData {
-  create(props: IFoodProps): Promise<IFoodProps>;
-  update(data: IFoodProps): Promise<IFoodProps>;
-  findAll(): Promise<IFoodProps[]>;
-  findBySlug(slug: string): Promise<IFoodProps>;
-  findById(id?: string): Promise<IFoodProps>;
-  delete(id: string): Promise<IFoodProps>;
+  create(props: IProduct): Promise<IProduct>;
+  update(data: IProduct): Promise<IProduct>;
+  findAll(): Promise<IProduct[]>;
+  findBySlug(slug: string): Promise<IProduct>;
+  findById(id?: string): Promise<IProduct>;
+  delete(id: string): Promise<IProduct>;
 }

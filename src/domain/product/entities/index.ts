@@ -1,4 +1,4 @@
-export interface IFoodProps {
+export interface IProduct {
   id?: string;
   title?: string;
   description?: string;
@@ -25,7 +25,7 @@ export interface IFoodProps {
   };
 }
 
-export interface IFoodCreate {
+export interface IProductCreate {
   id?: string;
   title?: string;
   description?: string;
@@ -44,6 +44,6 @@ export interface IFoodCreate {
   isPromotion?: boolean;
 }
 
-export interface IFood {
-  food?: IFoodProps;
+export interface IProduct {
+  product?: IProduct;
 }

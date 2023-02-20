@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { IFoodProps } from '../../../../domain/product/entities/IFoodEntity';
+import { IProduct } from '../../../../domain/product/entities';
 import IController from 'core/Controller';
 import ProductCreatePresentation from '../presentation/ProductCreatePresentation';
 
@@ -11,7 +11,7 @@ export default class ProductCreateController
   public async index(
     request: Request,
     response: Response
-  ): Promise<Response<IFoodProps>> {
+  ): Promise<Response<IProduct>> {
     const { ...props } = request.body;
     const productCreatePresentation = container.resolve(
       ProductCreatePresentation

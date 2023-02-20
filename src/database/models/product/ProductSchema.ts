@@ -1,11 +1,11 @@
 import mongoose, { Document } from 'mongoose';
 import { v4 as uuid } from 'uuid';
 
-import { IFoodProps } from '@domain/product/entities/IFoodEntity';
+import { IProduct } from '@domain/product/entities';
 
-type IProduct = IFoodProps & Document;
+type IProductSchema = IProduct & Document;
 
-const foodSchema = new mongoose.Schema(
+const productSchema = new mongoose.Schema(
   {
     id: {
       type: String,
@@ -40,10 +40,13 @@ const foodSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-foodSchema.set('toJSON', {
+productSchema.set('toJSON', {
   transform(_: any, ret: any, __: any) {
     delete ret.__v;
   },
 });
 
-export const Food = mongoose.model<IProduct>('Food', foodSchema);
+export const Product = mongoose.model<IProductSchema>(
+  'Products',
+  productSchema
+);

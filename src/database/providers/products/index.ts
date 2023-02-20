@@ -1,12 +1,12 @@
 import IProductData from '@domain/product/data';
-import { IFoodProps } from '@domain/product/entities/IFoodEntity';
-import { Food } from '../../../database/models/product/FoodSchema';
+import { IProduct } from '@domain/product/entities';
+import { Product } from '../../../database/models/product/ProductSchema';
 
 export default class ProductDataProvider implements IProductData {
-  public async create(props: IFoodProps): Promise<IFoodProps> {
-    const createProduct = new Food<IFoodProps>(props);
+  public async create(props: IProduct): Promise<IProduct> {
+    const createProduct = new Product<IProduct>(props);
 
-    const saveProduct: IFoodProps = await createProduct.save();
+    const saveProduct: IProduct = await createProduct.save();
 
     if (!createProduct) {
       throw new Error('Unexpected error ocurred!');
@@ -15,23 +15,23 @@ export default class ProductDataProvider implements IProductData {
     return saveProduct;
   }
 
-  public async update(data: IFoodProps): Promise<IFoodProps> {
-    const updateFood = await Food?.findOneAndUpdate<IFoodProps>(
+  public async update(data: IProduct): Promise<IProduct> {
+    const updateProduct = await Product?.findOneAndUpdate<IProduct>(
       { id: data?.id },
       {
         ...data,
       }
     );
 
-    if (!updateFood) {
-      throw new Error('Cannot update food data');
+    if (!updateProduct) {
+      throw new Error('Cannot update product data');
     }
 
-    return updateFood;
+    return updateProduct;
   }
 
-  public async findAll(): Promise<IFoodProps[]> {
-    const findAllProducts = await Food?.find<IFoodProps>();
+  public async findAll(): Promise<IProduct[]> {
+    const findAllProducts = await Product?.find<IProduct>();
 
     if (!findAllProducts) {
       throw new Error('Unexpected error to search all products!');
@@ -40,32 +40,32 @@ export default class ProductDataProvider implements IProductData {
     return findAllProducts;
   }
 
-  public async findBySlug(slug: string): Promise<IFoodProps> {
-    const findFoodBySlug = await Food?.findOne<IFoodProps>({
+  public async findBySlug(slug: string): Promise<IProduct> {
+    const findProductBySlug = await Product?.findOne<IProduct>({
       slug,
     });
 
-    if (!findFoodBySlug) {
+    if (!findProductBySlug) {
       throw new Error('Cannot find product by id');
     }
 
-    return findFoodBySlug;
+    return findProductBySlug;
   }
 
-  public async findById(id: string): Promise<IFoodProps> {
-    const findFoodById = await Food?.findOne<IFoodProps>({
+  public async findById(id: string): Promise<IProduct> {
+    const findProductById = await Product?.findOne<IProduct>({
       id,
     });
 
-    if (!findFoodById) {
+    if (!findProductById) {
       throw new Error('Cannot find product by id');
     }
 
-    return findFoodById;
+    return findProductById;
   }
 
-  public async delete(id: string): Promise<IFoodProps> {
-    const findAndDelete = await Food?.findOneAndDelete<IFoodProps>({
+  public async delete(id: string): Promise<IProduct> {
+    const findAndDelete = await Product?.findOneAndDelete<IProduct>({
       id,
     });
 

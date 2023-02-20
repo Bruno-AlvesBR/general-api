@@ -3,14 +3,14 @@ import { v4 as uuid } from 'uuid';
 
 import ProductCreateUseCase from '../../../../domain/product/useCases/ProductCreateUseCase';
 import IPresentation from 'core/Presentation';
-import { IFoodCreate } from '@domain/product/entities/IFoodEntity';
+import { IProductCreate } from '@domain/product/entities';
 import { formatPrice } from '../../../../core/utils/priceFormat';
 
 @injectable()
 export default class ProductCreatePresentation
-  implements IPresentation<IFoodCreate>
+  implements IPresentation<IProductCreate>
 {
-  public async handle(props: IFoodCreate) {
+  public async handle(props: IProductCreate) {
     const productCreateUseCase = container.resolve(
       ProductCreateUseCase
     );

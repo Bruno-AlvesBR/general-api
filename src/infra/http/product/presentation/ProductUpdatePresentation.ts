@@ -1,15 +1,15 @@
 import { container, injectable } from 'tsyringe';
 
-import { IFoodCreate } from '@domain/product/entities/IFoodEntity';
+import { IProductCreate } from '@domain/product/entities';
 import ProductUpdateUseCase from '../../../../domain/product/useCases/ProductUpdateUseCase';
 import IPresentation from '../../../../core/Presentation';
 import { formatPrice } from '../../../../core/utils/priceFormat';
 
 @injectable()
 export default class ProductUpdatePresentation
-  implements IPresentation<IFoodCreate>
+  implements IPresentation<IProductCreate>
 {
-  public async handle(props: IFoodCreate) {
+  public async handle(props: IProductCreate) {
     const productUpdateUseCase = container.resolve(
       ProductUpdateUseCase
     );

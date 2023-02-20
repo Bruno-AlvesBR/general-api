@@ -13,7 +13,7 @@ const productFindAllController = new ProductFindAllController();
 const productFindBySlugController = new ProductFindBySlugController();
 const productDeleteController = new ProductDeleteController();
 
-productRouter.get('/foods', productFindAllController.index);
+productRouter.get('/', productFindAllController.index);
 productRouter.get('/:slug', productFindBySlugController.index);
 productRouter.post('/create', productCreateController.index);
 productRouter.put('/:id', productUpdateController.index);

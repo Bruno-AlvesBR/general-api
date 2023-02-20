@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const FoodSchema_1 = require("../../../database/models/product/FoodSchema");
+const ProductSchema_1 = require("../../../database/models/product/ProductSchema");
 class ProductDataProvider {
     create(props) {
         return __awaiter(this, void 0, void 0, function* () {
-            const createProduct = new FoodSchema_1.Food(props);
+            const createProduct = new ProductSchema_1.Product(props);
             const saveProduct = yield createProduct.save();
             if (!createProduct) {
                 throw new Error('Unexpected error ocurred!');
@@ -23,16 +23,16 @@ class ProductDataProvider {
     }
     update(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const updateFood = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOneAndUpdate({ id: data === null || data === void 0 ? void 0 : data.id }, Object.assign({}, data)));
-            if (!updateFood) {
-                throw new Error('Cannot update food data');
+            const updateProduct = yield (ProductSchema_1.Product === null || ProductSchema_1.Product === void 0 ? void 0 : ProductSchema_1.Product.findOneAndUpdate({ id: data === null || data === void 0 ? void 0 : data.id }, Object.assign({}, data)));
+            if (!updateProduct) {
+                throw new Error('Cannot update product data');
             }
-            return updateFood;
+            return updateProduct;
         });
     }
     findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const findAllProducts = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.find());
+            const findAllProducts = yield (ProductSchema_1.Product === null || ProductSchema_1.Product === void 0 ? void 0 : ProductSchema_1.Product.find());
             if (!findAllProducts) {
                 throw new Error('Unexpected error to search all products!');
             }
@@ -41,29 +41,29 @@ class ProductDataProvider {
     }
     findBySlug(slug) {
         return __awaiter(this, void 0, void 0, function* () {
-            const findFoodBySlug = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOne({
+            const findProductBySlug = yield (ProductSchema_1.Product === null || ProductSchema_1.Product === void 0 ? void 0 : ProductSchema_1.Product.findOne({
                 slug,
             }));
-            if (!findFoodBySlug) {
+            if (!findProductBySlug) {
                 throw new Error('Cannot find product by id');
             }
-            return findFoodBySlug;
+            return findProductBySlug;
         });
     }
     findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const findFoodById = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOne({
+            const findProductById = yield (ProductSchema_1.Product === null || ProductSchema_1.Product === void 0 ? void 0 : ProductSchema_1.Product.findOne({
                 id,
             }));
-            if (!findFoodById) {
+            if (!findProductById) {
                 throw new Error('Cannot find product by id');
             }
-            return findFoodById;
+            return findProductById;
         });
     }
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const findAndDelete = yield (FoodSchema_1.Food === null || FoodSchema_1.Food === void 0 ? void 0 : FoodSchema_1.Food.findOneAndDelete({
+            const findAndDelete = yield (ProductSchema_1.Product === null || ProductSchema_1.Product === void 0 ? void 0 : ProductSchema_1.Product.findOneAndDelete({
                 id,
             }));
             if (!findAndDelete) {

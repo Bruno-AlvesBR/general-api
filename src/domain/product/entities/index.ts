@@ -1,13 +1,14 @@
-export interface IFoodProps {
+export interface IProduct {
   id?: string;
   title?: string;
   description?: string;
   category?: string[];
   price?: {
-    priceNumber?: number;
+    priceNumber?: string;
+    newPriceDiscount?: string;
     installment?: {
       monthInstallment?: number;
-      pricePerMonth?: number;
+      pricePerMonth?: string;
     };
   };
   brand?: string;
@@ -16,20 +17,21 @@ export interface IFoodProps {
   stock?: number;
   manufacture?: string;
   slug?: string;
+  isPromotion?: boolean;
+  discountPercentage?: number;
   image?: {
     mobileSrc?: string;
     desktopSrc?: string;
   };
 }
 
-export interface IFoodCreate {
+export interface IProductCreate {
   id?: string;
   title?: string;
   description?: string;
   category?: string[];
-  priceNumber?: number;
+  priceNumber?: string;
   monthInstallment?: number;
-  pricePerMonth?: number;
   brand?: string;
   rating?: number;
   freight?: boolean;
@@ -38,8 +40,10 @@ export interface IFoodCreate {
   slug?: string;
   mobileSrc?: string;
   desktopSrc?: string;
+  discountPercentage?: number;
+  isPromotion?: boolean;
 }
 
-export interface IFood {
-  food?: IFoodProps;
+export interface IProduct {
+  product?: IProduct;
 }

@@ -21,7 +21,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tsyringe_1 = require("tsyringe");
 const ChartFindAllProductsUseCase_1 = __importDefault(require("../../../../domain/chart/useCases/ChartFindAllProductsUseCase"));
 let findAllChartProductPresentation = class findAllChartProductPresentation {
-    handle({ userId, }) {
+    handle({ userId }) {
         return __awaiter(this, void 0, void 0, function* () {
             const chartFindAllUseCase = tsyringe_1.container.resolve(ChartFindAllProductsUseCase_1.default);
             const productsIntoChart = yield chartFindAllUseCase.execute(userId);

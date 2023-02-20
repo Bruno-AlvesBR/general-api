@@ -1,17 +1,25 @@
 import { container, injectable } from 'tsyringe';
 
-import { IFoodCreate } from '@domain/product/entities/IFoodEntity';
+import { IProductCreate } from '@domain/product/entities';
 import ProductUpdateUseCase from '../../../../domain/product/useCases/ProductUpdateUseCase';
-import IPresentation from 'core/Presentation';
+import IPresentation from '../../../../core/Presentation';
+import { formatPrice } from '../../../../core/utils/priceFormat';
 
 @injectable()
 export default class ProductUpdatePresentation
-  implements IPresentation<IFoodCreate>
+  implements IPresentation<IProductCreate>
 {
-  public async handle(props: IFoodCreate) {
+  public async handle(props: IProductCreate) {
     const productUpdateUseCase = container.resolve(
       ProductUpdateUseCase
     );
+
+    const { price, newPriceDiscount, pricePerMonth } = formatPrice({
+      price: Number(props?.priceNumber) || 0,
+      discountPercentage: props?.discountPercentage,
+      installment: props?.monthInstallment,
+      isPromotion: props?.isPromotion,
+    });
 
     const updateProduct = await productUpdateUseCase.execute({
       id: props?.id,
@@ -19,10 +27,11 @@ export default class ProductUpdatePresentation
       description: props?.description,
       category: props?.category,
       price: {
-        priceNumber: props?.priceNumber,
+        priceNumber: price,
+        newPriceDiscount,
         installment: {
           monthInstallment: props?.monthInstallment,
-          pricePerMonth: props?.pricePerMonth,
+          pricePerMonth,
         },
       },
       brand: props?.brand,
@@ -31,6 +40,8 @@ export default class ProductUpdatePresentation
       stock: props?.stock,
       manufacture: props?.manufacture,
       slug: props?.slug,
+      isPromotion: props?.isPromotion,
+      discountPercentage: props?.discountPercentage,
       image: {
         mobileSrc: props?.mobileSrc,
         desktopSrc: props?.desktopSrc,

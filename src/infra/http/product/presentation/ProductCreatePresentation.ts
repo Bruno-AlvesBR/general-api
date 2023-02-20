@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 import ProductCreateUseCase from '../../../../domain/product/useCases/ProductCreateUseCase';
 import IPresentation from 'core/Presentation';
 import { IFoodCreate } from '@domain/product/entities/IFoodEntity';
+import { formatPrice } from '../../../../core/utils/priceFormat';
 
 @injectable()
 export default class ProductCreatePresentation
@@ -14,16 +15,24 @@ export default class ProductCreatePresentation
       ProductCreateUseCase
     );
 
+    const { price, newPriceDiscount, pricePerMonth } = formatPrice({
+      price: Number(props?.priceNumber) || 0,
+      discountPercentage: props?.discountPercentage,
+      installment: props?.monthInstallment,
+      isPromotion: props?.isPromotion,
+    });
+
     const createProduct = await productCreateUseCase.execute({
       id: uuid(),
       title: props?.title,
       description: props?.description,
       category: props?.category,
       price: {
-        priceNumber: props?.priceNumber,
+        priceNumber: price,
+        newPriceDiscount,
         installment: {
           monthInstallment: props?.monthInstallment,
-          pricePerMonth: props?.pricePerMonth,
+          pricePerMonth,
         },
       },
       brand: props?.brand,
@@ -32,6 +41,8 @@ export default class ProductCreatePresentation
       stock: props?.stock,
       manufacture: props?.manufacture,
       slug: props?.slug,
+      isPromotion: props?.isPromotion,
+      discountPercentage: props?.discountPercentage,
       image: {
         mobileSrc: props?.mobileSrc,
         desktopSrc: props?.desktopSrc,

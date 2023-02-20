@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import { IFoodProps } from '../../../../domain/product/entities/IFoodEntity';
-import IController from 'core/Controller';
+import IController from '../../../../core/Controller';
 import ProductUpdatePresentation from '../presentation/ProductUpdatePresentation';
 
 export default class ProductUpdateController
@@ -23,6 +23,7 @@ export default class ProductUpdateController
         id,
         ...data,
       });
+
 
       if (!updateFood) {
         return response

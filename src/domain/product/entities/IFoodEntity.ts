@@ -4,10 +4,11 @@ export interface IFoodProps {
   description?: string;
   category?: string[];
   price?: {
-    priceNumber?: number;
+    priceNumber?: string;
+    newPriceDiscount?: string;
     installment?: {
       monthInstallment?: number;
-      pricePerMonth?: number;
+      pricePerMonth?: string;
     };
   };
   brand?: string;
@@ -16,6 +17,8 @@ export interface IFoodProps {
   stock?: number;
   manufacture?: string;
   slug?: string;
+  isPromotion?: boolean;
+  discountPercentage?: number;
   image?: {
     mobileSrc?: string;
     desktopSrc?: string;
@@ -27,9 +30,8 @@ export interface IFoodCreate {
   title?: string;
   description?: string;
   category?: string[];
-  priceNumber?: number;
+  priceNumber?: string;
   monthInstallment?: number;
-  pricePerMonth?: number;
   brand?: string;
   rating?: number;
   freight?: boolean;
@@ -38,6 +40,8 @@ export interface IFoodCreate {
   slug?: string;
   mobileSrc?: string;
   desktopSrc?: string;
+  discountPercentage?: number;
+  isPromotion?: boolean;
 }
 
 export interface IFood {

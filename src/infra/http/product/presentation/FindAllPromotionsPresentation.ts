@@ -14,25 +14,21 @@ class FindAllPromotionsPresentation
       FindAllPromotionsUseCase
     );
 
-    try {
-      const productsPromotionsCacheKey = 'products-promotions';
-      const productsPromotionsCache = await redis.get(
-        productsPromotionsCacheKey
-      );
+    const productsPromotionsCacheKey = 'products-promotions';
+    const productsPromotionsCache = await redis.get(
+      productsPromotionsCacheKey
+    );
 
-      if (productsPromotionsCache) return productsPromotionsCache;
+    if (productsPromotionsCache) return productsPromotionsCache;
 
-      const products = await findAllPromotionsUseCase.execute();
+    const products = await findAllPromotionsUseCase.execute();
 
-      await redis.set(
-        productsPromotionsCacheKey,
-        JSON.stringify(products)
-      );
+    await redis.set(
+      productsPromotionsCacheKey,
+      JSON.stringify(products)
+    );
 
-      return products;
-    } catch {
-      return [];
-    }
+    return products;
   }
 }
 

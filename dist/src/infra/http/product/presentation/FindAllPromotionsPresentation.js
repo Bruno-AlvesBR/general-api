@@ -23,18 +23,13 @@ let FindAllPromotionsPresentation = class FindAllPromotionsPresentation {
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
             const findAllPromotionsUseCase = tsyringe_1.container.resolve(FindAllPromotionsUseCase_1.FindAllPromotionsUseCase);
-            try {
-                const productsPromotionsCacheKey = 'products-promotions';
-                const productsPromotionsCache = yield redis_1.redis.get(productsPromotionsCacheKey);
-                if (productsPromotionsCache)
-                    return productsPromotionsCache;
-                const products = yield findAllPromotionsUseCase.execute();
-                yield redis_1.redis.set(productsPromotionsCacheKey, JSON.stringify(products));
-                return products;
-            }
-            catch (_a) {
-                return [];
-            }
+            const productsPromotionsCacheKey = 'products-promotions';
+            const productsPromotionsCache = yield redis_1.redis.get(productsPromotionsCacheKey);
+            if (productsPromotionsCache)
+                return productsPromotionsCache;
+            const products = yield findAllPromotionsUseCase.execute();
+            yield redis_1.redis.set(productsPromotionsCacheKey, JSON.stringify(products));
+            return products;
         });
     }
 };

@@ -14,25 +14,21 @@ class FindAllReleasesPresentation
       FindAllReleasesUseCase
     );
 
-    try {
-      const productsReleasesCacheKey = 'products-releases';
-      const productsReleasesCache = await redis.get(
-        productsReleasesCacheKey
-      );
+    const productsReleasesCacheKey = 'products-releases';
+    const productsReleasesCache = await redis.get(
+      productsReleasesCacheKey
+    );
 
-      if (productsReleasesCache) return productsReleasesCache;
+    if (productsReleasesCache) return productsReleasesCache;
 
-      const products = await findAllReleasesUseCase.execute();
+    const products = await findAllReleasesUseCase.execute();
 
-      await redis.set(
-        productsReleasesCacheKey,
-        JSON.stringify(products)
-      );
+    await redis.set(
+      productsReleasesCacheKey,
+      JSON.stringify(products)
+    );
 
-      return products;
-    } catch {
-      return [];
-    }
+    return products;
   }
 }
 

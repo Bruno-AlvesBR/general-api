@@ -18,9 +18,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const VideoCreateUseCase_1 = __importDefault(require("../../../../domain/videos/useCases/VideoCreateUseCase"));
 const tsyringe_1 = require("tsyringe");
 const uuid_1 = require("uuid");
+const VideoCreateUseCase_1 = __importDefault(require("../../../../domain/videos/useCases/VideoCreateUseCase"));
 let VideoCreatePresentation = class VideoCreatePresentation {
     handle(props) {
         return __awaiter(this, void 0, void 0, function* () {

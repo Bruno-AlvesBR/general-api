@@ -8,9 +8,90 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const dayjs_1 = __importDefault(require("dayjs"));
 const ProductSchema_1 = require("../../../database/models/product/ProductSchema");
+const defaultProject = {
+    $project: {
+        _id: 0,
+        id: 1,
+        title: 1,
+        slug: 1,
+        image: {
+            mobileSrc: 1,
+            desktopSrc: 1,
+        },
+        isPromotion: 1,
+        discountPercentage: 1,
+        category: 1,
+        price: {
+            priceNumber: 1,
+            newPriceDiscount: 1,
+            installment: {
+                monthInstallment: 1,
+                pricePerMonth: 1,
+            },
+        },
+        rating: 1,
+        createdAt: 1,
+    },
+};
 class ProductDataProvider {
+    findAllPromotions() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const products = yield ProductSchema_1.Product.aggregate([
+                    {
+                        $match: {
+                            isPromotion: { $eq: true },
+                        },
+                    },
+                    defaultProject,
+                ]);
+                return products;
+            }
+            catch (_a) {
+                return [];
+            }
+        });
+    }
+    findAllReleases() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const products = yield ProductSchema_1.Product.aggregate([
+                    {
+                        $match: {
+                            createdAt: {
+                                $gte: (0, dayjs_1.default)().subtract(2, 'day').toDate(),
+                            },
+                        },
+                    },
+                    defaultProject,
+                ]);
+                return products;
+            }
+            catch (_a) {
+                return [];
+            }
+        });
+    }
+    findAllByCategory(category) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const products = ProductSchema_1.Product.aggregate([
+                    { $match: { category } },
+                    defaultProject,
+                ]);
+                return products;
+            }
+            catch (_a) {
+                return [];
+            }
+        });
+    }
     create(props) {
         return __awaiter(this, void 0, void 0, function* () {
             const createProduct = new ProductSchema_1.Product(props);

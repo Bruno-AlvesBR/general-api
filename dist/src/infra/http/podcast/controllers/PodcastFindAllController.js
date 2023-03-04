@@ -8,21 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const tsyringe_1 = require("tsyringe");
-const PodcastFindAllUseCase_1 = __importDefault(require("../../../../domain/podcast/useCase/PodcastFindAllUseCase"));
+const PodcastFindAllPresentation_1 = require("../presentation/PodcastFindAllPresentation");
 class PodcastFindAllController {
-    index(request, response) {
+    index(_, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const podcastFindAllUseCase = tsyringe_1.container.resolve(PodcastFindAllUseCase_1.default);
+            const podcastFindAllPresentation = tsyringe_1.container.resolve(PodcastFindAllPresentation_1.PodcastFindAllPresentation);
             try {
-                const findAllPodcasts = yield podcastFindAllUseCase.execute();
-                if (!findAllPodcasts) {
-                    return response.status(400).json('Cannot find all podcasts');
-                }
+                const findAllPodcasts = yield podcastFindAllPresentation.handle();
                 return response.status(200).json(findAllPodcasts);
             }
             catch (err) {

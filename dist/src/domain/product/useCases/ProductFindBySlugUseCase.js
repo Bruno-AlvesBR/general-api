@@ -22,6 +22,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const tsyringe_1 = require("tsyringe");
+const data_1 = require("../data");
 let ProductFindBySlugUseCase = class ProductFindBySlugUseCase {
     constructor(productDataProvider) {
         this.productDataProvider = productDataProvider;
@@ -35,6 +36,6 @@ let ProductFindBySlugUseCase = class ProductFindBySlugUseCase {
 ProductFindBySlugUseCase = __decorate([
     (0, tsyringe_1.injectable)(),
     __param(0, (0, tsyringe_1.inject)('ProductDataProvider')),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [data_1.IProductData])
 ], ProductFindBySlugUseCase);
 exports.default = ProductFindBySlugUseCase;

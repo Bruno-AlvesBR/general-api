@@ -9,24 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FindAllByCategoryController = void 0;
 const tsyringe_1 = require("tsyringe");
-const UserLoginPresentation_1 = require("../presentation/UserLoginPresentation");
-class UserLoginController {
+const FindAllByCategoryUseCase_1 = require("../../../../domain/product/useCases/FindAllByCategoryUseCase");
+class FindAllByCategoryController {
     index(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { email, password } = request.body;
-            const userLoginUsePresentation = tsyringe_1.container.resolve(UserLoginPresentation_1.UserLoginPresentation);
+            const findAllByCategoryUseCase = tsyringe_1.container.resolve(FindAllByCategoryUseCase_1.FindAllByCategoryUseCase);
+            const { category } = request.params;
             try {
-                const userLogin = yield userLoginUsePresentation.handle({
-                    email,
-                    password,
-                });
-                return response.status(200).json(userLogin);
+                const products = yield findAllByCategoryUseCase.execute(category);
+                return response.json(products);
             }
-            catch (err) {
-                return response.status(403).json(err);
+            catch (error) {
+                return response.status(503).json({ message: error });
             }
         });
     }
 }
-exports.default = UserLoginController;
+exports.FindAllByCategoryController = FindAllByCategoryController;

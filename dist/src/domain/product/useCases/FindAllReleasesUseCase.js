@@ -21,21 +21,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FindAllReleasesUseCase = void 0;
 const tsyringe_1 = require("tsyringe");
 const data_1 = require("../data");
-let ProductUpdateUseCase = class ProductUpdateUseCase {
-    constructor(productDataProvider) {
-        this.productDataProvider = productDataProvider;
+let FindAllReleasesUseCase = class FindAllReleasesUseCase {
+    constructor(productProvider) {
+        this.productProvider = productProvider;
     }
-    execute(requestDTO) {
+    execute() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.productDataProvider.update(requestDTO);
+            return this.productProvider.findAllReleases();
         });
     }
 };
-ProductUpdateUseCase = __decorate([
+FindAllReleasesUseCase = __decorate([
     (0, tsyringe_1.injectable)(),
     __param(0, (0, tsyringe_1.inject)('ProductDataProvider')),
     __metadata("design:paramtypes", [data_1.IProductData])
-], ProductUpdateUseCase);
-exports.default = ProductUpdateUseCase;
+], FindAllReleasesUseCase);
+exports.FindAllReleasesUseCase = FindAllReleasesUseCase;

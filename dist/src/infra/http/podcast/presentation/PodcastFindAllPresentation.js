@@ -19,18 +19,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PodcastFindAllPresentation = void 0;
-const PodcastFindAllUseCase_1 = __importDefault(require("../../../../domain/podcast/useCase/PodcastFindAllUseCase"));
-const redis_1 = require("../../../../configs/redis");
 const tsyringe_1 = require("tsyringe");
+const PodcastFindAllUseCase_1 = __importDefault(require("../../../../domain/podcast/useCase/PodcastFindAllUseCase"));
 let PodcastFindAllPresentation = class PodcastFindAllPresentation {
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
             const podcastFindAllUseCase = tsyringe_1.container.resolve(PodcastFindAllUseCase_1.default);
-            const syncCache = yield redis_1.redis.get('podcast-all');
-            if (syncCache)
-                return syncCache;
             const findAllPodcasts = yield podcastFindAllUseCase.execute();
-            yield redis_1.redis.set('podcast-all', JSON.stringify(findAllPodcasts));
             return findAllPodcasts;
         });
     }

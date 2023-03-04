@@ -18,17 +18,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindAllReleasesPresentation = void 0;
 const tsyringe_1 = require("tsyringe");
 const FindAllReleasesUseCase_1 = require("../../../../domain/product/useCases/FindAllReleasesUseCase");
-const redis_1 = require("../../../../configs/redis");
 let FindAllReleasesPresentation = class FindAllReleasesPresentation {
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
             const findAllReleasesUseCase = tsyringe_1.container.resolve(FindAllReleasesUseCase_1.FindAllReleasesUseCase);
-            const productsReleasesCacheKey = 'products-releases';
-            const productsReleasesCache = yield redis_1.redis.get(productsReleasesCacheKey);
-            if (productsReleasesCache)
-                return productsReleasesCache;
             const products = yield findAllReleasesUseCase.execute();
-            yield redis_1.redis.set(productsReleasesCacheKey, JSON.stringify(products));
             return products;
         });
     }

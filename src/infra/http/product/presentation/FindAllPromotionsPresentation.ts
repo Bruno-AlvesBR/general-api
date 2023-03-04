@@ -2,7 +2,6 @@ import { container, injectable } from 'tsyringe';
 
 import { IProduct } from '@domain/product/entities';
 import { FindAllPromotionsUseCase } from '../../../../domain/product/useCases/FindAllPromotionsUseCase';
-import { redis } from '../../../../configs/redis';
 import IPresentation from '../../../../core/Presentation';
 
 @injectable()
@@ -14,19 +13,7 @@ class FindAllPromotionsPresentation
       FindAllPromotionsUseCase
     );
 
-    const productsPromotionsCacheKey = 'products-promotions';
-    const productsPromotionsCache = await redis.get(
-      productsPromotionsCacheKey
-    );
-
-    if (productsPromotionsCache) return productsPromotionsCache;
-
     const products = await findAllPromotionsUseCase.execute();
-
-    await redis.set(
-      productsPromotionsCacheKey,
-      JSON.stringify(products)
-    );
 
     return products;
   }

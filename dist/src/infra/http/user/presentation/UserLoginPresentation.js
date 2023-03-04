@@ -19,21 +19,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserLoginPresentation = void 0;
-const UserLoginUseCase_1 = __importDefault(require("../../../../domain/user/useCases/UserLoginUseCase"));
-const redis_1 = require("../../../../configs/redis");
 const tsyringe_1 = require("tsyringe");
+const UserLoginUseCase_1 = __importDefault(require("../../../../domain/user/useCases/UserLoginUseCase"));
 let UserLoginPresentation = class UserLoginPresentation {
     handle({ email, password }) {
         return __awaiter(this, void 0, void 0, function* () {
             const userLoginUseCase = tsyringe_1.container.resolve(UserLoginUseCase_1.default);
-            const syncCache = yield redis_1.redis.get('user-login');
-            if (syncCache)
-                return syncCache;
             const userLogin = yield userLoginUseCase.execute({
                 email,
                 password,
             });
-            yield redis_1.redis.set('user-login', JSON.stringify(userLogin));
             return userLogin;
         });
     }

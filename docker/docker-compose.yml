@@ -4,4 +4,4 @@ services:
   redis:
     image: redis
     ports:
-      - ${process.env.REDIS_KEY}:6379
+      - 6379:6379

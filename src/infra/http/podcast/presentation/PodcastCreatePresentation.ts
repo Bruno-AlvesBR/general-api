@@ -3,11 +3,14 @@ import { v4 as uuid } from 'uuid';
 
 import PodcastRegisterUseCase from '../../../../domain/podcast/useCase/PodcastRegisterUseCase';
 import IPresentation from 'core/Presentation';
-import { IPodcastBody } from '@domain/podcast/entities';
+import {
+  IPodcastBody,
+  IPodcastProps,
+} from '@domain/podcast/entities';
 
 @injectable()
 export default class PodcastCreatePresentation
-  implements IPresentation<IPodcastBody>
+  implements IPresentation<IPodcastBody, IPodcastProps>
 {
   public async handle(props: IPodcastBody) {
     const podcastCreateUseCase = container.resolve(

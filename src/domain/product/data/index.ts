@@ -1,10 +1,17 @@
 import { IProduct } from '../entities';
 
-export default interface IProductData {
-  create(props: IProduct): Promise<IProduct>;
-  update(data: IProduct): Promise<IProduct>;
-  findAll(): Promise<IProduct[]>;
-  findBySlug(slug: string): Promise<IProduct>;
-  findById(id?: string): Promise<IProduct>;
-  delete(id: string): Promise<IProduct>;
+abstract class IProductData {
+  abstract create(props: IProduct): Promise<IProduct>;
+  abstract update(data: IProduct): Promise<IProduct>;
+  abstract findAll(): Promise<IProduct[]>;
+  abstract findBySlug(slug: string): Promise<IProduct>;
+  abstract findById(id?: string): Promise<IProduct>;
+  abstract delete(id: string): Promise<IProduct>;
+  abstract findAllByCategory(
+    category: string
+  ): Promise<Array<IProduct>>;
+  abstract findAllReleases(): Promise<Array<IProduct>>;
+  abstract findAllPromotions(): Promise<Array<IProduct>>;
 }
+
+export { IProductData };

@@ -7,7 +7,7 @@ import { IProduct } from '@domain/product/entities';
 
 @injectable()
 export default class findAllChartProductPresentation
-  implements IPresentation<IChartProps>
+  implements IPresentation<IChartProps, Array<IProduct>>
 {
   public async handle({ userId }: IChartProps): Promise<IProduct[]> {
     const chartFindAllUseCase = container.resolve(

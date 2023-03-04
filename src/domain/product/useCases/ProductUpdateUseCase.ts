@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import IUseCase from '../../../core/UseCase';
-import IProductData from '../data';
+import { IProductData } from '../data';
 import { IProduct } from '../entities';
 
 @injectable()

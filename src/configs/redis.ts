@@ -5,7 +5,7 @@ const redisClient = new Redis();
 const redis = {
   set: async (key: string, value: string) => {
     try {
-      await redisClient.set(key, value);
+      await redisClient.set(key, value, 'EX', 600);
     } catch (err) {
       throw new Error('Error on save this content on redis');
     }

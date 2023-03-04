@@ -1,14 +1,17 @@
 import { container, injectable } from 'tsyringe';
 import bcryptjs from 'bcryptjs';
-import IPresentation from 'core/Presentation';
 import { v4 as uuid } from 'uuid';
 
-import { IUserLogin } from '@domain/user/entities/IUserEntity';
+import {
+  IUserLogin,
+  IUserProps,
+} from '@domain/user/entities/IUserEntity';
 import UserRegisterUseCase from '../../../../domain/user/useCases/UserRegisterUseCase';
+import IPresentation from 'core/Presentation';
 
 @injectable()
 export default class UserRegisterPresentation
-  implements IPresentation<IUserLogin>
+  implements IPresentation<IUserLogin, IUserProps>
 {
   public async handle({
     firstName,

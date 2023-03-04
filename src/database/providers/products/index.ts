@@ -1,8 +1,87 @@
-import IProductData from '@domain/product/data';
+import dayjs from 'dayjs';
+
+import { IProductData } from '@domain/product/data';
 import { IProduct } from '@domain/product/entities';
 import { Product } from '../../../database/models/product/ProductSchema';
 
+const defaultProject = {
+  $project: {
+    _id: 0,
+    id: 1,
+    title: 1,
+    slug: 1,
+    image: {
+      mobileSrc: 1,
+      desktopSrc: 1,
+    },
+    isPromotion: 1,
+    discountPercentage: 1,
+    category: 1,
+    price: {
+      priceNumber: 1,
+      newPriceDiscount: 1,
+      installment: {
+        monthInstallment: 1,
+        pricePerMonth: 1,
+      },
+    },
+    rating: 1,
+    createdAt: 1,
+  },
+};
+
 export default class ProductDataProvider implements IProductData {
+  async findAllPromotions(): Promise<IProduct[]> {
+    try {
+      const products = await Product.aggregate([
+        {
+          $match: {
+            isPromotion: { $eq: true },
+          },
+        },
+        defaultProject,
+      ]);
+
+      return products;
+    } catch {
+      return [];
+    }
+  }
+
+  async findAllReleases(): Promise<Array<IProduct>> {
+    try {
+      const products = await Product.aggregate([
+        {
+          $match: {
+            createdAt: {
+              $gte: dayjs().subtract(2, 'day').toDate(),
+            },
+          },
+        },
+        defaultProject,
+      ]);
+
+      return products;
+    } catch {
+      return [];
+    }
+  }
+
+  async findAllByCategory(
+    category: string
+  ): Promise<Array<IProduct>> {
+    try {
+      const products = Product.aggregate([
+        { $match: { category } },
+        defaultProject,
+      ]);
+
+      return products;
+    } catch {
+      return [];
+    }
+  }
+
   public async create(props: IProduct): Promise<IProduct> {
     const createProduct = new Product<IProduct>(props);
 

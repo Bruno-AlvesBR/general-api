@@ -1,12 +1,13 @@
-import { IVideoBody, IVideoProps } from '@domain/videos/entities';
-import VideoCreateUseCase from '../../../../domain/videos/useCases/VideoCreateUseCase';
-import IPresentation from 'core/Presentation';
 import { container, injectable } from 'tsyringe';
 import { v4 as uuid } from 'uuid';
 
+import { IVideoBody, IVideoProps } from '@domain/videos/entities';
+import VideoCreateUseCase from '../../../../domain/videos/useCases/VideoCreateUseCase';
+import IPresentation from 'core/Presentation';
+
 @injectable()
 export default class VideoCreatePresentation
-  implements IPresentation<IVideoBody>
+  implements IPresentation<IVideoBody, IVideoProps>
 {
   public async handle(props: IVideoBody) {
     const videoCreateUseCase = container.resolve(VideoCreateUseCase);

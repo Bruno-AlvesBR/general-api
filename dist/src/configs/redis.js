@@ -22,7 +22,7 @@ const redis = {
             yield redisClient.set(key, value, 'EX', 600);
         }
         catch (err) {
-            throw new Error('Error on save this content on redis');
+            console.error('Error on save this content on redis');
         }
     }),
     get: (value) => __awaiter(void 0, void 0, void 0, function* () {
@@ -30,12 +30,12 @@ const redis = {
             const syncRedisGet = yield redisClient.get(value);
             const cacheContent = syncRedisGet
                 ? JSON.parse(syncRedisGet)
-                : '';
+                : null;
             return cacheContent;
         }
         catch (err) {
             console.error(err);
-            return '';
+            return null;
         }
     }),
 };

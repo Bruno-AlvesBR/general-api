@@ -7,7 +7,7 @@ const redis = {
     try {
       await redisClient.set(key, value, 'EX', 600);
     } catch (err) {
-      throw new Error('Error on save this content on redis');
+      console.error('Error on save this content on redis');
     }
   },
 
@@ -17,12 +17,12 @@ const redis = {
 
       const cacheContent = syncRedisGet
         ? JSON.parse(syncRedisGet)
-        : '';
+        : null;
 
       return cacheContent;
     } catch (err) {
       console.error(err);
-      return '';
+      return null;
     }
   },
 };

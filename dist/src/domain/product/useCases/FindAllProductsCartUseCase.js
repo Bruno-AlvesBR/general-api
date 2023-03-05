@@ -20,25 +20,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FindAllProductsCartUseCase = void 0;
 const tsyringe_1 = require("tsyringe");
-const data_1 = __importDefault(require("../data"));
-let UserFindByIdUseCase = class UserFindByIdUseCase {
-    constructor(userDataProvider) {
-        this.userDataProvider = userDataProvider;
+const data_1 = require("../data");
+let FindAllProductsCartUseCase = class FindAllProductsCartUseCase {
+    constructor(productProvider) {
+        this.productProvider = productProvider;
     }
     execute(requestDTO) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.userDataProvider.findById(requestDTO);
+            return this.productProvider.findAllProductsCart(requestDTO);
         });
     }
 };
-UserFindByIdUseCase = __decorate([
+FindAllProductsCartUseCase = __decorate([
     (0, tsyringe_1.injectable)(),
-    __param(0, (0, tsyringe_1.inject)('UserDataProvider')),
-    __metadata("design:paramtypes", [data_1.default])
-], UserFindByIdUseCase);
-exports.default = UserFindByIdUseCase;
+    __param(0, (0, tsyringe_1.inject)('ProductDataProvider')),
+    __metadata("design:paramtypes", [data_1.IProductData])
+], FindAllProductsCartUseCase);
+exports.FindAllProductsCartUseCase = FindAllProductsCartUseCase;

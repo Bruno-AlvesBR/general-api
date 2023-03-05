@@ -8,6 +8,7 @@ import ProductDeleteController from '../controllers/ProductDeleteController';
 import { FindAllByCategoryController } from '../controllers/FindAllByCategoryController';
 import { FindAllReleasesController } from '../controllers/FindAllReleasesController';
 import { FindAllPromotionsController } from '../controllers/FindAllPromotionsController';
+import { FindAllProductsCartController } from '../controllers/FindAllProductsCartController';
 
 export const productRouter = Router();
 const productCreateController = new ProductCreateController();

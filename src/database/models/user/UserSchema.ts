@@ -34,6 +34,16 @@ const userSchema = new mongoose.Schema(
     admin: { type: Boolean, default: false },
     cep: { type: Number },
     acessToken: { type: String },
+    cart: {
+      products: [
+        {
+          type: String,
+          ref: 'Products',
+          unique: true,
+          require: true,
+        },
+      ],
+    },
   },
   { timestamps: true }
 );

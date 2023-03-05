@@ -12,6 +12,8 @@ abstract class IProductData {
   ): Promise<Array<IProduct>>;
   abstract findAllReleases(): Promise<Array<IProduct>>;
   abstract findAllPromotions(): Promise<Array<IProduct>>;
+
+  abstract findAllProductsCart(id: string): Promise<Array<IProduct>>;
 }
 
 export { IProductData };

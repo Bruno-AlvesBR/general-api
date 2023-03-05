@@ -1,12 +1,45 @@
 import mongoose from 'mongoose';
 import bcryptjs from 'bcryptjs';
 
-import IUserData from '@domain/user/data';
+import IUserData, { IUserUpdateDTO } from '@domain/user/data';
 import { IUserProps } from '@domain/user/entities/IUserEntity';
 import { User } from '../../../database/models/user/UserSchema';
 import { genToken } from '../../../infra/http/shared/middlewares/Token';
 
 export default class UserDataProvider implements IUserData {
+  async update({ id, data }: IUserUpdateDTO): Promise<IUserProps> {
+    try {
+      const findedUser = await User?.findOne({ id });
+
+      let concatProductsIntoCart = findedUser?.cart?.products
+        ? [...findedUser?.cart?.products]
+        : [];
+
+      data?.cart?.products?.filter((product) => {
+        !findedUser?.cart?.products?.some(
+          (oldProduct) => oldProduct === product
+        )
+          ? concatProductsIntoCart.push(product)
+          : null;
+      });
+
+      const user = await User.findOneAndUpdate(
+        { id },
+        {
+          ...data,
+          cart: {
+            products: concatProductsIntoCart,
+          },
+        }
+      );
+
+      return user as IUserProps;
+    } catch (error) {
+      console.error(`An error ocurred on update user: ${error}`);
+      return {} as IUserProps;
+    }
+  }
+
   public async register(user: IUserProps): Promise<IUserProps> {
     const newUser = new User<IUserProps>(user);
     const saveUser = await newUser?.save();

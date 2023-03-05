@@ -1,5 +1,5 @@
 export interface IUserProps {
-  id?: string;
+  id: string;
   name?: {
     firstName?: string;
     lastName?: string;
@@ -17,6 +17,9 @@ export interface IUserProps {
   createdAt?: string;
   updatedAt?: string;
   acessToken?: string;
+  cart?: {
+    products: Array<string>;
+  };
 }
 
 export interface IUserLogin {

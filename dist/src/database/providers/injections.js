@@ -10,6 +10,7 @@ const user_1 = __importDefault(require("./user"));
 const videos_1 = __importDefault(require("./videos"));
 const chart_1 = __importDefault(require("./chart"));
 const FakerVideoProvider_1 = __importDefault(require("./fakes/FakerVideoProvider"));
+const banner_1 = require("./banner");
 tsyringe_1.container.registerSingleton('PodcastDataProvider', podcasts_1.default);
 tsyringe_1.container.registerSingleton('ProductDataProvider', products_1.default);
 tsyringe_1.container.registerSingleton('UserDataProvider', user_1.default);
@@ -17,3 +18,4 @@ tsyringe_1.container.registerSingleton('VideoDataProvider', process.env.NODE_ENV
     ? videos_1.default
     : FakerVideoProvider_1.default);
 tsyringe_1.container.registerSingleton('ChartDataProvider', chart_1.default);
+tsyringe_1.container.registerSingleton('BannerDataProvider', banner_1.BannerProvider);

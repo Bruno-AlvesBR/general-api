@@ -11,6 +11,8 @@ import IVideoData from '@domain/videos/data';
 import ChartDataProvider from './chart';
 import IChartData from '@domain/chart/data';
 import FakerVideoProvider from './fakes/FakerVideoProvider';
+import { IBannerData } from '@domain/banner/data';
+import { BannerProvider } from './banner';
 
 container.registerSingleton<IPodcastData>(
   'PodcastDataProvider',
@@ -37,4 +39,9 @@ container.registerSingleton<IVideoData>(
 container.registerSingleton<IChartData>(
   'ChartDataProvider',
   ChartDataProvider
+);
+
+container.registerSingleton<IBannerData>(
+  'BannerDataProvider',
+  BannerProvider
 );

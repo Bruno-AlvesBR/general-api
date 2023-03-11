@@ -27,7 +27,7 @@ let ProductCreatePresentation = class ProductCreatePresentation {
         return __awaiter(this, void 0, void 0, function* () {
             const productCreateUseCase = tsyringe_1.container.resolve(ProductCreateUseCase_1.default);
             const { price, newPriceDiscount, pricePerMonth } = (0, priceFormat_1.formatPrice)({
-                price: Number(props === null || props === void 0 ? void 0 : props.priceNumber) || 0,
+                price: (props === null || props === void 0 ? void 0 : props.priceNumber) || '',
                 discountPercentage: props === null || props === void 0 ? void 0 : props.discountPercentage,
                 installment: props === null || props === void 0 ? void 0 : props.monthInstallment,
                 isPromotion: props === null || props === void 0 ? void 0 : props.isPromotion,

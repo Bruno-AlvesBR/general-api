@@ -16,7 +16,7 @@ export default class ProductCreatePresentation
     );
 
     const { price, newPriceDiscount, pricePerMonth } = formatPrice({
-      price: Number(props?.priceNumber) || 0,
+      price: props?.priceNumber || '',
       discountPercentage: props?.discountPercentage,
       installment: props?.monthInstallment,
       isPromotion: props?.isPromotion,

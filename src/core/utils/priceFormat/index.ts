@@ -1,5 +1,5 @@
 interface IFormatPrice {
-  price: number;
+  price: string;
   isPromotion?: boolean;
   installment?: number;
   discountPercentage?: number;
@@ -17,6 +17,11 @@ const formatPrice = ({
   installment,
   isPromotion,
 }: IFormatPrice): IPrice => {
+  const verifyPriceNaNCharacter = String(price).includes(',');
+  const formatPrice = verifyPriceNaNCharacter
+    ? Number(String(price).replace(',', '.'))
+    : Number(price);
+
   const formattedPrice = (param: number) =>
     Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -24,31 +29,31 @@ const formatPrice = ({
     }).format(param);
 
   const countDiscount = discountPercentage
-    ? (price * discountPercentage) / 100
+    ? (formatPrice * discountPercentage) / 100
     : 0;
 
   const formatFinalDiscount = (): string => {
-    const divisionResult = price - countDiscount;
+    const divisionResult = formatPrice - countDiscount;
     const divisionFormatted = formattedPrice(divisionResult);
 
     return divisionFormatted;
   };
 
-  let countInstallment = installment ? price / installment : 0;
+  let countInstallment = installment ? formatPrice / installment : 0;
 
   if (isPromotion) {
     countInstallment = installment
-      ? (price - countDiscount) / installment
+      ? (formatPrice - countDiscount) / installment
       : 0;
 
     return {
-      price: formattedPrice(price),
+      price: formattedPrice(formatPrice),
       newPriceDiscount: formatFinalDiscount(),
       pricePerMonth: formattedPrice(countInstallment),
     };
   } else {
     return {
-      price: formattedPrice(price),
+      price: formattedPrice(formatPrice),
       pricePerMonth: formattedPrice(countInstallment),
     };
   }

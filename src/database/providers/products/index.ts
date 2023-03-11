@@ -115,31 +115,28 @@ export default class ProductDataProvider implements IProductData {
     }
   }
 
-  public async create(props: IProduct): Promise<IProduct> {
-    const createProduct = new Product<IProduct>(props);
+  public async create(data: IProduct): Promise<IProduct> {
+    try {
+      const createProduct = new Product<IProduct>(data);
+      const saveProduct: IProduct = await createProduct.save();
 
-    const saveProduct: IProduct = await createProduct.save();
-
-    if (!createProduct) {
-      throw new Error('Unexpected error ocurred!');
+      return saveProduct;
+    } catch (error) {
+      throw new Error(`Unexpected error ocurred!: ${error}`);
     }
-
-    return saveProduct;
   }
 
   public async update(data: IProduct): Promise<IProduct> {
-    const updateProduct = await Product?.findOneAndUpdate<IProduct>(
-      { id: data?.id },
-      {
-        ...data,
-      }
-    );
+    try {
+      const updateProduct = await Product.findOneAndUpdate<IProduct>(
+        { id: data?.id },
+        { ...data }
+      );
 
-    if (!updateProduct) {
-      throw new Error('Cannot update product data');
+      return updateProduct || {};
+    } catch (error) {
+      throw new Error(`Cannot update product data!: ${error}`);
     }
-
-    return updateProduct;
   }
 
   public async findAll(): Promise<IProduct[]> {

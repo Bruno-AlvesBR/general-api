@@ -31,32 +31,14 @@ let ProductUpdatePresentation = class ProductUpdatePresentation {
                 installment: props === null || props === void 0 ? void 0 : props.monthInstallment,
                 isPromotion: props === null || props === void 0 ? void 0 : props.isPromotion,
             });
-            const updateProduct = yield productUpdateUseCase.execute({
-                id: props === null || props === void 0 ? void 0 : props.id,
-                title: props === null || props === void 0 ? void 0 : props.title,
-                description: props === null || props === void 0 ? void 0 : props.description,
-                category: props === null || props === void 0 ? void 0 : props.category,
-                price: {
+            const updateProduct = yield productUpdateUseCase.execute(Object.assign(Object.assign({}, props), { price: {
                     priceNumber: price,
                     newPriceDiscount,
                     installment: {
                         monthInstallment: props === null || props === void 0 ? void 0 : props.monthInstallment,
                         pricePerMonth,
                     },
-                },
-                brand: props === null || props === void 0 ? void 0 : props.brand,
-                rating: props === null || props === void 0 ? void 0 : props.rating,
-                freight: props === null || props === void 0 ? void 0 : props.freight,
-                stock: props === null || props === void 0 ? void 0 : props.stock,
-                manufacture: props === null || props === void 0 ? void 0 : props.manufacture,
-                slug: props === null || props === void 0 ? void 0 : props.slug,
-                isPromotion: props === null || props === void 0 ? void 0 : props.isPromotion,
-                discountPercentage: props === null || props === void 0 ? void 0 : props.discountPercentage,
-                image: {
-                    mobileSrc: props === null || props === void 0 ? void 0 : props.mobileSrc,
-                    desktopSrc: props === null || props === void 0 ? void 0 : props.desktopSrc,
-                },
-            });
+                } }));
             return updateProduct;
         });
     }

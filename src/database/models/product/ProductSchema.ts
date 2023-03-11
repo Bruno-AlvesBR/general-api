@@ -30,10 +30,7 @@ const productSchema = new mongoose.Schema(
     stock: { type: Number, required: true },
     manufacture: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
-    image: {
-      mobileSrc: { type: String },
-      desktopSrc: { type: String },
-    },
+    images: [{ type: String }],
     isPromotion: { type: Boolean, default: false },
     discountPercentage: { type: Number },
   },

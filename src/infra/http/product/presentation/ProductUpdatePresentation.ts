@@ -22,10 +22,7 @@ export default class ProductUpdatePresentation
     });
 
     const updateProduct = await productUpdateUseCase.execute({
-      id: props?.id,
-      title: props?.title,
-      description: props?.description,
-      category: props?.category,
+      ...props,
       price: {
         priceNumber: price,
         newPriceDiscount,
@@ -33,18 +30,6 @@ export default class ProductUpdatePresentation
           monthInstallment: props?.monthInstallment,
           pricePerMonth,
         },
-      },
-      brand: props?.brand,
-      rating: props?.rating,
-      freight: props?.freight,
-      stock: props?.stock,
-      manufacture: props?.manufacture,
-      slug: props?.slug,
-      isPromotion: props?.isPromotion,
-      discountPercentage: props?.discountPercentage,
-      image: {
-        mobileSrc: props?.mobileSrc,
-        desktopSrc: props?.desktopSrc,
       },
     });
 

@@ -19,10 +19,7 @@ export interface IProduct {
   slug?: string;
   isPromotion?: boolean;
   discountPercentage?: number;
-  image?: {
-    mobileSrc?: string;
-    desktopSrc?: string;
-  };
+  images?: Array<string>;
 }
 
 export interface IProductCreate {
@@ -38,8 +35,7 @@ export interface IProductCreate {
   stock?: number;
   manufacture?: string;
   slug?: string;
-  mobileSrc?: string;
-  desktopSrc?: string;
+  images?: Array<string>;
   discountPercentage?: number;
   isPromotion?: boolean;
 }

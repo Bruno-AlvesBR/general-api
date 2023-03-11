@@ -24,10 +24,8 @@ export default class ProductCreatePresentation
 
     const createProduct: IProduct =
       await productCreateUseCase.execute({
+        ...props,
         id: uuid(),
-        title: props?.title,
-        description: props?.description,
-        category: props?.category,
         price: {
           priceNumber: price,
           newPriceDiscount,
@@ -35,18 +33,6 @@ export default class ProductCreatePresentation
             monthInstallment: props?.monthInstallment,
             pricePerMonth,
           },
-        },
-        brand: props?.brand,
-        rating: props?.rating,
-        freight: props?.freight,
-        stock: props?.stock,
-        manufacture: props?.manufacture,
-        slug: props?.slug,
-        isPromotion: props?.isPromotion,
-        discountPercentage: props?.discountPercentage,
-        image: {
-          mobileSrc: props?.mobileSrc,
-          desktopSrc: props?.desktopSrc,
         },
       });
 

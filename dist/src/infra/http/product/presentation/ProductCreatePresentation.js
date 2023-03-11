@@ -32,32 +32,14 @@ let ProductCreatePresentation = class ProductCreatePresentation {
                 installment: props === null || props === void 0 ? void 0 : props.monthInstallment,
                 isPromotion: props === null || props === void 0 ? void 0 : props.isPromotion,
             });
-            const createProduct = yield productCreateUseCase.execute({
-                id: (0, uuid_1.v4)(),
-                title: props === null || props === void 0 ? void 0 : props.title,
-                description: props === null || props === void 0 ? void 0 : props.description,
-                category: props === null || props === void 0 ? void 0 : props.category,
-                price: {
+            const createProduct = yield productCreateUseCase.execute(Object.assign(Object.assign({}, props), { id: (0, uuid_1.v4)(), price: {
                     priceNumber: price,
                     newPriceDiscount,
                     installment: {
                         monthInstallment: props === null || props === void 0 ? void 0 : props.monthInstallment,
                         pricePerMonth,
                     },
-                },
-                brand: props === null || props === void 0 ? void 0 : props.brand,
-                rating: props === null || props === void 0 ? void 0 : props.rating,
-                freight: props === null || props === void 0 ? void 0 : props.freight,
-                stock: props === null || props === void 0 ? void 0 : props.stock,
-                manufacture: props === null || props === void 0 ? void 0 : props.manufacture,
-                slug: props === null || props === void 0 ? void 0 : props.slug,
-                isPromotion: props === null || props === void 0 ? void 0 : props.isPromotion,
-                discountPercentage: props === null || props === void 0 ? void 0 : props.discountPercentage,
-                image: {
-                    mobileSrc: props === null || props === void 0 ? void 0 : props.mobileSrc,
-                    desktopSrc: props === null || props === void 0 ? void 0 : props.desktopSrc,
-                },
-            });
+                } }));
             return createProduct;
         });
     }

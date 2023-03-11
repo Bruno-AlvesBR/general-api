@@ -125,23 +125,27 @@ class ProductDataProvider {
             }
         });
     }
-    create(props) {
+    create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const createProduct = new ProductSchema_1.Product(props);
-            const saveProduct = yield createProduct.save();
-            if (!createProduct) {
-                throw new Error('Unexpected error ocurred!');
+            try {
+                const createProduct = new ProductSchema_1.Product(data);
+                const saveProduct = yield createProduct.save();
+                return saveProduct;
             }
-            return saveProduct;
+            catch (error) {
+                throw new Error(`Unexpected error ocurred!: ${error}`);
+            }
         });
     }
     update(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const updateProduct = yield (ProductSchema_1.Product === null || ProductSchema_1.Product === void 0 ? void 0 : ProductSchema_1.Product.findOneAndUpdate({ id: data === null || data === void 0 ? void 0 : data.id }, Object.assign({}, data)));
-            if (!updateProduct) {
-                throw new Error('Cannot update product data');
+            try {
+                const updateProduct = yield ProductSchema_1.Product.findOneAndUpdate({ id: data === null || data === void 0 ? void 0 : data.id }, Object.assign({}, data));
+                return updateProduct || {};
             }
-            return updateProduct;
+            catch (error) {
+                throw new Error(`Cannot update product data!: ${error}`);
+            }
         });
     }
     findAll() {

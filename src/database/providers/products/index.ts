@@ -12,10 +12,7 @@ const defaultProject = {
     id: 1,
     title: 1,
     slug: 1,
-    image: {
-      mobileSrc: 1,
-      desktopSrc: 1,
-    },
+    images: 1,
     isPromotion: 1,
     discountPercentage: 1,
     category: 1,

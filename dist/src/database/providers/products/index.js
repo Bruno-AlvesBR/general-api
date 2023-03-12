@@ -111,7 +111,7 @@ class ProductDataProvider {
     findAllByCategory(category) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const products = ProductSchema_1.Product.aggregate([
+                const products = yield ProductSchema_1.Product.aggregate([
                     { $match: { category } },
                     defaultProject,
                 ]);

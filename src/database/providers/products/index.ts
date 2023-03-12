@@ -101,7 +101,7 @@ export default class ProductDataProvider implements IProductData {
     category: string
   ): Promise<Array<IProduct>> {
     try {
-      const products = Product.aggregate([
+      const products = await Product.aggregate([
         { $match: { category } },
         defaultProject,
       ]);

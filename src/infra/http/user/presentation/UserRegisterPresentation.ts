@@ -6,7 +6,7 @@ import {
   IUserLogin,
   IUserProps,
 } from '@domain/user/entities/IUserEntity';
-import UserRegisterUseCase from '../../../../domain/user/useCases/UserRegisterUseCase';
+import { UserRegisterUseCase } from '../../../../domain/user/useCases/UserRegisterUseCase';
 import IPresentation from 'core/Presentation';
 
 @injectable()
@@ -33,6 +33,7 @@ export default class UserRegisterPresentation
       },
       email,
       password: hashPassword,
+      cartId: uuid(),
     };
 
     const registerUser = await userRegisterUseCase.execute(

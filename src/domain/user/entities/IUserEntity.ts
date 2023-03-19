@@ -17,9 +17,7 @@ export interface IUserProps {
   createdAt?: string;
   updatedAt?: string;
   acessToken?: string;
-  cart?: {
-    products: Array<string>;
-  };
+  cartId: string;
 }
 
 export interface IUserLogin {

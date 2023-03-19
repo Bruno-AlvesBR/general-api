@@ -1,30 +1,31 @@
-import mongoose, { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-import { IChartProps } from '@domain/chart/entities';
+import { ICart } from '@domain/chart/entities';
 
-type IChart = IChartProps & Document;
+type ICartSchema = ICart & Document;
 
-const chartSchema = new Schema({
+const cartSchema = new Schema({
+  id: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   userId: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     ref: 'User',
     unique: true,
     required: true,
   },
-  productId: [{ type: String }],
+  productsId: [{ type: String, ref: 'Product' }],
 });
 
-chartSchema.set('toJSON', {
+cartSchema.set('toJSON', {
   transform(__: any, ret: any, _: any) {
-    const userIdObject = new mongoose.Types.ObjectId(
-      ret?.userId
-    ).toString();
-
-    ret._id = userIdObject;
+    ret._id = ret.id;
     delete ret.__v;
   },
 });
 
-const Chart = model<IChart>('Chart', chartSchema);
+const Cart = model<ICartSchema>('Cart', cartSchema);
 
-export default Chart;
+export { Cart };

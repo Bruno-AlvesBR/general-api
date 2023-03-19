@@ -1,17 +1,13 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { IUserProps } from '../../../../domain/user/entities/IUserEntity';
 import IController from '../../../../core/Controller';
 import { UserLoginPresentation } from '../presentation/UserLoginPresentation';
 
 export default class UserLoginController
   implements IController<Request, Response>
 {
-  public async index(
-    request: Request,
-    response: Response
-  ): Promise<Response<IUserProps>> {
+  public async index(request: Request, response: Response) {
     const { email, password } = request.body;
     const userLoginUsePresentation = container.resolve(
       UserLoginPresentation
@@ -23,7 +19,14 @@ export default class UserLoginController
         password,
       });
 
-      return response.status(200).json(userLogin);
+      const userBase64 = Buffer.from(userLogin?.id).toString(
+        'base64'
+      );
+      response.cookie('authDunkedToken', userBase64, {
+        maxAge: 86400 * 1000,
+      });
+
+      return response.json(userLogin);
     } catch (err) {
       return response.status(403).json(err);
     }

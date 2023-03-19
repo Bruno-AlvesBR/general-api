@@ -2,7 +2,7 @@ import IPresentation from 'core/Presentation';
 import { container, injectable } from 'tsyringe';
 
 import { IChartProps } from '@domain/chart/entities';
-import ChartFindAllProductsUseCase from '../../../../domain/chart/useCases/ChartFindAllProductsUseCase';
+import ChartFindAllProductsUseCase from '../../../../domain/chart/useCases/CartFindAllProductsUseCase';
 import { IProduct } from '@domain/product/entities';
 
 @injectable()

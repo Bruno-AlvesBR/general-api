@@ -1,15 +1,16 @@
 import { Router } from 'express';
 
-import AddChartProductController from '../controllers/AddChartProductController';
-import FindAllChartController from '../controllers/FindAllChartController';
-import NewChartController from '../controllers/NewChartController';
+import { AddProductToCartController } from '../controllers/AddProductToCartController';
+import { FindAllProductsCartController } from '../controllers/FindAllCartController';
+import { CartRemoveProductController } from '../controllers/CartRemoveProductController';
 
-export const charRouter = Router();
+export const cartRouter = Router();
 
-const addChartProductController = new AddChartProductController();
-const newChartController = new NewChartController();
-const findAllChartController = new FindAllChartController();
+const addProductToCartController = new AddProductToCartController();
+const findAllProductsCartController =
+  new FindAllProductsCartController();
+const cartRemoveProductController = new CartRemoveProductController();
 
-charRouter.post('/add', addChartProductController.index);
-charRouter.post('/create', newChartController.index);
-charRouter.get('/', findAllChartController.index);
+cartRouter.put('/:id', addProductToCartController.index);
+cartRouter.get('/:id', findAllProductsCartController.index);
+cartRouter.delete('/:id', cartRemoveProductController.index);

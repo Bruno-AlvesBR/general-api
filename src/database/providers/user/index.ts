@@ -9,56 +9,33 @@ import { genToken } from '../../../infra/http/shared/middlewares/Token';
 export default class UserDataProvider implements IUserData {
   async update({ id, data }: IUserUpdateDTO): Promise<IUserProps> {
     try {
-      const findedUser = await User?.findOne({ id });
-
-      let concatProductsIntoCart = findedUser?.cart?.products
-        ? [...findedUser?.cart?.products]
-        : [];
-
-      data?.cart?.products?.filter((product) => {
-        !findedUser?.cart?.products?.some(
-          (oldProduct) => oldProduct === product
-        )
-          ? concatProductsIntoCart.push(product)
-          : null;
-      });
-
-      const user = await User.findOneAndUpdate(
-        { id },
-        {
-          ...data,
-          cart: {
-            products: concatProductsIntoCart,
-          },
-        }
-      );
+      const user = await User.findOneAndUpdate({ id }, data);
 
       return user as IUserProps;
     } catch (error) {
-      console.error(`An error ocurred on update user: ${error}`);
-      return {} as IUserProps;
+      throw new Error(`An error ocurred on update user: ${error}`);
     }
   }
 
   public async register(user: IUserProps): Promise<IUserProps> {
-    const newUser = new User<IUserProps>(user);
-    const saveUser = await newUser?.save();
+    try {
+      const newUser = new User<IUserProps>(user);
+      const saveUser = await newUser?.save();
 
-    const userObjectId = new mongoose.Types.ObjectId(
-      `${saveUser?._id}`
-    );
-    const userObjectIdString = userObjectId.toString();
+      const userObjectId = new mongoose.Types.ObjectId(
+        `${saveUser?._id}`
+      );
+      const userObjectIdString = userObjectId.toString();
 
-    const registeredUser = await User?.findOneAndUpdate<IUserProps>(
-      { id: saveUser?.id },
-      { acessToken: genToken(userObjectIdString) }
-    );
+      const registeredUser = await User.findOneAndUpdate<IUserProps>(
+        { id: saveUser?.id },
+        { acessToken: genToken(userObjectIdString) }
+      );
 
-    if (!registeredUser) {
-      throw new Error('Unexpected error occured!');
+      return registeredUser || ({} as IUserProps);
+    } catch (error) {
+      throw new Error(`Cannot possible to register user: ${error}`);
     }
-
-    return registeredUser;
   }
 
   public async login({

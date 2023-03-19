@@ -1,9 +1,31 @@
-import { IChartProps } from '../entities';
+import { IProduct } from '@domain/product/entities';
+import { ICart } from '../entities';
 
-interface IChartData {
-  newChart(userId?: string): Promise<IChartProps>;
-  addChart({ userId, productId }: IChartProps): Promise<IChartProps>;
-  findAll(userId?: string): Promise<[]>;
+export interface ICartDTO {
+  id: string;
+  productsId: Array<string>;
 }
 
-export default IChartData;
+export interface ICreateCartDTO {
+  id: string;
+  userId: string;
+}
+
+export interface IRemoveProductCartDTO {
+  id: string;
+  productsId: Array<string>;
+}
+
+abstract class ICartData {
+  abstract createCart(data: ICreateCartDTO): Promise<void>;
+
+  abstract addProductToCart(data: ICartDTO): Promise<ICart>;
+
+  abstract findAll(id: string): Promise<Array<IProduct>>;
+
+  abstract removeProductIntoCart(
+    data: IRemoveProductCartDTO
+  ): Promise<ICart>;
+}
+
+export { ICartData };

@@ -8,8 +8,8 @@ import ProductDataProvider from './products';
 import UserDataProvider from './user';
 import VideoDataProvider from './videos';
 import IVideoData from '@domain/videos/data';
-import ChartDataProvider from './chart';
-import IChartData from '@domain/chart/data';
+import { CartProvider } from './cart';
+import { ICartData } from '@domain/chart/data';
 import FakerVideoProvider from './fakes/FakerVideoProvider';
 import { IBannerData } from '@domain/banner/data';
 import { BannerProvider } from './banner';
@@ -36,9 +36,9 @@ container.registerSingleton<IVideoData>(
     : FakerVideoProvider
 );
 
-container.registerSingleton<IChartData>(
-  'ChartDataProvider',
-  ChartDataProvider
+container.registerSingleton<ICartData>(
+  'CartDataProvider',
+  CartProvider
 );
 
 container.registerSingleton<IBannerData>(

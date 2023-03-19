@@ -1,4 +1,5 @@
-export interface IChartProps {
+export interface ICart {
+  id: string;
   userId: string;
-  productId: [{}];
+  productsId: Array<string>;
 }

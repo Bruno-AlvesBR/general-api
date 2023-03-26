@@ -9,28 +9,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CartRemoveProductController = void 0;
 const tsyringe_1 = require("tsyringe");
-const UserLoginPresentation_1 = require("../presentation/UserLoginPresentation");
-class UserLoginController {
+const CartRemoveProductUseCase_1 = require("../../../../domain/chart/useCases/CartRemoveProductUseCase");
+class CartRemoveProductController {
     index(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { email, password } = request.body;
-            const userLoginUsePresentation = tsyringe_1.container.resolve(UserLoginPresentation_1.UserLoginPresentation);
+            const { id } = request.params;
+            const { productsId } = request.body;
+            const cartRemoveProductUseCase = tsyringe_1.container.resolve(CartRemoveProductUseCase_1.CartRemoveProductUseCase);
             try {
-                const userLogin = yield userLoginUsePresentation.handle({
-                    email,
-                    password,
+                const cart = yield cartRemoveProductUseCase.execute({
+                    id,
+                    productsId,
                 });
-                const userBase64 = Buffer.from(userLogin === null || userLogin === void 0 ? void 0 : userLogin.id).toString('base64');
-                response.cookie('authDunkedToken', userBase64, {
-                    maxAge: 86400 * 1000,
-                });
-                return response.json(userLogin);
+                return response.json(cart);
             }
-            catch (err) {
-                return response.status(403).json(err);
+            catch (error) {
+                throw new Error(`Error on remove product into cart: ${error}`);
             }
         });
     }
 }
-exports.default = UserLoginController;
+exports.CartRemoveProductController = CartRemoveProductController;

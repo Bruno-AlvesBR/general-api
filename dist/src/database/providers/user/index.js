@@ -18,41 +18,29 @@ const UserSchema_1 = require("../../../database/models/user/UserSchema");
 const Token_1 = require("../../../infra/http/shared/middlewares/Token");
 class UserDataProvider {
     update({ id, data }) {
-        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const findedUser = yield (UserSchema_1.User === null || UserSchema_1.User === void 0 ? void 0 : UserSchema_1.User.findOne({ id }));
-                let concatProductsIntoCart = ((_a = findedUser === null || findedUser === void 0 ? void 0 : findedUser.cart) === null || _a === void 0 ? void 0 : _a.products)
-                    ? [...(_b = findedUser === null || findedUser === void 0 ? void 0 : findedUser.cart) === null || _b === void 0 ? void 0 : _b.products]
-                    : [];
-                (_d = (_c = data === null || data === void 0 ? void 0 : data.cart) === null || _c === void 0 ? void 0 : _c.products) === null || _d === void 0 ? void 0 : _d.filter((product) => {
-                    var _a, _b;
-                    !((_b = (_a = findedUser === null || findedUser === void 0 ? void 0 : findedUser.cart) === null || _a === void 0 ? void 0 : _a.products) === null || _b === void 0 ? void 0 : _b.some((oldProduct) => oldProduct === product))
-                        ? concatProductsIntoCart.push(product)
-                        : null;
-                });
-                const user = yield UserSchema_1.User.findOneAndUpdate({ id }, Object.assign(Object.assign({}, data), { cart: {
-                        products: concatProductsIntoCart,
-                    } }));
+                const user = yield UserSchema_1.User.findOneAndUpdate({ id }, data);
                 return user;
             }
             catch (error) {
-                console.error(`An error ocurred on update user: ${error}`);
-                return {};
+                throw new Error(`An error ocurred on update user: ${error}`);
             }
         });
     }
     register(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            const newUser = new UserSchema_1.User(user);
-            const saveUser = yield (newUser === null || newUser === void 0 ? void 0 : newUser.save());
-            const userObjectId = new mongoose_1.default.Types.ObjectId(`${saveUser === null || saveUser === void 0 ? void 0 : saveUser._id}`);
-            const userObjectIdString = userObjectId.toString();
-            const registeredUser = yield (UserSchema_1.User === null || UserSchema_1.User === void 0 ? void 0 : UserSchema_1.User.findOneAndUpdate({ id: saveUser === null || saveUser === void 0 ? void 0 : saveUser.id }, { acessToken: (0, Token_1.genToken)(userObjectIdString) }));
-            if (!registeredUser) {
-                throw new Error('Unexpected error occured!');
+            try {
+                const newUser = new UserSchema_1.User(user);
+                const saveUser = yield (newUser === null || newUser === void 0 ? void 0 : newUser.save());
+                const userObjectId = new mongoose_1.default.Types.ObjectId(`${saveUser === null || saveUser === void 0 ? void 0 : saveUser._id}`);
+                const userObjectIdString = userObjectId.toString();
+                const registeredUser = yield UserSchema_1.User.findOneAndUpdate({ id: saveUser === null || saveUser === void 0 ? void 0 : saveUser.id }, { acessToken: (0, Token_1.genToken)(userObjectIdString) });
+                return registeredUser || {};
             }
-            return registeredUser;
+            catch (error) {
+                throw new Error(`Cannot possible to register user: ${error}`);
+            }
         });
     }
     login({ email, password, }) {

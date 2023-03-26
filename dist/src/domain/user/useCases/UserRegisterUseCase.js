@@ -24,21 +24,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserRegisterUseCase = void 0;
 const tsyringe_1 = require("tsyringe");
 const data_1 = __importDefault(require("../data"));
+const data_2 = require("../../../domain/chart/data");
 let UserRegisterUseCase = class UserRegisterUseCase {
-    constructor(userDataProvider) {
+    constructor(userDataProvider, cartProvider) {
         this.userDataProvider = userDataProvider;
+        this.cartProvider = cartProvider;
     }
     execute(requestDTO) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.userDataProvider.register(requestDTO);
+            const user = yield this.userDataProvider.register(requestDTO);
+            yield this.cartProvider.createCart({
+                id: requestDTO === null || requestDTO === void 0 ? void 0 : requestDTO.cartId,
+                userId: requestDTO === null || requestDTO === void 0 ? void 0 : requestDTO.id,
+            });
+            return user;
         });
     }
 };
 UserRegisterUseCase = __decorate([
     (0, tsyringe_1.injectable)(),
     __param(0, (0, tsyringe_1.inject)('UserDataProvider')),
-    __metadata("design:paramtypes", [data_1.default])
+    __param(1, (0, tsyringe_1.inject)('CartDataProvider')),
+    __metadata("design:paramtypes", [data_1.default,
+        data_2.ICartData])
 ], UserRegisterUseCase);
-exports.default = UserRegisterUseCase;
+exports.UserRegisterUseCase = UserRegisterUseCase;

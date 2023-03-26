@@ -1,17 +1,14 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.charRouter = void 0;
+exports.cartRouter = void 0;
 const express_1 = require("express");
-const AddChartProductController_1 = __importDefault(require("../controllers/AddChartProductController"));
-const FindAllChartController_1 = __importDefault(require("../controllers/FindAllChartController"));
-const NewChartController_1 = __importDefault(require("../controllers/NewChartController"));
-exports.charRouter = (0, express_1.Router)();
-const addChartProductController = new AddChartProductController_1.default();
-const newChartController = new NewChartController_1.default();
-const findAllChartController = new FindAllChartController_1.default();
-exports.charRouter.post('/add', addChartProductController.index);
-exports.charRouter.post('/create', newChartController.index);
-exports.charRouter.get('/', findAllChartController.index);
+const AddProductToCartController_1 = require("../controllers/AddProductToCartController");
+const FindAllCartController_1 = require("../controllers/FindAllCartController");
+const CartRemoveProductController_1 = require("../controllers/CartRemoveProductController");
+exports.cartRouter = (0, express_1.Router)();
+const addProductToCartController = new AddProductToCartController_1.AddProductToCartController();
+const findAllProductsCartController = new FindAllCartController_1.FindAllProductsCartController();
+const cartRemoveProductController = new CartRemoveProductController_1.CartRemoveProductController();
+exports.cartRouter.put('/:id', addProductToCartController.index);
+exports.cartRouter.get('/:id', findAllProductsCartController.index);
+exports.cartRouter.delete('/:id', cartRemoveProductController.index);

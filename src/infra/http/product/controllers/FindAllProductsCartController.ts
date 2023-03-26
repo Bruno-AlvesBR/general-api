@@ -1,7 +1,8 @@
-import { IProduct } from '@domain/product/entities';
-import { FindAllProductsCartUseCase } from '../../../../domain/product/useCases/FindAllProductsCartUseCase';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
+import { IProduct } from '@domain/product/entities';
+import { CartFindAllProductsUseCase } from '../../../../domain/chart/useCases/CartFindAllProductsUseCase';
 
 class FindAllProductsCartController {
   async index(
@@ -10,7 +11,7 @@ class FindAllProductsCartController {
   ): Promise<Response<Array<IProduct>>> {
     const { userId } = request.params;
     const findAllProductsCartUseCase = container.resolve(
-      FindAllProductsCartUseCase
+      CartFindAllProductsUseCase
     );
 
     const products = await findAllProductsCartUseCase.execute(userId);

@@ -13,5 +13,5 @@ exports.routes.use('/user', routes_3.userRouter);
 exports.routes.use('/product', routes_2.productRouter);
 exports.routes.use('/podcasts', routes_1.podcastRouter);
 exports.routes.use('/videos', routes_4.videosRouter);
-exports.routes.use('/chart', routes_5.charRouter);
+exports.routes.use('/cart', routes_5.cartRouter);
 exports.routes.use('/banner', routes_6.bannerRouter);

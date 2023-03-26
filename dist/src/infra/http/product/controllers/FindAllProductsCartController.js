@@ -10,13 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindAllProductsCartController = void 0;
-const FindAllProductsCartUseCase_1 = require("../../../../domain/product/useCases/FindAllProductsCartUseCase");
 const tsyringe_1 = require("tsyringe");
+const CartFindAllProductsUseCase_1 = require("../../../../domain/chart/useCases/CartFindAllProductsUseCase");
 class FindAllProductsCartController {
     index(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const { userId } = request.params;
-            const findAllProductsCartUseCase = tsyringe_1.container.resolve(FindAllProductsCartUseCase_1.FindAllProductsCartUseCase);
+            const findAllProductsCartUseCase = tsyringe_1.container.resolve(CartFindAllProductsUseCase_1.CartFindAllProductsUseCase);
             const products = yield findAllProductsCartUseCase.execute(userId);
             return response.json(products);
         });

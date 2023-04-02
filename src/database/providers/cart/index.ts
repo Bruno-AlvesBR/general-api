@@ -88,13 +88,11 @@ class CartProvider implements ICartData {
       const findedCart = await Cart.findOne({ id: data?.id });
       let concatProductsIntoCart: Array<string> = [];
 
-      data?.productsId?.filter((product) => {
-        findedCart?.productsId?.some(
-          (oldProduct) =>
-            oldProduct !== product &&
-            concatProductsIntoCart.push(oldProduct)
-        );
-      });
+      findedCart?.productsId?.filter((product) =>
+        product === data?.productsId[0]
+          ? null
+          : concatProductsIntoCart.push(product)
+      );
 
       const cart = await Cart.findOneAndUpdate(
         { id: data?.id },

@@ -83,11 +83,9 @@ class CartProvider {
             try {
                 const findedCart = yield chart_1.Cart.findOne({ id: data === null || data === void 0 ? void 0 : data.id });
                 let concatProductsIntoCart = [];
-                (_a = data === null || data === void 0 ? void 0 : data.productsId) === null || _a === void 0 ? void 0 : _a.filter((product) => {
-                    var _a;
-                    (_a = findedCart === null || findedCart === void 0 ? void 0 : findedCart.productsId) === null || _a === void 0 ? void 0 : _a.some((oldProduct) => oldProduct !== product &&
-                        concatProductsIntoCart.push(oldProduct));
-                });
+                (_a = findedCart === null || findedCart === void 0 ? void 0 : findedCart.productsId) === null || _a === void 0 ? void 0 : _a.filter((product) => product === (data === null || data === void 0 ? void 0 : data.productsId[0])
+                    ? null
+                    : concatProductsIntoCart.push(product));
                 const cart = yield chart_1.Cart.findOneAndUpdate({ id: data === null || data === void 0 ? void 0 : data.id }, { productsId: concatProductsIntoCart });
                 return cart || {};
             }

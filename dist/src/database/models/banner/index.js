@@ -19,7 +19,7 @@ const bannerSchema = new mongoose_1.Schema({
         require: true,
         unique: true,
     },
-    type: {
+    category: {
         type: String,
         require: true,
         default: 'release',

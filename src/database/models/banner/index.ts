@@ -22,7 +22,7 @@ const bannerSchema = new Schema(
       require: true,
       unique: true,
     },
-    type: {
+    category: {
       type: String,
       require: true,
       default: 'release',

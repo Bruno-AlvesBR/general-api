@@ -12,13 +12,15 @@ class FindAllProductsCartController
     request: Request,
     response: Response
   ): Promise<Response<Array<ICart>>> {
-    const { id } = request.params;
+    const { ids } = request.query;
     const cartFindAllUseCase = container.resolve(
       CartFindAllProductsUseCase
     );
 
     try {
-      const cartProducts = await cartFindAllUseCase.execute(id);
+      const cartProducts = await cartFindAllUseCase.execute({
+        ids: ids ? String(ids) : '',
+      });
 
       return response.status(200).json(cartProducts);
     } catch (err) {

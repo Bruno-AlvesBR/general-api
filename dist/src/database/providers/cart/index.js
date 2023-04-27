@@ -11,48 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartProvider = void 0;
 const ProductSchema_1 = require("../../../database/models/product/ProductSchema");
-const chart_1 = require("../../../database/models/chart");
 class CartProvider {
-    createCart(data) {
+    findAll({ ids }) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const cart = new chart_1.Cart(data);
-                yield cart.save();
-            }
-            catch (error) {
-                throw new Error(`Error on create cart: ${error}`);
-            }
-        });
-    }
-    addProductToCart(data) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const findedCart = yield chart_1.Cart.findOne({ id: data === null || data === void 0 ? void 0 : data.id });
-                let concatProductsIntoCart = (findedCart === null || findedCart === void 0 ? void 0 : findedCart.productsId)
-                    ? [...findedCart === null || findedCart === void 0 ? void 0 : findedCart.productsId]
-                    : [];
-                (_a = data === null || data === void 0 ? void 0 : data.productsId) === null || _a === void 0 ? void 0 : _a.filter((product) => {
-                    var _a;
-                    !((_a = findedCart === null || findedCart === void 0 ? void 0 : findedCart.productsId) === null || _a === void 0 ? void 0 : _a.some((oldProduct) => oldProduct === product))
-                        ? concatProductsIntoCart.push(product)
-                        : null;
-                });
-                const cart = yield chart_1.Cart.findOneAndUpdate({ id: data === null || data === void 0 ? void 0 : data.id }, { productsId: concatProductsIntoCart });
-                return cart || {};
-            }
-            catch (error) {
-                throw new Error(`An error ocurred on add product into cart: ${error}`);
-            }
-        });
-    }
-    findAll(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const cart = yield chart_1.Cart.findOne({ id });
-                const products = yield ProductSchema_1.Product.find({
-                    id: cart === null || cart === void 0 ? void 0 : cart.productsId,
-                }).select({
+                const project = {
                     id: 1,
                     title: 1,
                     description: 1,
@@ -69,28 +32,17 @@ class CartProvider {
                         priceNumber: 1,
                         newPriceDiscount: 1,
                     },
-                });
+                };
+                if (ids) {
+                    const idArray = ids.split(',');
+                    const products = yield ProductSchema_1.Product.find({ id: idArray }).select(project);
+                    return products;
+                }
+                const products = yield ProductSchema_1.Product.find().select(project);
                 return products;
             }
             catch (error) {
                 throw new Error(`An error ocurred on find all products into cart: ${error}`);
-            }
-        });
-    }
-    removeProductIntoCart(data) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const findedCart = yield chart_1.Cart.findOne({ id: data === null || data === void 0 ? void 0 : data.id });
-                let concatProductsIntoCart = [];
-                (_a = findedCart === null || findedCart === void 0 ? void 0 : findedCart.productsId) === null || _a === void 0 ? void 0 : _a.filter((product) => product === (data === null || data === void 0 ? void 0 : data.productsId[0])
-                    ? null
-                    : concatProductsIntoCart.push(product));
-                const cart = yield chart_1.Cart.findOneAndUpdate({ id: data === null || data === void 0 ? void 0 : data.id }, { productsId: concatProductsIntoCart });
-                return cart || {};
-            }
-            catch (error) {
-                throw new Error(`An error ocurred on remove product into cart: ${error}`);
             }
         });
     }

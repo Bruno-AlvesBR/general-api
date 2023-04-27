@@ -30,37 +30,6 @@ const defaultProject = {
 };
 
 export default class ProductDataProvider implements IProductData {
-  async findAllProductsCart(id: string): Promise<Array<IProduct>> {
-    try {
-      const sla = await User.aggregate([
-        { $match: { id } },
-        {
-          $lookup: {
-            let: {
-              id: '$id',
-            },
-            from: 'Products',
-            pipeline: [
-              {
-                $match: {
-                  $expr: {
-                    $eq: ['cart.products', '$$id'],
-                  },
-                },
-              },
-            ],
-            as: 'test',
-          },
-        },
-      ]);
-
-      return sla;
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
-  }
-
   async findAllPromotions(): Promise<IProduct[]> {
     try {
       const products = await Product.aggregate([

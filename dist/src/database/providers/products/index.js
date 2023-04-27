@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dayjs_1 = __importDefault(require("dayjs"));
 const ProductSchema_1 = require("../../../database/models/product/ProductSchema");
-const UserSchema_1 = require("../../../database/models/user/UserSchema");
 const defaultProject = {
     $project: {
         _id: 0,
@@ -38,38 +37,6 @@ const defaultProject = {
     },
 };
 class ProductDataProvider {
-    findAllProductsCart(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const sla = yield UserSchema_1.User.aggregate([
-                    { $match: { id } },
-                    {
-                        $lookup: {
-                            let: {
-                                id: '$id',
-                            },
-                            from: 'Products',
-                            pipeline: [
-                                {
-                                    $match: {
-                                        $expr: {
-                                            $eq: ['cart.products', '$$id'],
-                                        },
-                                    },
-                                },
-                            ],
-                            as: 'test',
-                        },
-                    },
-                ]);
-                return sla;
-            }
-            catch (error) {
-                console.error(error);
-                return [];
-            }
-        });
-    }
     findAllPromotions() {
         return __awaiter(this, void 0, void 0, function* () {
             try {

@@ -15,10 +15,12 @@ const CartFindAllProductsUseCase_1 = require("../../../../domain/chart/useCases/
 class FindAllProductsCartController {
     index(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = request.params;
+            const { ids } = request.query;
             const cartFindAllUseCase = tsyringe_1.container.resolve(CartFindAllProductsUseCase_1.CartFindAllProductsUseCase);
             try {
-                const cartProducts = yield cartFindAllUseCase.execute(id);
+                const cartProducts = yield cartFindAllUseCase.execute({
+                    ids: ids ? String(ids) : '',
+                });
                 return response.status(200).json(cartProducts);
             }
             catch (err) {

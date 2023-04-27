@@ -2,13 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cartRouter = void 0;
 const express_1 = require("express");
-const AddProductToCartController_1 = require("../controllers/AddProductToCartController");
+const celebrate_1 = require("celebrate");
 const FindAllCartController_1 = require("../controllers/FindAllCartController");
-const CartRemoveProductController_1 = require("../controllers/CartRemoveProductController");
 exports.cartRouter = (0, express_1.Router)();
-const addProductToCartController = new AddProductToCartController_1.AddProductToCartController();
 const findAllProductsCartController = new FindAllCartController_1.FindAllProductsCartController();
-const cartRemoveProductController = new CartRemoveProductController_1.CartRemoveProductController();
-exports.cartRouter.put('/:id', addProductToCartController.index);
-exports.cartRouter.get('/:id', findAllProductsCartController.index);
-exports.cartRouter.delete('/:id', cartRemoveProductController.index);
+exports.cartRouter.get('/', (0, celebrate_1.celebrate)({
+    [celebrate_1.Segments.QUERY]: { ids: celebrate_1.Joi.string() },
+}), findAllProductsCartController.index);

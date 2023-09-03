@@ -6,6 +6,7 @@ import { userRouter } from '../../user/routes';
 import { videosRouter } from '../../videos/routes';
 import { cartRouter } from '../../chart/routes';
 import { bannerRouter } from '../../banner/routes';
+import { categoryRouter } from '../../category/routes';
 
 export const routes = Router();
 
@@ -15,3 +16,4 @@ routes.use('/podcasts', podcastRouter);
 routes.use('/videos', videosRouter);
 routes.use('/cart', cartRouter);
 routes.use('/banner', bannerRouter);
+routes.use('/categories', categoryRouter);

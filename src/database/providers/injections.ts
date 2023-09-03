@@ -13,6 +13,13 @@ import { ICartData } from '@domain/chart/data';
 import FakerVideoProvider from './fakes/FakerVideoProvider';
 import { IBannerData } from '@domain/banner/data';
 import { BannerProvider } from './banner';
+import { ICategoryData } from '@domain/categories/data';
+import { CategoryProvider } from './category';
+
+container.registerSingleton<ICategoryData>(
+  'CategoryProvider',
+  CategoryProvider
+);
 
 container.registerSingleton<IPodcastData>(
   'PodcastDataProvider',

@@ -17,7 +17,7 @@
     "paths": {
       "@domain/*": ["domain/*"],
       "@infra/http/*": ["infra/http/*"],
-      "@providers/database/*": ["providers/database/*"],
+      "@database/*": ["database/*"],
       "@app": ["app.ts"]
     }
   }

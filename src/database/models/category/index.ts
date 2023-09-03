@@ -9,7 +9,7 @@ const schema = new Schema(
   {
     id: {
       type: String,
-      default: uuid(),
+      required: true,
       unique: true,
     },
     name: { type: String, require: true },

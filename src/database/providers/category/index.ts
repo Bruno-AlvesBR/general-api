@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 import {
   ICategoryData,
   IParamsDTO,
@@ -9,7 +11,10 @@ import { CategoryModel } from '../../../database/models/category';
 class CategoryProvider implements ICategoryData {
   async createCategory(data: ICategory): Promise<ICategory> {
     try {
-      const category = await CategoryModel.create<ICategory>(data);
+      const category = await CategoryModel.create<ICategory>({
+        id: uuid(),
+        ...data,
+      });
 
       const savedCategory = await category.save();
 

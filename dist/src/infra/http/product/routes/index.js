@@ -13,6 +13,7 @@ const ProductDeleteController_1 = __importDefault(require("../controllers/Produc
 const FindAllByCategoryController_1 = require("../controllers/FindAllByCategoryController");
 const FindAllReleasesController_1 = require("../controllers/FindAllReleasesController");
 const FindAllPromotionsController_1 = require("../controllers/FindAllPromotionsController");
+const FindByFiltersController_1 = require("../controllers/FindByFiltersController");
 exports.productRouter = (0, express_1.Router)();
 const productCreateController = new ProductCreateController_1.default();
 const productUpdateController = new ProductUpdateController_1.default();
@@ -22,6 +23,8 @@ const productDeleteController = new ProductDeleteController_1.default();
 const findAllByCategoryController = new FindAllByCategoryController_1.FindAllByCategoryController();
 const findAllReleasesController = new FindAllReleasesController_1.FindAllReleasesController();
 const findAllPromotionsController = new FindAllPromotionsController_1.FindAllPromotionsController();
+const findByFiltersController = new FindByFiltersController_1.FindByFiltersController();
+exports.productRouter.get('/filters', findByFiltersController.index);
 exports.productRouter.get('/', productFindAllController.index);
 exports.productRouter.get('/releases', findAllReleasesController.index);
 exports.productRouter.get('/promotions', findAllPromotionsController.index);

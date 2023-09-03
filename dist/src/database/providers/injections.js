@@ -11,6 +11,8 @@ const videos_1 = __importDefault(require("./videos"));
 const cart_1 = require("./cart");
 const FakerVideoProvider_1 = __importDefault(require("./fakes/FakerVideoProvider"));
 const banner_1 = require("./banner");
+const category_1 = require("./category");
+tsyringe_1.container.registerSingleton('CategoryProvider', category_1.CategoryProvider);
 tsyringe_1.container.registerSingleton('PodcastDataProvider', podcasts_1.default);
 tsyringe_1.container.registerSingleton('ProductDataProvider', products_1.default);
 tsyringe_1.container.registerSingleton('UserDataProvider', user_1.default);

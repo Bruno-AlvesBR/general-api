@@ -10,12 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryProvider = void 0;
+const uuid_1 = require("uuid");
 const category_1 = require("../../../database/models/category");
 class CategoryProvider {
     createCategory(data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const category = yield category_1.CategoryModel.create(data);
+                const category = yield category_1.CategoryModel.create(Object.assign({ id: (0, uuid_1.v4)() }, data));
                 const savedCategory = yield category.save();
                 return savedCategory;
             }

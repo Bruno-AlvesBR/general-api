@@ -2,11 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryModel = void 0;
 const mongoose_1 = require("mongoose");
-const uuid_1 = require("uuid");
 const schema = new mongoose_1.Schema({
     id: {
         type: String,
-        default: (0, uuid_1.v4)(),
+        required: true,
         unique: true,
     },
     name: { type: String, require: true },

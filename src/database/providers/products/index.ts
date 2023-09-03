@@ -1,10 +1,11 @@
 import dayjs from 'dayjs';
-import { Types } from 'mongoose';
 
-import { IProductData } from '@domain/product/data';
-import { IProduct } from '@domain/product/entities';
+import {
+  IFindByFiltersDTO,
+  IProductData,
+} from '@domain/product/data';
+import { IProduct, IProductCard } from '@domain/product/entities';
 import { Product } from '../../../database/models/product/ProductSchema';
-import { User } from '../../../database/models/user/UserSchema';
 
 const defaultProject = {
   $project: {
@@ -30,6 +31,37 @@ const defaultProject = {
 };
 
 export default class ProductDataProvider implements IProductData {
+  async findByFilters({
+    limit,
+    offset,
+    ...filters
+  }: IFindByFiltersDTO): Promise<Array<IProductCard>> {
+    try {
+      const filtersArray = Object.entries(filters);
+      const verifyFilters = (filter: string) =>
+        String(filter).includes(',') ? filter.split(',') : [filter];
+
+      const filtersQuery = filtersArray.map((filter) => ({
+        $in: ['$'.concat(filter[0]), verifyFilters(filter[1])],
+      }));
+
+      const products = await Product.aggregate([
+        { $unwind: { path: '$category' } },
+        {
+          $match: {
+            $expr: { $and: filtersQuery },
+          },
+        },
+      ])
+        .skip(Number(offset))
+        .limit(Number(limit));
+
+      return products;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async findAllPromotions(): Promise<IProduct[]> {
     try {
       const products = await Product.aggregate([

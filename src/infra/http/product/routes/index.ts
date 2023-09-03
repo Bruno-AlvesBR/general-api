@@ -8,6 +8,7 @@ import ProductDeleteController from '../controllers/ProductDeleteController';
 import { FindAllByCategoryController } from '../controllers/FindAllByCategoryController';
 import { FindAllReleasesController } from '../controllers/FindAllReleasesController';
 import { FindAllPromotionsController } from '../controllers/FindAllPromotionsController';
+import { FindByFiltersController } from '../controllers/FindByFiltersController';
 
 export const productRouter = Router();
 const productCreateController = new ProductCreateController();
@@ -18,7 +19,9 @@ const productDeleteController = new ProductDeleteController();
 const findAllByCategoryController = new FindAllByCategoryController();
 const findAllReleasesController = new FindAllReleasesController();
 const findAllPromotionsController = new FindAllPromotionsController();
+const findByFiltersController = new FindByFiltersController();
 
+productRouter.get('/filters', findByFiltersController.index);
 productRouter.get('/', productFindAllController.index);
 productRouter.get('/releases', findAllReleasesController.index);
 productRouter.get('/promotions', findAllPromotionsController.index);

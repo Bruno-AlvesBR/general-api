@@ -40,6 +40,21 @@ export interface IProductCreate {
   isPromotion?: boolean;
 }
 
+export interface IProductCard {
+  id: string;
+  title: string;
+  description: string;
+  images: Array<string>;
+  price?: {
+    priceNumber?: string;
+    newPriceDiscount?: string;
+    installment?: {
+      monthInstallment?: number;
+      pricePerMonth?: string;
+    };
+  };
+}
+
 export interface IProduct {
   product?: IProduct;
 }
